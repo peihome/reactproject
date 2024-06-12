@@ -1,3 +1,4 @@
+import { handleValidation } from '/js/validator.js';
 class EmployeeDirectory extends React.Component {
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Header, null), /*#__PURE__*/React.createElement("main", {
@@ -141,6 +142,7 @@ class EmployeeCreate extends React.Component {
   handleChange = e => {
     const name = e.target.name;
     let value = e.target.value;
+    handleValidation(name, value);
     this.setState(prevState => ({
       employee: {
         ...prevState.employee,
@@ -212,6 +214,8 @@ class EmployeeCreate extends React.Component {
       value: this.state.employee.FirstName,
       onChange: this.handleChange,
       required: true
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "invalid-feedback"
     })), /*#__PURE__*/React.createElement("div", {
       className: "form-group"
     }, /*#__PURE__*/React.createElement("label", {
@@ -224,6 +228,8 @@ class EmployeeCreate extends React.Component {
       value: this.state.employee.LastName,
       onChange: this.handleChange,
       required: true
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "invalid-feedback"
     })), /*#__PURE__*/React.createElement("div", {
       className: "form-group"
     }, /*#__PURE__*/React.createElement("label", {
@@ -238,6 +244,8 @@ class EmployeeCreate extends React.Component {
       min: "20",
       max: "70",
       required: true
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "invalid-feedback"
     })), /*#__PURE__*/React.createElement("div", {
       className: "form-group"
     }, /*#__PURE__*/React.createElement("label", {
@@ -250,6 +258,8 @@ class EmployeeCreate extends React.Component {
       value: this.state.employee.DateOfJoining,
       onChange: this.handleChange,
       required: true
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "invalid-feedback"
     })), /*#__PURE__*/React.createElement("div", {
       className: "form-group"
     }, /*#__PURE__*/React.createElement("label", {
@@ -272,7 +282,9 @@ class EmployeeCreate extends React.Component {
       value: "Director"
     }, "Director"), /*#__PURE__*/React.createElement("option", {
       value: "VP"
-    }, "VP"))), /*#__PURE__*/React.createElement("div", {
+    }, "VP")), /*#__PURE__*/React.createElement("div", {
+      className: "invalid-feedback"
+    })), /*#__PURE__*/React.createElement("div", {
       className: "form-group"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "Department"
@@ -294,7 +306,9 @@ class EmployeeCreate extends React.Component {
       value: "HR"
     }, "HR"), /*#__PURE__*/React.createElement("option", {
       value: "Engineering"
-    }, "Engineering"))), /*#__PURE__*/React.createElement("div", {
+    }, "Engineering")), /*#__PURE__*/React.createElement("div", {
+      className: "invalid-feedback"
+    })), /*#__PURE__*/React.createElement("div", {
       className: "form-group"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "EmployeeType"
@@ -316,7 +330,9 @@ class EmployeeCreate extends React.Component {
       value: "Contract"
     }, "Contract"), /*#__PURE__*/React.createElement("option", {
       value: "Seasonal"
-    }, "Seasonal"))), /*#__PURE__*/React.createElement("button", {
+    }, "Seasonal")), /*#__PURE__*/React.createElement("div", {
+      className: "invalid-feedback"
+    })), /*#__PURE__*/React.createElement("button", {
       type: "submit",
       className: "btn btn-primary btn-lg btn-block"
     }, this.state.pagetitle)));

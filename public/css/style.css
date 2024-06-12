@@ -95,3 +95,7 @@ main > form {
     padding-top: 2em;
     padding-bottom: 5em;
 }
+
+.form-control.is-valid , .form-control.is-invalid  {
+    background-position: center right calc(.375em + 1.1875rem) !important;
+}

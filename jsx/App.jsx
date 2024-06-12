@@ -1,3 +1,5 @@
+import { handleValidation } from '/js/validator.js';
+
 class EmployeeDirectory extends React.Component {
     render() {
         return (
@@ -171,6 +173,8 @@ class EmployeeCreate extends React.Component {
         const name = e.target.name;
         let value = e.target.value;
 
+        handleValidation(name, value);
+
         this.setState(prevState => ({
             employee: {
                 ...prevState.employee,
@@ -234,18 +238,22 @@ class EmployeeCreate extends React.Component {
                     <div className="form-group">
                         <label htmlFor="FirstName">First Name:</label>
                         <input type="text" id="FirstName" name="FirstName" className="form-control" value={this.state.employee.FirstName} onChange={this.handleChange} required />
+                        <div className='invalid-feedback'></div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="LastName">Last Name:</label>
                         <input type="text" id="LastName" name="LastName" className="form-control" value={this.state.employee.LastName} onChange={this.handleChange} required />
+                        <div className='invalid-feedback'></div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="Age">Age:</label>
                         <input type="number" id="Age" name="Age" className="form-control" value={this.state.employee.Age} onChange={this.handleChange} min="20" max="70" required />
+                        <div className='invalid-feedback'></div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="DateOfJoining">Date of Joining:</label>
                         <input type="date" id="DateOfJoining" name="DateOfJoining" className="form-control" value={this.state.employee.DateOfJoining} onChange={this.handleChange} required />
+                        <div className='invalid-feedback'></div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="Title">Title:</label>
@@ -256,6 +264,7 @@ class EmployeeCreate extends React.Component {
                             <option value="Director">Director</option>
                             <option value="VP">VP</option>
                         </select>
+                        <div className='invalid-feedback'></div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="Department">Department:</label>
@@ -266,6 +275,7 @@ class EmployeeCreate extends React.Component {
                             <option value="HR">HR</option>
                             <option value="Engineering">Engineering</option>
                         </select>
+                        <div className='invalid-feedback'></div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="EmployeeType">Employee Type:</label>
@@ -276,6 +286,7 @@ class EmployeeCreate extends React.Component {
                             <option value="Contract">Contract</option>
                             <option value="Seasonal">Seasonal</option>
                         </select>
+                        <div className='invalid-feedback'></div>
                     </div>
 
                     <button type="submit" className="btn btn-primary btn-lg btn-block">{this.state.pagetitle}</button>

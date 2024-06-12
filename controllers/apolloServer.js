@@ -1,5 +1,6 @@
 // Connect to MongoDB
 require('../controllers/mongoDBConnect');
+const handleValidation = require('./validationModule.js');
 
 module.exports = (app) => {
 
@@ -57,6 +58,12 @@ module.exports = (app) => {
         },
         Mutation: {
             createEmployee: async (_, args) => {
+
+                const validationErrors = handleValidation(args);
+                if (validationErrors.length > 0) {
+                    throw new Error(validationErrors);
+                }
+
                 const newEmployee = {
                     FirstName: args.FirstName,
                     LastName: args.LastName,
