@@ -25,8 +25,6 @@ class Header extends React.Component {
             case "addEmployee": 
                 ReactDOM.render(<EmployeeCreate />, document.getElementById('main'));
                 break;
-            default:
-                ReactDOM.render(<EmployeeDirectory />, document.getElementById('contents'));
         }
     }
 
@@ -293,7 +291,7 @@ class EmployeeCreate extends React.Component {
     }
 
     handleSubmit = async (e) => {
-        await createEmployee(e);
+        await this.createEmployee(e);
     }
     
     render() {

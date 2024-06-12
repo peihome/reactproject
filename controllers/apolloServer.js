@@ -1,4 +1,5 @@
-const { createEmployee } = require("./employeeUtils");
+// Connect to MongoDB
+require('../controllers/mongoDBConnect');
 
 module.exports = (app) => {
 

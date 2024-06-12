@@ -16,8 +16,6 @@ class Header extends React.Component {
       case "addEmployee":
         ReactDOM.render( /*#__PURE__*/React.createElement(EmployeeCreate, null), document.getElementById('main'));
         break;
-      default:
-        ReactDOM.render( /*#__PURE__*/React.createElement(EmployeeDirectory, null), document.getElementById('contents'));
     }
   };
   render() {
@@ -267,7 +265,7 @@ class EmployeeCreate extends React.Component {
     }
   };
   handleSubmit = async e => {
-    await createEmployee(e);
+    await this.createEmployee(e);
   };
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, " ", this.state.pagetitle, " "), /*#__PURE__*/React.createElement("form", {
