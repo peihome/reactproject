@@ -20,7 +20,6 @@ module.exports = (app) => {
         }
 
         type Query {
-            getEmployeeById(id: String!): Employee,
             getAllEmployees: [Employee]
         }
     
@@ -33,27 +32,12 @@ module.exports = (app) => {
                 Title: String!,
                 Department: String!,
                 EmployeeType: String!
-            ): Employee 
-
-            updateEmployee(
-                id: ID!,
-                FirstName: String,
-                LastName: String,
-                Age: Int,
-                DateOfJoining: String,
-                Title: String,
-                Department: String,
-                EmployeeType: String,
-                CurrentStatus: Boolean
             ): Employee
         }      
     `;
 
     const resolvers = {
         Query: {
-            getEmployeeById: async (_, { id }) => {
-                return await Employee.findById(id);
-            },
             getAllEmployees: async (_) => {
                 return await Employee.find({});
             }
@@ -70,19 +54,6 @@ module.exports = (app) => {
                     EmployeeType: args.EmployeeType
                 }
                 return (await Employee.create(newEmployee));
-            },
-            updateEmployee: async (_, args) => {
-                const updateEmployee = {
-                    FirstName: args.FirstName,
-                    LastName: args.LastName,
-                    Age: args.Age,
-                    DateOfJoining: args.DateOfJoining,
-                    Title: args.Title,
-                    Department: args.Department,
-                    EmployeeType: args.EmployeeType,
-                    CurrentStatus: args.CurrentStatus
-                }
-                return (await Employee.findByIdAndUpdate(args.id, updateEmployee));
             }
         }
     };
