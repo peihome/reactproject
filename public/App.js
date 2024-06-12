@@ -137,66 +137,6 @@ class EmployeeCreate extends React.Component {
       pagetitle: 'Create Employee',
       employeeId: ''
     };
-    this.setPageDefaults = this.setPageDefaults.bind(this);
-  }
-  async componentDidMount() {
-    await this.setPageDefaults();
-  }
-  async setPageDefaults() {
-    if (this.props.pagetitle != undefined) {
-      this.setState({
-        pagetitle: this.props.pagetitle
-      });
-    }
-    if (this.props.employeeId != undefined) {
-      this.setState({
-        employeeId: this.props.employeeId
-      });
-      await this.fetchEmployeeById(this.state.employeeId);
-    }
-  }
-  async fetchEmployeeById(id) {
-    try {
-      if (this.props.employees == undefined) {
-        const query = `query {
-                    getEmployeeById {
-                        id
-                        FirstName
-                        LastName
-                        Age
-                        DateOfJoining
-                        Title
-                        Department
-                        EmployeeType
-                        CurrentStatus
-                    }
-                }`;
-        const response = await fetch('/graphql', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            query
-          })
-        });
-        if (!response.ok) {
-          throw new Error('Failed to fetch employees');
-        }
-        const employees = await response.json();
-        this.setState({
-          employees: employees.data.getAllEmployees
-        });
-      } else {
-        this.setState({
-          employees: this.props.employees
-        });
-      }
-    } catch (error) {
-      this.setState({
-        error: error.message
-      });
-    }
   }
   handleChange = e => {
     const name = e.target.name;
@@ -264,12 +204,9 @@ class EmployeeCreate extends React.Component {
       });
     }
   };
-  handleSubmit = async e => {
-    await this.createEmployee(e);
-  };
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, " ", this.state.pagetitle, " "), /*#__PURE__*/React.createElement("form", {
-      onSubmit: this.handleSubmit
+      onSubmit: this.createEmployee
     }, /*#__PURE__*/React.createElement("div", {
       className: "form-group"
     }, /*#__PURE__*/React.createElement("label", {
