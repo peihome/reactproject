@@ -16,12 +16,6 @@ class Header extends React.Component {
       case "addEmployee":
         ReactDOM.render( /*#__PURE__*/React.createElement(EmployeeCreate, null), document.getElementById('main'));
         break;
-      case "editEmployee":
-        ReactDOM.render( /*#__PURE__*/React.createElement(EmployeeEdit, null), document.getElementById('main'));
-        break;
-      case "removeEmployee":
-        ReactDOM.render( /*#__PURE__*/React.createElement(EmployeeSearch, null), document.getElementById('main'));
-        break;
       default:
         ReactDOM.render( /*#__PURE__*/React.createElement(EmployeeDirectory, null), document.getElementById('contents'));
     }
@@ -35,35 +29,9 @@ class Header extends React.Component {
       href: "",
       onClick: this.handleClick,
       id: "addEmployee"
-    }, "Create Employee")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-      href: "",
-      onClick: this.handleClick,
-      id: "editEmployee"
-    }, "Edit Employee")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-      href: "",
-      onClick: this.handleClick,
-      id: "removeEmployee"
-    }, "Remove Employee")))));
+    }, "Create Employee")))));
   }
 }
-class EmployeeSearch extends React.Component {
-  render() {
-    return /*#__PURE__*/React.createElement(EmployeeTable, {
-      employees: employeeSearch
-    });
-  }
-}
-const employeeSearch = [{
-  id: 2,
-  FirstName: 'Sathya Prakash',
-  LastName: 'Nagarajan',
-  Age: 25,
-  DateOfJoining: '02/07/2020',
-  Title: 'MLS',
-  Department: 'IT',
-  EmployeeType: 'FullTime',
-  CurrentStatus: 1
-}];
 class EmployeeTable extends React.Component {
   constructor() {
     super();
@@ -146,24 +114,12 @@ class EmployeeTable extends React.Component {
       scope: "col"
     }, "EmployeeType"), /*#__PURE__*/React.createElement("th", {
       scope: "col"
-    }, "CurrentStatus"), /*#__PURE__*/React.createElement("th", {
-      scope: "col"
-    }))), /*#__PURE__*/React.createElement("tbody", null, rows))));
+    }, "CurrentStatus"))), /*#__PURE__*/React.createElement("tbody", null, rows))));
   }
 }
 class EmployeeRow extends React.Component {
   render() {
-    return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, this.props.employee.FirstName), /*#__PURE__*/React.createElement("td", null, this.props.employee.LastName), /*#__PURE__*/React.createElement("td", null, this.props.employee.Age), /*#__PURE__*/React.createElement("td", null, this.props.employee.DateOfJoining), /*#__PURE__*/React.createElement("td", null, this.props.employee.Title), /*#__PURE__*/React.createElement("td", null, this.props.employee.Department), /*#__PURE__*/React.createElement("td", null, this.props.employee.EmployeeType), /*#__PURE__*/React.createElement("td", null, this.props.employee.CurrentStatus == true ? "1" : "0"), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
-      className: "editAndDeleteIconsClass"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
-      href: "./update.php?params=<?php echo urlencode( 'bookId=' . $row['ID']); ?>"
-    }, /*#__PURE__*/React.createElement("i", {
-      className: "bi bi-pencil-square"
-    }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
-      href: "./getBooks.php?bookId=<?= $row['ID'] ?>&action=delete"
-    }, /*#__PURE__*/React.createElement("i", {
-      className: "bi bi-trash"
-    }))))));
+    return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, this.props.employee.FirstName), /*#__PURE__*/React.createElement("td", null, this.props.employee.LastName), /*#__PURE__*/React.createElement("td", null, this.props.employee.Age), /*#__PURE__*/React.createElement("td", null, this.props.employee.DateOfJoining), /*#__PURE__*/React.createElement("td", null, this.props.employee.Title), /*#__PURE__*/React.createElement("td", null, this.props.employee.Department), /*#__PURE__*/React.createElement("td", null, this.props.employee.EmployeeType), /*#__PURE__*/React.createElement("td", null, this.props.employee.CurrentStatus == true ? "Active" : "Inactive"));
   }
 }
 class EmployeeCreate extends React.Component {
@@ -310,64 +266,8 @@ class EmployeeCreate extends React.Component {
       });
     }
   };
-  updateEmployee = async e => {
-    e.preventDefault();
-    try {
-      const employee = this.state.employee;
-      const mutation = `
-                mutation {
-                    updateEmployee (
-                        ID: "${this.state.employeeId}",
-                        FirstName: "${employee.FirstName}",
-                        LastName: "${employee.LastName}",
-                        Age: ${employee.Age},
-                        DateOfJoining: "${employee.DateOfJoining}",
-                        Title: "${employee.Title}",
-                        Department: "${employee.Department}",
-                        EmployeeType: "${employee.EmployeeType}",
-                        CurrentStatus: "${employee.CurrentStatus}"
-                    ) {
-                        ID
-                        FirstName
-                        LastName
-                        Age
-                        DateOfJoining
-                        Title
-                        Department
-                        EmployeeType
-                    }
-                }
-            `;
-      const response = await fetch('/graphql', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          query: mutation
-        })
-      });
-      if (!response.ok) {
-        throw new Error('Failed to create employee');
-      }
-      const employeeResponse = await response.json();
-      console.log(employeeResponse);
-      this.setState({
-        employee: employeeResponse.data.createEmployee
-      });
-    } catch (error) {
-      console.log(error);
-      this.setState({
-        error: error.message
-      });
-    }
-  };
   handleSubmit = async e => {
-    if (this.state.employeeId == '') {
-      await createEmployee(e);
-    } else {
-      await updateEmployee(e);
-    }
+    await createEmployee(e);
   };
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, " ", this.state.pagetitle, " "), /*#__PURE__*/React.createElement("form", {
@@ -510,48 +410,6 @@ class EmployeeCreate extends React.Component {
       type: "submit",
       className: "btn btn-primary btn-lg btn-block"
     }, this.state.pagetitle)));
-  }
-}
-class EmployeeEdit extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      employeeId: '',
-      pagetitle: 'Edit Employee'
-    };
-  }
-  handleChange = e => {
-    let value = e.target.value;
-    this.setState({
-      employeeId: value
-    });
-  };
-  handleSubmit = e => {
-    e.preventDefault();
-    ReactDOM.render( /*#__PURE__*/React.createElement(EmployeeCreate, {
-      employeeId: this.state.employeeId,
-      pagetitle: this.state.pagetitle
-    }), document.getElementById('main'));
-  };
-  render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, " Edit Employee "), /*#__PURE__*/React.createElement("form", {
-      onSubmit: this.handleSubmit
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "form-group"
-    }, /*#__PURE__*/React.createElement("label", {
-      htmlFor: "id"
-    }, "Employee Id:"), /*#__PURE__*/React.createElement("input", {
-      type: "string",
-      id: "id",
-      name: "id",
-      className: "form-control",
-      onChange: this.handleChange,
-      required: true
-    })), /*#__PURE__*/React.createElement("input", {
-      type: "submit",
-      className: "btn btn-primary btn-lg btn-block",
-      value: "Fetch Employee"
-    })));
   }
 }
 ReactDOM.render( /*#__PURE__*/React.createElement(EmployeeDirectory, null), document.getElementById('contents'));

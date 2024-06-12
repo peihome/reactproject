@@ -25,12 +25,6 @@ class Header extends React.Component {
             case "addEmployee": 
                 ReactDOM.render(<EmployeeCreate />, document.getElementById('main'));
                 break;
-            case "editEmployee": 
-                ReactDOM.render(<EmployeeEdit />, document.getElementById('main'));
-                break;
-            case "removeEmployee": 
-                ReactDOM.render(<EmployeeSearch />, document.getElementById('main'));
-                break;
             default:
                 ReactDOM.render(<EmployeeDirectory />, document.getElementById('contents'));
         }
@@ -44,36 +38,12 @@ class Header extends React.Component {
                     <ul>
                         <li><a href="" onClick={this.handleClick} id="allEmployees">All Employees</a></li>
                         <li><a href="" onClick={this.handleClick} id="addEmployee">Create Employee</a></li>
-                        <li><a href="" onClick={this.handleClick} id="editEmployee">Edit Employee</a></li>
-                        <li><a href="" onClick={this.handleClick} id="removeEmployee">Remove Employee</a></li>
                     </ul>
                 </nav>
             </header>
         );
     }
 }
-
-class EmployeeSearch extends React.Component {
-    render() {
-        return(
-            <EmployeeTable employees={employeeSearch} />
-        );
-    }
-}
-
-const employeeSearch = [
-    {
-        id:2,
-        FirstName: 'Sathya Prakash',
-        LastName: 'Nagarajan',
-        Age: 25,
-        DateOfJoining: '02/07/2020',
-        Title: 'MLS',
-        Department: 'IT',
-        EmployeeType: 'FullTime',
-        CurrentStatus: 1
-    }
-];
 
 class EmployeeTable extends React.Component {
 
@@ -150,7 +120,6 @@ class EmployeeTable extends React.Component {
                                 <th scope="col">Department</th>
                                 <th scope="col">EmployeeType</th>
                                 <th scope="col">CurrentStatus</th>
-                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -174,21 +143,7 @@ class EmployeeRow extends React.Component {
                 <td>{this.props.employee.Title}</td>
                 <td>{this.props.employee.Department}</td>
                 <td>{this.props.employee.EmployeeType}</td>
-                <td>{ this.props.employee.CurrentStatus == true ? "1" : "0"}</td>
-                <td>
-                    <div className="editAndDeleteIconsClass">
-                        <div>
-                            <a href="./update.php?params=<?php echo urlencode( 'bookId=' . $row['ID']); ?>">
-                                <i className="bi bi-pencil-square"></i>
-                            </a>
-                        </div>
-                        <div>
-                            <a href="./getBooks.php?bookId=<?= $row['ID'] ?>&action=delete">
-                                <i className="bi bi-trash"></i>
-                            </a>
-                        </div>
-                    </div>
-                </td>
+                <td>{ this.props.employee.CurrentStatus == true ? "Active" : "Inactive"}</td>
             </tr>
         );
     }
@@ -337,63 +292,8 @@ class EmployeeCreate extends React.Component {
         }
     }
 
-
-    updateEmployee = async (e) => {
-        e.preventDefault();
-
-        try {
-            const employee = this.state.employee;
-            const mutation = `
-                mutation {
-                    updateEmployee (
-                        ID: "${this.state.employeeId}",
-                        FirstName: "${employee.FirstName}",
-                        LastName: "${employee.LastName}",
-                        Age: ${employee.Age},
-                        DateOfJoining: "${employee.DateOfJoining}",
-                        Title: "${employee.Title}",
-                        Department: "${employee.Department}",
-                        EmployeeType: "${employee.EmployeeType}",
-                        CurrentStatus: "${employee.CurrentStatus}"
-                    ) {
-                        ID
-                        FirstName
-                        LastName
-                        Age
-                        DateOfJoining
-                        Title
-                        Department
-                        EmployeeType
-                    }
-                }
-            `;
-
-            const response = await fetch('/graphql', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({query: mutation})
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to create employee');
-            }
-
-            const employeeResponse = await response.json();
-            console.log(employeeResponse);
-
-            this.setState({ employee: employeeResponse.data.createEmployee });
-        } catch (error) {
-            console.log(error);
-            this.setState({ error: error.message });
-        }
-    }
-
     handleSubmit = async (e) => {
-        if(this.state.employeeId == '') {
-            await createEmployee(e);
-        }else {
-            await updateEmployee(e);
-        }
+        await createEmployee(e);
     }
     
     render() {
@@ -461,48 +361,6 @@ class EmployeeCreate extends React.Component {
                 </form>
             </>
         );
-    }
-}
-
-
-class EmployeeEdit extends React.Component {
-
-    constructor(){
-        super();
-        this.state = {
-            employeeId : '',
-            pagetitle : 'Edit Employee'
-        }
-    }
-
-    handleChange = (e) => {
-        let value = e.target.value;
-
-        this.setState({employeeId : value});
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-
-        ReactDOM.render(<EmployeeCreate employeeId={this.state.employeeId} pagetitle={this.state.pagetitle}/>, document.getElementById('main'));
-
-    }
-
-    render() {
-        return (
-            <>
-                <h1> Edit Employee </h1>
-                <form onSubmit={this.handleSubmit}>
-
-                    <div className="form-group">
-                        <label htmlFor="id">Employee Id:</label>
-                        <input type="string" id="id" name="id" className="form-control" onChange={this.handleChange} required />
-                    </div>
-
-                    <input type="submit" className="btn btn-primary btn-lg btn-block" value="Fetch Employee"></input>
-                </form>
-            </>
-        )
     }
 }
 
