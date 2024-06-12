@@ -1,0 +1,20 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const Employee = new Schema({
+    FirstName: { type: String, required: true },
+    LastName: { type: String, required: true },
+    Age: { type: Number, required: true },
+    DateOfJoining: { type: Date, required: true },
+    Title: { type: String, required: true },
+    Department: { type: String, required: true },
+    EmployeeType: { type: String, required: true },
+    CurrentStatus: { type: Boolean, default: true }
+});
+
+Employee.pre('save', function(next){
+    //Age Validation
+    next();
+});
+
+module.exports = mongoose.model('employee', Employee);
