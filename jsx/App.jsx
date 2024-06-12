@@ -171,14 +171,6 @@ class EmployeeCreate extends React.Component {
         const name = e.target.name;
         let value = e.target.value;
 
-        if(name == 'CurrentStatus'){
-            if(value == true || value == 1 || value == "true") {
-                value = true;
-            }else{
-                value = false;
-            }
-        }
-
         this.setState(prevState => ({
             employee: {
                 ...prevState.employee,
