@@ -388,25 +388,7 @@ class EmployeeCreate extends React.Component {
       value: "Contract"
     }, "Contract"), /*#__PURE__*/React.createElement("option", {
       value: "Seasonal"
-    }, "Seasonal"))), /*#__PURE__*/React.createElement("div", {
-      className: "form-group"
-    }, /*#__PURE__*/React.createElement("label", {
-      htmlFor: "CurrentStatus"
-    }, "Employee Type:"), /*#__PURE__*/React.createElement("select", {
-      id: "CurrentStatus",
-      name: "CurrentStatus",
-      className: "form-control",
-      value: this.state.employee.CurrentStatus,
-      onChange: this.handleChange,
-      required: true
-    }, /*#__PURE__*/React.createElement("option", {
-      value: "",
-      disabled: true
-    }, "Select Employee Status"), /*#__PURE__*/React.createElement("option", {
-      value: "Active"
-    }, "Active"), /*#__PURE__*/React.createElement("option", {
-      value: "Inactive"
-    }, "Inactive"))), /*#__PURE__*/React.createElement("button", {
+    }, "Seasonal"))), /*#__PURE__*/React.createElement("button", {
       type: "submit",
       className: "btn btn-primary btn-lg btn-block"
     }, this.state.pagetitle)));

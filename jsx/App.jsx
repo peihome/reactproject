@@ -348,15 +348,6 @@ class EmployeeCreate extends React.Component {
                         </select>
                     </div>
 
-                    <div className="form-group">
-                        <label htmlFor="CurrentStatus">Employee Type:</label>
-                        <select id="CurrentStatus" name="CurrentStatus" className="form-control" value={this.state.employee.CurrentStatus} onChange={this.handleChange} required>
-                            <option value="" disabled>Select Employee Status</option>
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
-                        </select>
-                    </div>
-
                     <button type="submit" className="btn btn-primary btn-lg btn-block">{this.state.pagetitle}</button>
                 </form>
             </>
