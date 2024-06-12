@@ -12,9 +12,4 @@ const Employee = new Schema({
     CurrentStatus: { type: Boolean, default: true }
 });
 
-Employee.pre('save', function(next){
-    //Age Validation
-    next();
-});
-
 module.exports = mongoose.model('employee', Employee);

@@ -6,14 +6,25 @@ module.exports = (app) => {
     const {ApolloServer} = require("apollo-server-express");
     const Employee = require('../models/employee');
 
+    const { GraphQLScalarType } = require('graphql');
+    const GraphQLDate = new GraphQLScalarType({
+        name: 'GraphQLDate',
+        description: '',
+        serialize(value) {
+            return value.toISOString().split('T')[0];
+        }
+    });
+
     //Apollo server
     const mySchema = `
+        scalar GraphQLDate
+
         type Employee {
             id: String!
             FirstName: String!
             LastName: String!
             Age: Int!
-            DateOfJoining: String!
+            DateOfJoining: GraphQLDate!
             Title: String!
             Department: String!
             EmployeeType: String!
@@ -29,7 +40,7 @@ module.exports = (app) => {
                 FirstName: String!,
                 LastName: String!,
                 Age: Int!,
-                DateOfJoining: String!,
+                DateOfJoining: GraphQLDate!,
                 Title: String!,
                 Department: String!,
                 EmployeeType: String!
@@ -38,6 +49,7 @@ module.exports = (app) => {
     `;
 
     const resolvers = {
+        GraphQLDate,
         Query: {
             getAllEmployees: async (_) => {
                 return await Employee.find({});
