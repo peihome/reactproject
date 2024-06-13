@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --watch ./ server/main.js",
-    "compile": "babel jsx --presets @babel/react --out-dir public",
+    "start": "babel jsx --presets @babel/react --out-dir public && npm install && node server/main.js",
     "watch": "babel jsx --presets @babel/react --out-dir public --watch --verbose"
   },
   "keywords": [],
