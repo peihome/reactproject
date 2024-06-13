@@ -14,7 +14,7 @@ const validateName = (name) => {
         response.message = 'Name cannot be empty.';
     }
 
-    const regex = /^[a-zA-Z]+$/;
+    const regex = /^[a-zA-Z ]+$/;
     if (!regex.test(name)) {
         response.isValid = false;
         response.message = 'Name can only contain letters.';

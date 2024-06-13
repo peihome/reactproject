@@ -14,7 +14,7 @@ const validateName = (name) => {
         response.message = 'Name cannot be empty.';
     }
 
-    const regex = /^[a-zA-Z]+$/;
+    const regex = /^[a-zA-Z ]+$/;
     if (!regex.test(name)) {
         response.isValid = false;
         response.message = 'Name can only contain letters.';
@@ -146,15 +146,10 @@ export const handleValidation = (name, value) => {
     const element = $(`#${name}`);
     if(!response.isValid){
         element.removeClass('is-invalid');
-        element.removeClass('is-valid');
-
         element.addClass('is-invalid');
         element.siblings('div').text(response.message);
     }else {
         element.removeClass('is-invalid');
-        element.removeClass('is-valid');
-
-        element.addClass('is-valid');
         element.siblings('div').text('');
     }
 

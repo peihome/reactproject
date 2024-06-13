@@ -220,10 +220,19 @@ class EmployeeCreate extends React.Component {
                 throw new Error('Failed to create employee');
             }
 
-            const employeeResponse = await response.json();
-            console.log(employeeResponse);
+            ReactDOM.render(<Alert message="Added Successfully!"/>, document.getElementById('alert'));
+            this.setState({
+                employee : {
+                    FirstName: '',
+                    LastName: '',
+                    Age: '',
+                    DateOfJoining: '',
+                    Title: '',
+                    Department: '',
+                    EmployeeType: ''
+                }
+            });
 
-            this.setState({ employee: employeeResponse.data.createEmployee });
         } catch (error) {
             console.log(error);
             this.setState({ error: error.message });
@@ -234,66 +243,100 @@ class EmployeeCreate extends React.Component {
         return (
             <>
             <h1> {this.state.pagetitle} </h1>
-                <form onSubmit={this.createEmployee}>
-                    <div className="form-group">
-                        <label htmlFor="FirstName">First Name:</label>
-                        <input type="text" id="FirstName" name="FirstName" className="form-control" value={this.state.employee.FirstName} onChange={this.handleChange} required />
-                        <div className='invalid-feedback'></div>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="LastName">Last Name:</label>
-                        <input type="text" id="LastName" name="LastName" className="form-control" value={this.state.employee.LastName} onChange={this.handleChange} required />
-                        <div className='invalid-feedback'></div>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="Age">Age:</label>
-                        <input type="number" id="Age" name="Age" className="form-control" value={this.state.employee.Age} onChange={this.handleChange} min="20" max="70" required />
-                        <div className='invalid-feedback'></div>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="DateOfJoining">Date of Joining:</label>
-                        <input type="date" id="DateOfJoining" name="DateOfJoining" className="form-control" value={this.state.employee.DateOfJoining} onChange={this.handleChange} required />
-                        <div className='invalid-feedback'></div>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="Title">Title:</label>
-                        <select name="Title" id="Title" className="form-control" value={this.state.employee.Title} onChange={this.handleChange} required>
-                            <option value="" disabled>Select Title</option>
-                            <option value="Employee">Employee</option>
-                            <option value="Manager">Manager</option>
-                            <option value="Director">Director</option>
-                            <option value="VP">VP</option>
-                        </select>
-                        <div className='invalid-feedback'></div>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="Department">Department:</label>
-                        <select id="Department" name="Department" className="form-control" value={this.state.employee.Department} onChange={this.handleChange} required>
-                            <option value="" disabled>Select Department</option>
-                            <option value="IT">IT</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="HR">HR</option>
-                            <option value="Engineering">Engineering</option>
-                        </select>
-                        <div className='invalid-feedback'></div>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="EmployeeType">Employee Type:</label>
-                        <select id="EmployeeType" name="EmployeeType" className="form-control" value={this.state.employee.EmployeeType} onChange={this.handleChange} required>
-                            <option value="" disabled>Select Employee Type</option>
-                            <option value="FullTime">Full Time</option>
-                            <option value="PartTime">Part Time</option>
-                            <option value="Contract">Contract</option>
-                            <option value="Seasonal">Seasonal</option>
-                        </select>
-                        <div className='invalid-feedback'></div>
-                    </div>
 
-                    <button type="submit" className="btn btn-primary btn-lg btn-block">{this.state.pagetitle}</button>
-                </form>
+            <span id="alert"></span>
+
+            <form onSubmit={this.createEmployee}>
+                <div className="form-group">
+                    <label htmlFor="FirstName">First Name:</label>
+                    <input type="text" id="FirstName" name="FirstName" className="form-control" value={this.state.employee.FirstName} onChange={this.handleChange} required />
+                    <div className='invalid-feedback'></div>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="LastName">Last Name:</label>
+                    <input type="text" id="LastName" name="LastName" className="form-control" value={this.state.employee.LastName} onChange={this.handleChange} required />
+                    <div className='invalid-feedback'></div>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="Age">Age:</label>
+                    <input type="number" id="Age" name="Age" className="form-control" value={this.state.employee.Age} onChange={this.handleChange} min="20" max="70" required />
+                    <div className='invalid-feedback'></div>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="DateOfJoining">Date of Joining:</label>
+                    <input type="date" id="DateOfJoining" name="DateOfJoining" className="form-control" value={this.state.employee.DateOfJoining} onChange={this.handleChange} required />
+                    <div className='invalid-feedback'></div>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="Title">Title:</label>
+                    <select name="Title" id="Title" className="form-control" value={this.state.employee.Title} onChange={this.handleChange} required>
+                        <option value="" disabled>Select Title</option>
+                        <option value="Employee">Employee</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Director">Director</option>
+                        <option value="VP">VP</option>
+                    </select>
+                    <div className='invalid-feedback'></div>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="Department">Department:</label>
+                    <select id="Department" name="Department" className="form-control" value={this.state.employee.Department} onChange={this.handleChange} required>
+                        <option value="" disabled>Select Department</option>
+                        <option value="IT">IT</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="HR">HR</option>
+                        <option value="Engineering">Engineering</option>
+                    </select>
+                    <div className='invalid-feedback'></div>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="EmployeeType">Employee Type:</label>
+                    <select id="EmployeeType" name="EmployeeType" className="form-control" value={this.state.employee.EmployeeType} onChange={this.handleChange} required>
+                        <option value="" disabled>Select Employee Type</option>
+                        <option value="FullTime">Full Time</option>
+                        <option value="PartTime">Part Time</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Seasonal">Seasonal</option>
+                    </select>
+                    <div className='invalid-feedback'></div>
+                </div>
+
+                <button type="submit" className="btn btn-primary btn-lg btn-block">{this.state.pagetitle}</button>
+            </form>
             </>
         );
     }
 }
+
+class Alert extends React.Component {
+    constructor() {
+      super();
+      this.state = {
+        visible: true
+      };
+    }
+  
+    componentDidMount() {
+      this.timeout = setTimeout(() => {
+        this.setState({ visible: false });
+      }, 3000);
+    }
+  
+    componentWillUnmount() {
+      clearTimeout(this.timeout);
+    }
+  
+    render() {
+      if (!this.state.visible) {
+        return null;
+      }
+  
+      return (
+        <div id="alert" className="alert alert-primary" role="alert">
+          {this.props.message}
+        </div>
+      );
+    }
+  }
 
 ReactDOM.render(<EmployeeDirectory />, document.getElementById('contents'));

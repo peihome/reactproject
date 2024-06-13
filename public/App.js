@@ -187,10 +187,19 @@ class EmployeeCreate extends React.Component {
       if (!response.ok) {
         throw new Error('Failed to create employee');
       }
-      const employeeResponse = await response.json();
-      console.log(employeeResponse);
+      ReactDOM.render( /*#__PURE__*/React.createElement(Alert, {
+        message: "Added Successfully!"
+      }), document.getElementById('alert'));
       this.setState({
-        employee: employeeResponse.data.createEmployee
+        employee: {
+          FirstName: '',
+          LastName: '',
+          Age: '',
+          DateOfJoining: '',
+          Title: '',
+          Department: '',
+          EmployeeType: ''
+        }
       });
     } catch (error) {
       console.log(error);
@@ -200,7 +209,9 @@ class EmployeeCreate extends React.Component {
     }
   };
   render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, " ", this.state.pagetitle, " "), /*#__PURE__*/React.createElement("form", {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, " ", this.state.pagetitle, " "), /*#__PURE__*/React.createElement("span", {
+      id: "alert"
+    }), /*#__PURE__*/React.createElement("form", {
       onSubmit: this.createEmployee
     }, /*#__PURE__*/React.createElement("div", {
       className: "form-group"
@@ -336,6 +347,34 @@ class EmployeeCreate extends React.Component {
       type: "submit",
       className: "btn btn-primary btn-lg btn-block"
     }, this.state.pagetitle)));
+  }
+}
+class Alert extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      visible: true
+    };
+  }
+  componentDidMount() {
+    this.timeout = setTimeout(() => {
+      this.setState({
+        visible: false
+      });
+    }, 3000);
+  }
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
+  }
+  render() {
+    if (!this.state.visible) {
+      return null;
+    }
+    return /*#__PURE__*/React.createElement("div", {
+      id: "alert",
+      className: "alert alert-primary",
+      role: "alert"
+    }, this.props.message);
   }
 }
 ReactDOM.render( /*#__PURE__*/React.createElement(EmployeeDirectory, null), document.getElementById('contents'));
