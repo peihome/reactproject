@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "babel jsx --presets @babel/react --out-dir public && npm install && node server/main.js",
+    "start": "npm install && babel jsx --presets @babel/react --out-dir public && node server/main.js",
     "watch": "babel jsx --presets @babel/react --out-dir public --watch --verbose"
   },
   "keywords": [],
