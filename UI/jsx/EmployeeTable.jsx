@@ -14,15 +14,12 @@ export default class EmployeeTable extends React.Component {
                 employeeType: ''
             }
         };
-        this.fetchEmployees = this.fetchEmployees.bind(this);
-        this.handleFilterChange = this.handleFilterChange.bind(this);
     }
 
     async componentDidMount() {
         if (this.props.employees) {
             const employees = [];
             employees.push(this.props.employees);
-
             this.setState({
                 employees: employees,
                 filteredEmployees: employees
@@ -38,7 +35,7 @@ export default class EmployeeTable extends React.Component {
         }
     }
 
-    async fetchEmployees() {
+    fetchEmployees = async () => {
         try {
             if(this.props.employees == undefined) {
                 const query = `query {
@@ -83,8 +80,7 @@ export default class EmployeeTable extends React.Component {
         }
     }
 
-    handleFilterChange(e) {
-        const { name, value } = e.target;
+    handleFilterChange = (name, value) => {
         this.setState(
             prevState => ({
                 filters: {
@@ -96,7 +92,7 @@ export default class EmployeeTable extends React.Component {
         );
     }
 
-    applyFilters() {
+    applyFilters = () => {
         const { employees, filters } = this.state;
         const filteredEmployees = employees.filter(employee => {
             return (
@@ -114,9 +110,11 @@ export default class EmployeeTable extends React.Component {
         ));
         return (
             <>
-                <h1> {this.state.pagetitle} </h1>
+                <h1>{this.state.pagetitle}</h1>
                 <div>
-                    {!this.props.isEmployeeDetailFetch && <Filter />}
+                    {!this.props.isEmployeeDetailFetch && (
+                        <Filter onFilterChange={this.handleFilterChange} />
+                    )}
 
                     <table className="table table-hover">
                         <thead className="thead-dark">
