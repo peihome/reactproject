@@ -1,12 +1,12 @@
 import React from "react";
-import {NavLink, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import EmployeeTable from "./EmployeeTable.jsx";
 import EmployeeCreate from "./EmployeeCreate.jsx";
 import ErrorPage from "./ErrorPage.jsx";
 import EmployeeSearch from "./EmployeeSearch.jsx";
 import EmployeeUpdate from "./EmployeeUpdate.jsx";
 import EmployeeDelete from "./EmployeeDelete.jsx";
-import EmployeeTypeFilter from "./EmployeeTypeFilter.jsx";
+import EmployeeFilter from "./EmployeeFilter.jsx";
 import ReloadingNavLink from "./ReloadingNavLink.jsx";
 
 export default class NavPage extends React.Component {
@@ -33,7 +33,7 @@ export default class NavPage extends React.Component {
                         <Route path="/employee/search" element={<EmployeeSearch />} />
                         <Route path="/employee/search/:id" element={<EmployeeSearch />} />
                         <Route path="/employee/delete" element={<EmployeeDelete />} />
-                        <Route path="/employee/filter" element={<EmployeeTypeFilter />} />
+                        <Route path="/employee/filter" element={<EmployeeFilter />} />
                         <Route path="*" element={<ErrorPage />} />
                     </Routes>
                 </main>

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 export default class Alert extends React.Component {
     constructor() {
@@ -13,3 +14,8 @@ export default class Alert extends React.Component {
         );
     }
 }
+
+Alert.propTypes = {
+    result: PropTypes.bool.isRequired,
+    message: PropTypes.string.isRequired
+};

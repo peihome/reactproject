@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 export default class Filter extends React.Component {
 
@@ -45,3 +46,8 @@ export default class Filter extends React.Component {
         );
     }
 }
+
+Filter.propTypes = {
+    filters: PropTypes.object.isRequired,
+    onFilterChange: PropTypes.func.isRequired
+};

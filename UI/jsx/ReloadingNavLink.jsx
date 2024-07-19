@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const ReloadingNavLink = ({ to, children, ...props }) => {
   const handleClick = (event) => {
@@ -17,6 +18,11 @@ const ReloadingNavLink = ({ to, children, ...props }) => {
       {children}
     </NavLink>
   );
+};
+
+ReloadingNavLink.propTypes = {
+    to: PropTypes.string.isRequired,
+    children: PropTypes.object.isRequired
 };
 
 export default ReloadingNavLink;

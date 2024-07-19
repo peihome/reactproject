@@ -1,6 +1,7 @@
 import React from "react";
 import withRouter from "./withRouter.jsx";
 import EmployeeUpdate from "./EmployeeUpdate.jsx";
+import PropTypes from 'prop-types';
 
 class EmployeeSearch extends React.Component {
 
@@ -18,5 +19,9 @@ class EmployeeSearch extends React.Component {
         );
     }
 }
+
+EmployeeSearch.propTypes = {
+    match: PropTypes.string.isRequired
+};
 
 export default withRouter(EmployeeSearch);

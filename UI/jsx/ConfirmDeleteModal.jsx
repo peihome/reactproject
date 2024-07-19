@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 export default class ConfirmDeleteModal extends React.Component {
     render() {
@@ -25,3 +26,9 @@ export default class ConfirmDeleteModal extends React.Component {
         );
     }
 }
+
+ConfirmDeleteModal.propTypes = {
+    show: PropTypes.bool.isRequired,
+    onHide: PropTypes.func.isRequired,
+    onConfirm: PropTypes.func.isRequired
+};

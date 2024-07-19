@@ -2,6 +2,7 @@ import React from "react";
 import { handleValidation } from "./validator.js";
 import Alert from "./Alert.jsx";
 import EmployeeDelete from "./EmployeeDelete.jsx";
+import PropTypes from 'prop-types';
 
 export default class EmployeeCreate extends React.Component {
 
@@ -238,3 +239,12 @@ export default class EmployeeCreate extends React.Component {
         );
     }
 }
+
+EmployeeCreate.propTypes = {
+    pagetitle: PropTypes.string.isRequired,
+    employeeId: PropTypes.string.isRequired,
+    deleteEmployee: PropTypes.func.isRequired,
+    handleDeleteClick: PropTypes.func.isRequired,
+    updateEmployee: PropTypes.func.isRequired,
+    employee: PropTypes.object.isRequired
+};

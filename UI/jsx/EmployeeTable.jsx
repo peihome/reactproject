@@ -1,6 +1,7 @@
 import React from "react";
 import Filter from "./Filter.jsx";
 import withRouter from "./withRouter.jsx";
+import PropTypes from 'prop-types';
 
 class EmployeeTable extends React.Component {
     constructor() {
@@ -179,5 +180,19 @@ class EmployeeRow extends React.Component {
         );
     }
 }
+
+EmployeeRow.propTypes = {
+    employee: PropTypes.object.isRequired
+}
+
+EmployeeTable.propTypes = {
+    title: PropTypes.string.isRequired,
+    employeeType: PropTypes.string.isRequired,
+    department: PropTypes.string.isRequired,
+    pagetitle: PropTypes.string.isRequired,
+    employees: PropTypes.array.isRequired,
+    match: PropTypes.string.isRequired,
+    isEmployeeDetailFetch: PropTypes.bool.isRequired
+};
 
 export default withRouter(EmployeeTable);

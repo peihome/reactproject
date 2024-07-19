@@ -10,7 +10,7 @@
     "watch": "webpack -w --config webpack.config.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "lint:report": "node generate-eslint-report.js"
+    "lint:report": "eslint */**/*.jsx --format node_modules/eslint-html-reporter/reporter.js --output-file eslint-report.html"
   },
   "keywords": [],
   "author": "",

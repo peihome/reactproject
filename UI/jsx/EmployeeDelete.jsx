@@ -45,6 +45,7 @@ export default class EmployeeDelete extends React.Component {
             empId = parseInt(empId);
         }catch(e){
             empId = 0;
+            console.log(e);
         }
 
         try{

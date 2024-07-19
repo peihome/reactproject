@@ -1,8 +1,9 @@
 import React from "react";
 import EmployeeTable from "./EmployeeTable.jsx";
 import withRouter from "./withRouter.jsx";
+import PropTypes from 'prop-types';
 
-class EmployeeTypeFilter extends React.Component {
+class EmployeeFilter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -86,4 +87,8 @@ class EmployeeTypeFilter extends React.Component {
     }
 }
 
-export default withRouter(EmployeeTypeFilter);
+EmployeeFilter.propTypes = {
+    match: PropTypes.string.isRequired
+};
+
+export default withRouter(EmployeeFilter);

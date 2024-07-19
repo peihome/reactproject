@@ -2,6 +2,7 @@ import React from "react";
 import EmployeeCreate from "./EmployeeCreate.jsx";
 import Alert from './Alert.jsx';
 import EmployeeTable from "./EmployeeTable.jsx";
+import PropTypes from 'prop-types';
 
 export default class EmployeeUpdate extends React.Component {
 
@@ -42,6 +43,7 @@ export default class EmployeeUpdate extends React.Component {
             employeeId = parseInt(employeeId);
         }catch(e){
             employeeId = 0;
+            console.log(e);
         }
         
         try {
@@ -85,9 +87,9 @@ export default class EmployeeUpdate extends React.Component {
             });
 
             this.resetAlert();
-        } catch (error) {
+        } catch (e) {
             employee = undefined;
-
+            console.log(e);
             this.setState({
                 showAlert: true,
                 alertMessage: "Employee details not found!",
@@ -229,3 +231,11 @@ export default class EmployeeUpdate extends React.Component {
         );
     }
 }
+
+EmployeeUpdate.propTypes = {
+    pagetitle: PropTypes.string.isRequired,
+    isEmployeeDetailFetch: PropTypes.bool.isRequired,
+    employeeId: PropTypes.string.isRequired,
+    deleteEmployee: PropTypes.func.isRequired,
+    handleDeleteClick: PropTypes.func.isRequired,
+};

@@ -1,1252 +1,338 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>ESLint Report</title>
-        <link rel="icon" type="image/png" sizes="any" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAHaAAAB2gGFomX7AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAABD1JREFUWMPFl11sk2UUx3/nbYtjxS1MF7MLMTECMgSTtSSyrQkLhAj7UBPnDSEGoxegGzMwojhXVpmTAA5iYpSoMQa8GBhFOrMFk03buei6yRAlcmOM0SEmU9d90b19jxcM1o5+sGnsc/e+z/l6ztf/HFFVMnns6QieeOCHBePGsHM+wrOtvLG2C4WRVDSSygNV7sCjlspxwDnPB44aols/DXk+mbMBmx/6OseITF1CuOtfevkPh2Uu+/jbdX8lujSScRlT5r7/QDlAfsRmfzmpnkQ/H3H13gf6bBrBn1uqK8WylgEnU8eZmk1repbfchJG1TyKyIKEwuBHFd3lD3naY3O1siiwXsVoBV2VgM1ht/QQUJk2ByqKghsQziYQ8ifKgexIXmuyzC4r67Y7R+xPAfuB/Nn3Cpva+0s7khpQVtZtd4bt51BWxtBYAiciprG7c7D4SixzU9PYalDL6110Ifb/w8W9eY7JqFeFHbO8fPGyLHwwFHJNJTSgwtVTB9oaw9BlQ+tO93vOxypoaQnfEYlI43SeCHDC4TDq9+51/h5fxr33q0ZfV9g04wat9Q943rjJgCp3952W2i8Bi6eDvdsfKj0cK/DYMRyXL4/sUJUmIHd2zYMezsvLaamp4WpcWN3BXSiHpuMwbGbZlnZ8tXY4rgosy+G7oRwQ0cAsd28YGgqfU5UjCZQDLALxDg+Hv/P5Rqvj4hwrS8izXzWb4spwc1GgENFnkpWRzxeuB+ssUHgLdb9UVdt8vpGdKQpze7n7y1U3DBChNRUuqOo9c+0+qpKKxyZqtAIYla7gY4JszAAQri93BSsMRZoyBcUC+w3Q3AyOA4sNhAOZ0q7Iq0b2vUNvK5zPgP+/H8+Zetdoa6uOikhdGurxebwvJY8Iz3V1rTMNAH+opEuQj5KTT/qA1yC+wyUjBm12OidaUtCcPNNX2h0Hx2JG69VulANZAJZJwfU7rzd/FHixuXniTdM0m4GtSQT7bTartqEh9yfImUEzkwKZmTwmo5a5JwkYBfcDL01/RkR5y8iWhtPBknB8ZxwtU9UjwOrrKCeizzc25nTGg1F/turEHoU9wMLpDvWKf8DTmNCAKnd/tqUTF4ElMXJ+A5rWDJS+41WsGWzALhJ+ErBWrLj9g+pqojHxlXJX8HGUg0BsR/x1yhxf3jm4cSzpQFLp6tmi6PEE7g1ZhtZ91ufpSZUAFa6gC+UoQslNaSmypT1U8mHKiUgEKS8KfgF4EpYunFI16tsHin+OG0LcgQK7yj7g6cSzpva2D3hKVNG0Y3mVO1BkqfSlmJrHBQ4uvM12gJHc6ETW8HZVfMRmXvyxxNC1Z/o839zyXlDuCr4nsC11J+MXueaVJWn6yPv+/pJtc9oLTNN4AeTvNGByd3rlhE2x9s5pLwDoHCy+grDzWmOZ95lUtLYj5Bma126Y8eX0/zj/ADxGyViSg4BXAAAAAElFTkSuQmCC">
-        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PScwIDAgMjk0LjgyNSAyNTguOTgyJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPg0KPHBhdGggZmlsbD0nIzgwODBGMicgZD0nTTk3LjAyMSw5OS4wMTZsNDguNDMyLTI3Ljk2MmMxLjIxMi0wLjcsMi43MDYtMC43LDMuOTE4LDBsNDguNDMzLDI3Ljk2MiBjMS4yMTEsMC43LDEuOTU5LDEuOTkzLDEuOTU5LDMuMzkzdjU1LjkyNGMwLDEuMzk5LTAuNzQ4LDIuNjkzLTEuOTU5LDMuMzk0bC00OC40MzMsMjcuOTYyYy0xLjIxMiwwLjctMi43MDYsMC43LTMuOTE4LDAgbC00OC40MzItMjcuOTYyYy0xLjIxMi0wLjctMS45NTktMS45OTQtMS45NTktMy4zOTR2LTU1LjkyNEM5NS4wNjMsMTAxLjAwOSw5NS44MSw5OS43MTYsOTcuMDIxLDk5LjAxNicvPg0KPHBhdGggZmlsbD0nIzRCMzJDMycgZD0nTTI3My4zMzYsMTI0LjQ4OEwyMTUuNDY5LDIzLjgxNmMtMi4xMDItMy42NC01Ljk4NS02LjMyNS0xMC4xODgtNi4zMjVIODkuNTQ1IGMtNC4yMDQsMC04LjA4OCwyLjY4NS0xMC4xOSw2LjMyNWwtNTcuODY3LDEwMC40NWMtMi4xMDIsMy42NDEtMi4xMDIsOC4yMzYsMCwxMS44NzdsNTcuODY3LDk5Ljg0NyBjMi4xMDIsMy42NCw1Ljk4Niw1LjUwMSwxMC4xOSw1LjUwMWgxMTUuNzM1YzQuMjAzLDAsOC4wODctMS44MDUsMTAuMTg4LTUuNDQ2bDU3Ljg2Ny0xMDAuMDEgQzI3NS40MzksMTMyLjM5NiwyNzUuNDM5LDEyOC4xMjgsMjczLjMzNiwxMjQuNDg4IE0yMjUuNDE5LDE3Mi44OThjMCwxLjQ4LTAuODkxLDIuODQ5LTIuMTc0LDMuNTlsLTczLjcxLDQyLjUyNyBjLTEuMjgyLDAuNzQtMi44ODgsMC43NC00LjE3LDBsLTczLjc2Ny00Mi41MjdjLTEuMjgyLTAuNzQxLTIuMTc5LTIuMTA5LTIuMTc5LTMuNTlWODcuODQzYzAtMS40ODEsMC44ODQtMi44NDksMi4xNjctMy41OSBsNzMuNzA3LTQyLjUyN2MxLjI4Mi0wLjc0MSwyLjg4Ni0wLjc0MSw0LjE2OCwwbDczLjc3Miw0Mi41MjdjMS4yODMsMC43NDEsMi4xODYsMi4xMDksMi4xODYsMy41OVYxNzIuODk4eicvPg0KPC9zdmc+">
-        <style>
-            body {
-                font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-                font-size: 16px;
-                font-weight: normal;
-                margin: 0;
-                padding: 0;
-                color: #333;
-            }
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ESLint Results</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style type="text/css">
+    body {
+      margin: 0;
+    }
+  
+    .eslint-report {
+      font-family: "Helvetica Neue", sans-serif;
+      font-size: 14px;
+      padding: 20px 40px;
+    }
+  
+    .eslint-report h1 {
+      border-bottom: 1px solid #ddd;
+      line-height: 1;
+      padding-bottom: 12px;
+    }
+  
+    .eslint-report h2 {
+      padding-bottom: 9px;
+      line-height: 1;
+      margin-top: 24px;
+      margin-bottom: 9px;
+    }
+  
+    .eslint-report h3 {
+      line-height: 1;
+      margin-top: 0;
+    }
+  
+    .eslint-report a {
+      text-decoration: none;
+    }
+  
+    .eslint-report table {
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+  
+    .toggle-all-link {
+      font-size: 14px;
+    }
+  
+    .report-table {
+      font-size: 14px;
+      min-width: 800px;
+      border: 1px solid #e6e6e6;
+      margin: 10px;
+    }
+  
+    .report-table thead {
+      background-color: #eee;
+    }
+  
+    .report-table th {
+      text-align: left;
+      vertical-align: middle;
+    }
+  
+    .report-table th,
+    .report-table td {
+      padding: 4px 9px;
+      border: 1px solid #ccc;
+    }
+  
+    .report-table td {
+      line-height: 1.5;
+      vertical-align: top;
+    }
+  
+    .report-table .error-col {
+      width: 41px;
+    }
+  
+    .report-table .warning-col {
+      width: 63px;
+    }
+  
+    .report-table .toggle-link {
+      display: block;
+    }
+  
+    .report-table .danger td {
+      background-color: rgba(242, 222, 222, 0.8);
+    }
+  
+    .report-table .danger:hover td {
+      background-color: rgba(242, 222, 222, 1);
+    }
+  
+    .report-table .warning td {
+      background-color: rgba(252, 248, 227, 0.8);
+    }
+  
+    .report-table .warning:hover td {
+      background-color: rgba(252, 248, 227, 1);
+    }
+  
+    .report-table .success td {
+      background-color: rgba(223, 240, 216, 0.8);
+    }
+  
+    .report-table .success:hover td {
+      background-color: rgba(223, 240, 216, 1);
+    }
+  
+    .table-wrapper {
+      display: flex;
+      justify-content: flex-start;
+      width: 600px;
+      align-items: flex-end;
+    }
+  
+    .table-wrapper.occurrences {
+      align-items: flex-start;
+    }
+  
+    .table-wrapper.occurrences .table-column {
+      height: 180px;
+      overflow-y: auto;
+    }
+  
+    .table-column {
+      flex: 1;
+      margin: 10px;
+    }
+  
+    .summary-table {
+      width: 100%;
+    }
+  
+    .summary-table a {
+      display: block;
+    }
+  
+    .summary-table td {
+      padding: 4px 0;
+    }
+  
+    .summary-table td:last-child {
+      text-align: right;
+    }
+  
+    .summary-table tfoot td {
+      border-top: 2px solid #666;
+      font-weight: bold;
+    }
+  
+    .details-row.hidden {
+      display: none;
+    }
+  
+    .details-table {
+      font-size: 12px;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  
+    .details-table td {
+      border: 0;
+      padding: 1px 6px;
+    }
+  
+    .details-table td:first-child {
+      padding-left: 0;
+    }
+  
+    .details-table .location-col {
+      width: 25px;
+    }
+  
+    .details-table .rule-col {
+      white-space: nowrap;
+      width: 100px;
+    }
+  
+    .details-table .rule-col a {
+      display: block;
+    }
+  
+    .details-table .rule-col a:hover {
+      text-decoration: underline;
+    }
+  
+    .details-table .severity-col {
+      width: 45px;
+    }
+  
+    .details-table .msg-danger .severity-col {
+      color: #900;
+    }
+  
+    .details-table .msg-warning .severity-col {
+      color: #f90;
+    }
+  </style>
 
-            #overview {
-                padding: 20px 30px;
-            }
+    <script>
+      // yolo
+      function toggleAllDetails(node) {
+        var rows = document.querySelectorAll("tr.details-row");
+    
+        if (node.innerHTML === "(expand all)") {
+          node.innerHTML = "(collapse all)";
+    
+          for (var x = 0; x < rows.length; x++) {
+            var row = rows[x];
+            row.className = "details-row";
+          }
+        } else {
+          node.innerHTML = "(expand all)";
+    
+          for (var x = 0; x < rows.length; x++) {
+            var row = rows[x];
+            row.className = "details-row hidden";
+          }
+        }
+      }
+    
+      function toggleDetails(node) {
+        var parentRow = node.parentNode.parentNode;
+        var detailsRow = parentRow.nextSibling;
+    
+        if (detailsRow.className === "details-row hidden") {
+          detailsRow.className = "details-row";
+        } else {
+          detailsRow.className = "details-row hidden";
+        }
+      }
+    </script>
+</head>
+<body>
+  <div class="eslint-report">
+    <h1>ESLint Results</h1>
 
-            td,
-            th {
-                padding: 5px 10px;
-            }
-
-            h1 {
-                margin: 0;
-            }
-
-            table {
-                margin: 30px;
-                width: calc(100% - 60px);
-                max-width: 1000px;
-                border-radius: 5px;
-                border: 1px solid #ddd;
-                border-spacing: 0;
-            }
-
-            th {
-                font-weight: 400;
-                font-size: medium;
-                text-align: left;
-                cursor: pointer;
-            }
-
-            td.clr-1,
-            td.clr-2,
-            th span {
-                font-weight: 700;
-            }
-
-            th span {
-                float: right;
-                margin-left: 20px;
-            }
-
-            th span::after {
-                content: "";
-                clear: both;
-                display: block;
-            }
-
-            tr:last-child td {
-                border-bottom: none;
-            }
-
-            tr td:first-child,
-            tr td:last-child {
-                color: #9da0a4;
-            }
-
-            #overview.bg-0,
-            tr.bg-0 th {
-                color: #468847;
-                background: #dff0d8;
-                border-bottom: 1px solid #d6e9c6;
-            }
-
-            #overview.bg-1,
-            tr.bg-1 th {
-                color: #f0ad4e;
-                background: #fcf8e3;
-                border-bottom: 1px solid #fbeed5;
-            }
-
-            #overview.bg-2,
-            tr.bg-2 th {
-                color: #b94a48;
-                background: #f2dede;
-                border-bottom: 1px solid #eed3d7;
-            }
-
-            td {
-                border-bottom: 1px solid #ddd;
-            }
-
-            td.clr-1 {
-                color: #f0ad4e;
-            }
-
-            td.clr-2 {
-                color: #b94a48;
-            }
-
-            td a {
-                color: #3a33d1;
-                text-decoration: none;
-            }
-
-            td a:hover {
-                color: #272296;
-                text-decoration: underline;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="overview" class="bg-2">
-            <h1>ESLint Report</h1>
-            <div>
-                <span>113 problems (113 errors, 0 warnings)</span> - Generated on Fri Jul 19 2024 14:30:22 GMT-0400 (Eastern Daylight Time)
-            </div>
+      <h2>Summary</h2>
+      
+      <div class="table-wrapper">
+        <div class="table-column">
+          <table class="summary-table">
+              <tbody>
+                <tr>
+                  <td>Errors</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Warnings</td>
+                  <td>0</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total alerts</td>
+                  <td>0</td>
+                </tr>
+              </tfoot>
+          </table>
         </div>
-        <table>
-            <tbody>
-                <tr class="bg-2" data-group="f-0">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/Alert.jsx
-        <span>2 problems (2 errors, 0 warnings)</span>
-    </th>
-</tr>
-<tr style="display: none;" class="f-0">
-    <td>10:60</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;result&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-0">
-    <td>11:29</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;message&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr class="bg-0" data-group="f-1">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/App.jsx
-        <span>0 problems</span>
-    </th>
-</tr>
-
-<tr class="bg-2" data-group="f-2">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/ConfirmDeleteModal.jsx
-        <span>5 problems (5 errors, 0 warnings)</span>
-    </th>
-</tr>
-<tr style="display: none;" class="f-2">
-    <td>7:37</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;show&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-2">
-    <td>7:62</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;onHide&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-2">
-    <td>10:68</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;onHide&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-2">
-    <td>17:69</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;onHide&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-2">
-    <td>20:66</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;onConfirm&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr class="bg-2" data-group="f-3">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeCreate.jsx
-        <span>40 problems (40 errors, 0 warnings)</span>
-    </th>
-</tr>
-<tr style="display: none;" class="f-3">
-    <td>31:23</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;pagetitle&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>32:51</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;pagetitle&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>35:23</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employeeId&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>36:52</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employeeId&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>39:23</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>41:38</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>64:23</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>65:24</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;handleDeleteClick&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>67:28</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>68:47</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>158:25</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>166:76</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>166:105</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>167:185</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>167:214</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>171:75</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>171:104</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>172:182</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>172:211</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>176:70</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>176:99</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>177:187</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>177:216</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>181:80</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>181:109</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>182:197</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>182:226</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>186:72</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>186:101</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>187:161</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>197:77</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>197:106</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>198:176</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>208:79</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>208:108</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>209:182</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>220:32</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>222:84</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>222:113</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;updateEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-3">
-    <td>223:189</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr class="bg-2" data-group="f-4">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeDelete.jsx
-        <span>1 problem (1 error, 0 warnings)</span>
-    </th>
-</tr>
-<tr style="display: none;" class="f-4">
-    <td>46:16</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;e&#39; is defined but never used.</td>
-    <td>
-        <a href="https://eslint.org/docs/latest/rules/no-unused-vars" target="_blank" rel="noopener noreferrer">no-unused-vars</a>
-    </td>
-</tr>
-
-<tr class="bg-0" data-group="f-5">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeDirectory.jsx
-        <span>0 problems</span>
-    </th>
-</tr>
-
-<tr class="bg-2" data-group="f-6">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeSearch.jsx
-        <span>3 problems (3 errors, 0 warnings)</span>
-    </th>
-</tr>
-<tr style="display: none;" class="f-6">
-    <td>13:17</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;match&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-6">
-    <td>14:17</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;match.params.id&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-6">
-    <td>14:30</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;match.params&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr class="bg-2" data-group="f-7">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeTable.jsx
-        <span>34 problems (34 errors, 0 warnings)</span>
-    </th>
-</tr>
-<tr style="display: none;" class="f-7">
-    <td>21:24</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employees&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>23:39</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employees&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>30:28</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;title&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>31:63</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;title&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>34:28</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employeeType&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>35:70</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employeeType&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>38:28</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;department&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>39:68</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;department&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>43:24</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;pagetitle&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>45:39</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;pagetitle&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>52:27</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employees&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>86:44</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employees&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>87:52</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employees&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>127:20</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;match&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>127:26</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;match.navigate&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>137:30</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;isEmployeeDetailFetch&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>169:33</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>169:42</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee.empId&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>170:33</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>170:42</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee.FirstName&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>171:33</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>171:42</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee.LastName&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>172:33</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>172:42</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee.Age&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>173:33</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>173:42</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee.DateOfJoining&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>174:33</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>174:42</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee.Title&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>175:33</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>175:42</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee.Department&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>176:33</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>176:42</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee.EmployeeType&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>177:33</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-7">
-    <td>177:42</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employee.CurrentStatus&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr class="bg-2" data-group="f-8">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeTypeFilter.jsx
-        <span>4 problems (4 errors, 0 warnings)</span>
-    </th>
-</tr>
-<tr style="display: none;" class="f-8">
-    <td>16:60</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;match&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-8">
-    <td>16:66</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;match.location&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-8">
-    <td>16:75</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;match.location.search&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-8">
-    <td>83:35</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;match&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr class="bg-2" data-group="f-9">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeUpdate.jsx
-        <span>12 problems (12 errors, 0 warnings)</span>
-    </th>
-</tr>
-<tr style="display: none;" class="f-9">
-    <td>19:23</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;pagetitle&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-9">
-    <td>20:51</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;pagetitle&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-9">
-    <td>23:23</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;isEmployeeDetailFetch&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-9">
-    <td>24:63</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;isEmployeeDetailFetch&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-9">
-    <td>26:27</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employeeId&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-9">
-    <td>28:44</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employeeId&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-9">
-    <td>32:71</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;employeeId&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-9">
-    <td>43:16</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;e&#39; is defined but never used.</td>
-    <td>
-        <a href="https://eslint.org/docs/latest/rules/no-unused-vars" target="_blank" rel="noopener noreferrer">no-unused-vars</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-9">
-    <td>88:18</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;error&#39; is defined but never used.</td>
-    <td>
-        <a href="https://eslint.org/docs/latest/rules/no-unused-vars" target="_blank" rel="noopener noreferrer">no-unused-vars</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-9">
-    <td>203:133</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;isEmployeeDetailFetch&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-9">
-    <td>209:60</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;deleteEmployee&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-9">
-    <td>211:63</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;handleDeleteClick&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr class="bg-0" data-group="f-10">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/ErrorPage.jsx
-        <span>0 problems</span>
-    </th>
-</tr>
-
-<tr class="bg-2" data-group="f-11">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/Filter.jsx
-        <span>8 problems (8 errors, 0 warnings)</span>
-    </th>
-</tr>
-<tr style="display: none;" class="f-11">
-    <td>10:32</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;filters&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-11">
-    <td>15:20</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;onFilterChange&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-11">
-    <td>21:56</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;filters&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-11">
-    <td>21:64</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;filters.title&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-11">
-    <td>29:61</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;filters&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-11">
-    <td>29:69</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;filters.department&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-11">
-    <td>37:63</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;filters&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-11">
-    <td>37:71</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;filters.employeeType&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr class="bg-2" data-group="f-12">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/NavPage.jsx
-        <span>1 problem (1 error, 0 warnings)</span>
-    </th>
-</tr>
-<tr style="display: none;" class="f-12">
-    <td>2:9</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;NavLink&#39; is defined but never used.</td>
-    <td>
-        <a href="https://eslint.org/docs/latest/rules/no-unused-vars" target="_blank" rel="noopener noreferrer">no-unused-vars</a>
-    </td>
-</tr>
-
-<tr class="bg-2" data-group="f-13">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/ReloadingNavLink.jsx
-        <span>2 problems (2 errors, 0 warnings)</span>
-    </th>
-</tr>
-<tr style="display: none;" class="f-13">
-    <td>4:29</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;to&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr style="display: none;" class="f-13">
-    <td>4:33</td>
-    <td class="clr-2">Error</td>
-    <td>&#39;children&#39; is missing in props validation</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/prop-types.md" target="_blank" rel="noopener noreferrer">react/prop-types</a>
-    </td>
-</tr>
-
-<tr class="bg-2" data-group="f-14">
-    <th colspan="4">
-        [+] /Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/withRouter.jsx
-        <span>1 problem (1 error, 0 warnings)</span>
-    </th>
-</tr>
-<tr style="display: none;" class="f-14">
-    <td>5:12</td>
-    <td class="clr-2">Error</td>
-    <td>Component definition is missing display name</td>
-    <td>
-        <a href="https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/display-name.md" target="_blank" rel="noopener noreferrer">react/display-name</a>
-    </td>
-</tr>
-
-            </tbody>
-        </table>
-        <script type="text/javascript">
-            var groups = document.querySelectorAll("tr[data-group]");
-            for (i = 0; i < groups.length; i++) {
-                groups[i].addEventListener("click", function() {
-                    var inGroup = document.getElementsByClassName(this.getAttribute("data-group"));
-                    this.innerHTML = (this.innerHTML.indexOf("+") > -1) ? this.innerHTML.replace("+", "-") : this.innerHTML.replace("-", "+");
-                    for (var j = 0; j < inGroup.length; j++) {
-                        inGroup[j].style.display = (inGroup[j].style.display !== "none") ? "none" : "table-row";
-                    }
-                });
-            }
-        </script>
-    </body>
+        <div class="table-column">
+          <table class="summary-table">
+              <tbody>
+                <tr>
+                  <td>Files with errors</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Files with only warnings</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Clean files</td>
+                  <td>15</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total files linted</td>
+                  <td>15</td>
+                </tr>
+              </tfoot>
+          </table>
+        </div>
+      </div>
+
+
+      <h2>File Breakdown
+          <a id="toggle" href="javascript:;" onclick="toggleAllDetails(this)" class="toggle-all-link">(expand all)</a></h2>
+      
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th class="error-col">Errors</th>
+            <th class="warning-col">Warnings</th>
+          </tr>
+        </thead>
+        <tbody><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/Alert.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/App.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/ConfirmDeleteModal.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeCreate.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeDelete.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeDirectory.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeFilter.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeSearch.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeTable.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/EmployeeUpdate.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/ErrorPage.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/Filter.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/NavPage.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/ReloadingNavLink.jsx</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/surya/Documents/WebDevelopment/Spring_Semester_2024/Advanced_Full_Stack/SuryaPrakashNagarajan_Assignment2/UI/jsx/withRouter.jsx</td>
+              <td>0</td>
+              <td>0</td></tr></tbody>
+      </table>
+
+  </div>
+</body>
 </html>
-
