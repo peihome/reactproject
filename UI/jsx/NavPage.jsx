@@ -43,6 +43,7 @@ export default class NavPage extends React.Component {
 						<Route path="/employee/search/:id" element={<EmployeeSearch />} />
 						<Route path="/employee/delete" element={<EmployeeDelete />} />
 						<Route path="/employee/filter" element={<EmployeeFilter />} />
+						<Route path="/employee/detail/:id" element={<EmployeeSearch />} />
 						<Route path="*" element={<ErrorPage />} />
 					</Routes>
 				</main>

@@ -166,3 +166,9 @@ table thead th {
     top: 0px;
     z-index: 1;
 }
+
+.rowCount {
+    float: right;
+    padding-right: 3em;
+    padding-top: 0.5em;
+}

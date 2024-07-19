@@ -1021,7 +1021,7 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, EmployeeTable);
     _this = _callSuper(this, EmployeeTable);
     _defineProperty(_this, "fetchEmployees", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var query, response, result, employees;
+      var query, response, result, _employees;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
@@ -1053,17 +1053,19 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
             return response.json();
           case 10:
             result = _context.sent;
-            employees = result.data.getAllEmployees;
+            _employees = result.data.getAllEmployees;
             _this.setState({
-              employees: employees,
-              filteredEmployees: employees
+              employees: _employees,
+              filteredEmployees: _employees,
+              employeeCount: _employees.length
             });
             _context.next = 16;
             break;
           case 15:
             _this.setState({
               employees: _this.props.employees,
-              filteredEmployees: _this.props.employees
+              filteredEmployees: _this.props.employees,
+              employeeCount: employees.length
             });
           case 16:
             _context.next = 21;
@@ -1095,7 +1097,8 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
         return (filters.title === '' || employee.Title === filters.title) && (filters.department === '' || employee.Department === filters.department) && (filters.employeeType === '' || employee.EmployeeType === filters.employeeType);
       });
       _this.setState({
-        filteredEmployees: filteredEmployees
+        filteredEmployees: filteredEmployees,
+        employeeCount: filteredEmployees.length
       });
       _this.applyQueryParams(filters);
     });
@@ -1123,7 +1126,7 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function () {
       var _componentDidMount = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var employees;
+        var _employees2;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -1131,11 +1134,12 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
                 _context2.next = 6;
                 break;
               }
-              employees = [];
-              employees.push(this.props.employees);
+              _employees2 = [];
+              _employees2.push(this.props.employees);
               this.setState({
-                employees: employees,
-                filteredEmployees: employees
+                employees: _employees2,
+                filteredEmployees: _employees2,
+                employeeCount: _employees2.length
               });
               _context2.next = 11;
               break;
@@ -1172,13 +1176,15 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
       var rows = this.state.filteredEmployees.map(function (employee) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(EmployeeRow, {
           key: employee.empId,
-          employee: employee
+          employee: employee,
+          isEmployeeDetailFetch: _this2.props.isEmployeeDetailFetch
         });
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, this.state.pagetitle), !this.props.isEmployeeDetailFetch && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Filter_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, this.props.isEmployeeDetailFetch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Employee Detail") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, this.state.pagetitle), !this.props.isEmployeeDetailFetch && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Filter_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
         onFilterChange: this.handleFilterChange,
         filters: this.state.filters
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -1205,7 +1211,9 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
         scope: "col"
       }, "EmployeeType"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
         scope: "col"
-      }, "CurrentStatus"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tbody", null, rows))));
+      }, "CurrentStatus"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tbody", null, rows))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+        className: "rowCount"
+      }, "Total Rows: ", this.state.employeeCount));
     }
   }]);
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
@@ -1218,7 +1226,10 @@ var EmployeeRow = /*#__PURE__*/function (_React$Component2) {
   return _createClass(EmployeeRow, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.empId), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.FirstName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.LastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Age), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.DateOfJoining), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Department), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.EmployeeType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.CurrentStatus ? 'Active' : 'Inactive'));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, this.props.isEmployeeDetailFetch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, " ", this.props.employee.empId, " ") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+        target: "_blank",
+        href: "#/employee/detail/".concat(this.props.employee.empId)
+      }, " ", this.props.employee.empId, " "), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.FirstName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.LastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Age), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.DateOfJoining), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Department), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.EmployeeType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.CurrentStatus ? 'Active' : 'Inactive'));
     }
   }]);
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
@@ -1530,7 +1541,7 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
       }), this.state.employee != undefined ? this.state.isEmployeeDetailFetch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_EmployeeTable_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
         employees: this.state.employee,
         pagetitle: "Search Results",
-        isEmployeeDetailFetch: this.props.isEmployeeDetailFetch
+        isEmployeeDetailFetch: this.state.isEmployeeDetailFetch
       }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_EmployeeCreate_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
         employee: this.state.employee,
         pagetitle: this.state.pagetitle,
@@ -1813,6 +1824,9 @@ var NavPage = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
         path: "/employee/filter",
         element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_EmployeeFilter_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], null)
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+        path: "/employee/detail/:id",
+        element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_EmployeeSearch_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], null)
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
         path: "*",
         element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ErrorPage_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null)
