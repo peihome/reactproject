@@ -13,6 +13,7 @@ export default class EmployeeUpdate extends React.Component {
 			employee: undefined,
 			btnValue: 'Fetch Employee'
 		};
+		this.API_SERVER_URL = process.env.API_SERVER_URL;
 	}
 
 	async componentDidMount() {
@@ -63,7 +64,7 @@ export default class EmployeeUpdate extends React.Component {
 				id: employeeId
 			};
 
-			const response = await fetch('http://localhost:8000/graphql', {
+			const response = await fetch(`${this.API_SERVER_URL}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -149,7 +150,7 @@ export default class EmployeeUpdate extends React.Component {
                 }
             `;
 
-			const response = await fetch('http://localhost:8000/graphql', {
+			const response = await fetch(`${this.API_SERVER_URL}`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ query: mutation })

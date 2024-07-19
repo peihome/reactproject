@@ -266,7 +266,7 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
               employee = _this.state.employee;
               mutation = "\n                mutation {\n                    createEmployee(\n                        FirstName: \"".concat(employee.FirstName, "\",\n                        LastName: \"").concat(employee.LastName, "\",\n                        Age: ").concat(employee.Age, ",\n                        DateOfJoining: \"").concat(employee.DateOfJoining, "\",\n                        Title: \"").concat(employee.Title, "\",\n                        Department: \"").concat(employee.Department, "\",\n                        EmployeeType: \"").concat(employee.EmployeeType, "\"\n                    ) {\n                        FirstName\n                        LastName\n                        Age\n                        DateOfJoining\n                        Title\n                        Department\n                        EmployeeType\n                    }\n                }\n            ");
               _context2.next = 6;
-              return fetch('http://localhost:8000/graphql', {
+              return fetch("".concat(_this.API_SERVER_URL), {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'
@@ -343,6 +343,7 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
       pagetitle: 'Create Employee',
       employeeId: ''
     };
+    _this.API_SERVER_URL = "http://localhost:8000/graphql";
     return _this;
   }
   _inherits(EmployeeCreate, _React$Component);
@@ -646,7 +647,7 @@ var EmployeeDelete = /*#__PURE__*/function (_React$Component) {
               _context2.prev = 1;
               mutation = "\n                    mutation {\n                        deleteEmployee(empId: ".concat(empId, ") {\n                            code\n                            message\n                        }\n                    }\n                ");
               _context2.next = 5;
-              return fetch('http://localhost:8000/graphql', {
+              return fetch("".concat(_this.API_SERVER_URL), {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'
@@ -715,6 +716,7 @@ var EmployeeDelete = /*#__PURE__*/function (_React$Component) {
       showConfirmDeleteModal: false,
       showEmployeeDeletePage: false
     };
+    _this.API_SERVER_URL = "http://localhost:8000/graphql";
     return _this;
   }
   _inherits(EmployeeDelete, _React$Component);
@@ -1032,7 +1034,7 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
             }
             query = "query {\n                    getAllEmployees {\n                        empId\n                        FirstName\n                        LastName\n                        Age\n                        DateOfJoining\n                        Title\n                        Department\n                        EmployeeType\n                        CurrentStatus\n                    }\n                }";
             _context.next = 5;
-            return fetch('http://localhost:8000/graphql', {
+            return fetch("".concat(_this.API_SERVER_URL), {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -1119,6 +1121,7 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
         employeeType: ''
       }
     };
+    _this.API_SERVER_URL = "http://localhost:8000/graphql";
     return _this;
   }
   _inherits(EmployeeTable, _React$Component);
@@ -1314,7 +1317,7 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
                 id: employeeId
               };
               _context.next = 7;
-              return fetch('http://localhost:8000/graphql', {
+              return fetch("".concat(_this.API_SERVER_URL), {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'
@@ -1418,7 +1421,7 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
               fieldsString = fieldsToUpdate.join(', ');
               mutation = "\n                mutation {\n                    updateEmployee(\n                        empId: ".concat(parseInt(_this.state.employeeId), ",\n                        ").concat(fieldsString, "\n                    ) {\n                        FirstName\n                        LastName\n                        Age\n                        DateOfJoining\n                        Title\n                        Department\n                        EmployeeType\n                        CurrentStatus\n                    }\n                }\n            ");
               _context3.next = 15;
-              return fetch('http://localhost:8000/graphql', {
+              return fetch("".concat(_this.API_SERVER_URL), {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'
@@ -1485,6 +1488,7 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
       employee: undefined,
       btnValue: 'Fetch Employee'
     };
+    _this.API_SERVER_URL = "http://localhost:8000/graphql";
     return _this;
   }
   _inherits(EmployeeUpdate, _React$Component);
@@ -1857,8 +1861,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
 var _excluded = ["to", "children"];
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
-function _objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i = _objectWithoutPropertiesLoose(e, t); if (Object.getOwnPropertySymbols) { var n = Object.getOwnPropertySymbols(e); for (r = 0; r < n.length; r++) o = n[r], t.indexOf(o) >= 0 || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]); } return i; }
-function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (e.indexOf(n) >= 0) continue; t[n] = r[n]; } return t; }
+function _objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i = _objectWithoutPropertiesLoose(e, t); if (Object.getOwnPropertySymbols) { var s = Object.getOwnPropertySymbols(e); for (r = 0; r < s.length; r++) o = s[r], t.includes(o) || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]); } return i; }
+function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (e.includes(n)) continue; t[n] = r[n]; } return t; }
 
 
 

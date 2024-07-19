@@ -21,6 +21,7 @@ export default class EmployeeCreate extends React.Component {
 			pagetitle: 'Create Employee',
 			employeeId: ''
 		};
+		this.API_SERVER_URL = process.env.API_SERVER_URL;
 	}
 
 	componentDidMount() {
@@ -99,7 +100,7 @@ export default class EmployeeCreate extends React.Component {
                 }
             `;
 
-			const response = await fetch('http://localhost:8000/graphql', {
+			const response = await fetch(`${this.API_SERVER_URL}`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ query: mutation })

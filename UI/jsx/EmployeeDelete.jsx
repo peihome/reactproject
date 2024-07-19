@@ -12,6 +12,7 @@ export default class EmployeeDelete extends React.Component {
 			showConfirmDeleteModal: false,
 			showEmployeeDeletePage: false
 		};
+		this.API_SERVER_URL = process.env.API_SERVER_URL;
 	}
 
 	handleDeleteClick = (employeeId) => {
@@ -56,7 +57,7 @@ export default class EmployeeDelete extends React.Component {
                     }
                 `;
 
-			const response = await fetch('http://localhost:8000/graphql', {
+			const response = await fetch(`${this.API_SERVER_URL}`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ query: mutation })

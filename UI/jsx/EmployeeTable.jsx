@@ -4,6 +4,7 @@ import withRouter from './withRouter.jsx';
 import PropTypes from 'prop-types';
 
 class EmployeeTable extends React.Component {
+
 	constructor() {
 		super();
 		this.state = {
@@ -16,6 +17,7 @@ class EmployeeTable extends React.Component {
 				employeeType: ''
 			}
 		};
+		this.API_SERVER_URL = process.env.API_SERVER_URL;
 	}
 
 	async componentDidMount() {
@@ -66,7 +68,7 @@ class EmployeeTable extends React.Component {
                     }
                 }`;
 
-				const response = await fetch('http://localhost:8000/graphql', {
+				const response = await fetch(`${this.API_SERVER_URL}`, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({ query })

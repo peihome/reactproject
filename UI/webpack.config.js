@@ -1,4 +1,4 @@
-
+const Dotenv = require('dotenv-webpack');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -50,8 +50,12 @@ module.exports = {
         splitChunks: { name: 'vendor', chunks: 'all', },
     },
     plugins: [
+        new Dotenv({ 
+          systemvars: true,
+          path: path.resolve('variables.env')
+        }),
         new webpack.DefinePlugin({
-          __isBrowser__: 'true',
+          __isBrowser__: 'true'
         }),
       ],
       devtool: 'source-map',

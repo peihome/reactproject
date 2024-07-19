@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 //Connect to MongoDB
 try{
-    const MongoDBCs = 'mongodb+srv://root:ZRqIm7NpSFToTBn3@cluster0.kjptudk.mongodb.net/EMS';
+    const MongoDBCs = process.env.MONGODB_URL;
     mongoose.connect(MongoDBCs);
     console.log('Connected to MongoDb!!!');
 }
