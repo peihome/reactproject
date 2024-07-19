@@ -196,7 +196,7 @@ export default class EmployeeUpdate extends React.Component {
         
                 {this.state.employee != undefined ? (
                     this.state.isEmployeeDetailFetch ? (
-                        <EmployeeTable employees={this.state.employee} pagetitle="Search Results" />
+                        <EmployeeTable employees={this.state.employee} pagetitle="Search Results" isEmployeeDetailFetch={this.props.isEmployeeDetailFetch}/>
                     ) : (
                             <EmployeeCreate 
                                 employee={this.state.employee} 

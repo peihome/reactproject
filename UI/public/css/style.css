@@ -132,3 +132,16 @@ nav {
     cursor: pointer;
     font-size: 23px;
 }
+
+.filters {
+    padding-bottom: 1em;
+    display: flex;
+    gap: 1em;
+    float: inline-end;
+}
+
+.filters select {
+    border: 2px solid;
+    width: 12em;
+    height: 2em;
+}

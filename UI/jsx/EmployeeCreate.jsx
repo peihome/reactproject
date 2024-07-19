@@ -161,27 +161,27 @@ export default class EmployeeCreate extends React.Component {
 
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="FirstName" className={!this.props.deleteEmployee ? "required" : ""} >First Name</label>
-                        <input type="text" id="FirstName" name="FirstName" className="form-control" value={this.state.employee.FirstName} onChange={this.handleChange} {...(this.props.deleteEmployee ? { disabled: true } : { required: true }) }/>
+                        <label htmlFor="FirstName" className={!(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""} >First Name</label>
+                        <input type="text" id="FirstName" name="FirstName" className="form-control" value={this.state.employee.FirstName} onChange={this.handleChange} {...((this.props.deleteEmployee || this.props.updateEmployee) ? { disabled: true } : { required: true }) }/>
                         <div className='invalid-feedback'></div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="LastName" className={!this.props.deleteEmployee ? "required" : ""} >Last Name</label>
-                        <input type="text" id="LastName" name="LastName" className="form-control" value={this.state.employee.LastName} onChange={this.handleChange} {...(this.props.deleteEmployee ? { disabled: true } : { required: true }) } />
+                        <label htmlFor="LastName" className={!(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""} >Last Name</label>
+                        <input type="text" id="LastName" name="LastName" className="form-control" value={this.state.employee.LastName} onChange={this.handleChange} {...((this.props.deleteEmployee || this.props.updateEmployee) ? { disabled: true } : { required: true }) } />
                         <div className='invalid-feedback'></div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="Age" className={!this.props.deleteEmployee ? "required" : ""} >Age</label>
-                        <input type="number" id="Age" name="Age" className="form-control" value={this.state.employee.Age} onChange={this.handleChange} min="20" max="70" {...(this.props.deleteEmployee ? { disabled: true } : { required: true }) } />
+                        <label htmlFor="Age" className={!(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""} >Age</label>
+                        <input type="number" id="Age" name="Age" className="form-control" value={this.state.employee.Age} onChange={this.handleChange} min="20" max="70" {...((this.props.deleteEmployee || this.props.updateEmployee) ? { disabled: true } : { required: true }) } />
                         <div className='invalid-feedback'></div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="DateOfJoining" className={!this.props.deleteEmployee ? "required" : ""} >Date of Joining</label>
-                        <input type="date" id="DateOfJoining" name="DateOfJoining" className="form-control" value={this.state.employee.DateOfJoining} onChange={this.handleChange} {...(this.props.deleteEmployee ? { disabled: true } : { required: true }) } />
+                        <label htmlFor="DateOfJoining" className={!(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""} >Date of Joining</label>
+                        <input type="date" id="DateOfJoining" name="DateOfJoining" className="form-control" value={this.state.employee.DateOfJoining} onChange={this.handleChange} {...((this.props.deleteEmployee || this.props.updateEmployee) ? { disabled: true } : { required: true }) } />
                         <div className='invalid-feedback'></div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="Title" className={!this.props.deleteEmployee ? "required" : ""} >Title</label>
+                        <label htmlFor="Title" className={!(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""} >Title</label>
                         <select name="Title" id="Title" className="form-control" value={this.state.employee.Title} onChange={this.handleChange} {...(this.props.deleteEmployee ? { disabled: true } : { required: true }) }>
                             <option value="" disabled>Select Title</option>
                             <option value="Employee">Employee</option>
@@ -192,7 +192,7 @@ export default class EmployeeCreate extends React.Component {
                         <div className='invalid-feedback'></div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="Department" className={!this.props.deleteEmployee ? "required" : ""} >Department</label>
+                        <label htmlFor="Department" className={!(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""} >Department</label>
                         <select id="Department" name="Department" className="form-control" value={this.state.employee.Department} onChange={this.handleChange} {...(this.props.deleteEmployee ? { disabled: true } : { required: true }) }>
                             <option value="" disabled>Select Department</option>
                             <option value="IT">IT</option>
@@ -203,7 +203,7 @@ export default class EmployeeCreate extends React.Component {
                         <div className='invalid-feedback'></div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="EmployeeType" className={!this.props.deleteEmployee ? "required" : ""} >Employee Type</label>
+                        <label htmlFor="EmployeeType" className={!(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""} >Employee Type</label>
                         <select id="EmployeeType" name="EmployeeType" className="form-control" value={this.state.employee.EmployeeType} onChange={this.handleChange} {...(this.props.deleteEmployee ? { disabled: true } : { required: true }) }>
                             <option value="" disabled>Select Employee Type</option>
                             <option value="FullTime">Full Time</option>
@@ -213,6 +213,20 @@ export default class EmployeeCreate extends React.Component {
                         </select>
                         <div className='invalid-feedback'></div>
                     </div>
+
+                    {
+                    this.props.updateEmployee ? (
+                        <div className="form-group">
+                            <label htmlFor="CurrentStatus" className={!(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""} >Current Status</label>
+                            <select id="CurrentStatus" name="CurrentStatus" className="form-control" value={this.state.employee.CurrentStatus} onChange={this.handleChange} {...(this.props.deleteEmployee ? { disabled: true } : { required: true }) }>
+                                <option value="" disabled>Select Current Status</option>
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                            <div className='invalid-feedback'></div>
+                        </div>
+                        ) : null
+                    }
 
                     <button type="submit" className="btn btn-primary btn-lg btn-block">{this.state.pagetitle}</button>
                 </form>

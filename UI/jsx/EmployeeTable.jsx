@@ -1,30 +1,37 @@
 import React from "react";
+import Filter from "./Filter.jsx";
 
 export default class EmployeeTable extends React.Component {
-
-    constructor(){
+    constructor() {
         super();
         this.state = {
-            employees : [],
-            pagetitle : 'All Employees'
-        }
+            employees: [],
+            filteredEmployees: [],
+            pagetitle: 'All Employees',
+            filters: {
+                title: '',
+                department: '',
+                employeeType: ''
+            }
+        };
         this.fetchEmployees = this.fetchEmployees.bind(this);
+        this.handleFilterChange = this.handleFilterChange.bind(this);
     }
 
     async componentDidMount() {
-        if(this.props.employees) {
+        if (this.props.employees) {
             const employees = [];
             employees.push(this.props.employees);
 
             this.setState({
-                employees: employees
+                employees: employees,
+                filteredEmployees: employees
             });
-        }else {
+        } else {
             await this.fetchEmployees();
         }
 
-
-        if(this.props.pagetitle) {
+        if (this.props.pagetitle) {
             this.setState({
                 pagetitle: this.props.pagetitle
             });
@@ -32,13 +39,7 @@ export default class EmployeeTable extends React.Component {
     }
 
     async fetchEmployees() {
-
         try {
-
-            if(this.props.pagetitle != undefined) {
-                this.state.pagetitle = this.props.pagetitle;
-            }
-
             if(this.props.employees == undefined) {
                 const query = `query {
                     getAllEmployees {
@@ -53,52 +54,89 @@ export default class EmployeeTable extends React.Component {
                         CurrentStatus
                     }
                 }`;
-    
+
                 const response = await fetch('http://localhost:8000/graphql', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({query})
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query })
                 });
-    
+
                 if (!response.ok) {
                     throw new Error('Failed to fetch employees');
                 }
-                const employees = await response.json();
-                this.setState({ employees: employees.data.getAllEmployees });
-            }else{
-                this.setState( { employees : this.props.employees } );   
-            }
 
+                const result = await response.json();
+                const employees = result.data.getAllEmployees;
+
+                this.setState({
+                    employees: employees,
+                    filteredEmployees: employees
+                });
+            }else{
+                this.setState( { 
+                    employees : this.props.employees,
+                    filteredEmployees : this.props.employees
+                } );   
+            }
         } catch (error) {
             this.setState({ error: error.message });
         }
     }
 
+    handleFilterChange(e) {
+        const { name, value } = e.target;
+        this.setState(
+            prevState => ({
+                filters: {
+                    ...prevState.filters,
+                    [name]: value
+                }
+            }),
+            this.applyFilters
+        );
+    }
+
+    applyFilters() {
+        const { employees, filters } = this.state;
+        const filteredEmployees = employees.filter(employee => {
+            return (
+                (filters.title === '' || employee.Title === filters.title) &&
+                (filters.department === '' || employee.Department === filters.department) &&
+                (filters.employeeType === '' || employee.EmployeeType === filters.employeeType)
+            );
+        });
+        this.setState({ filteredEmployees: filteredEmployees });
+    }
+
     render() {
-        const rows = this.state.employees.map(employee => <EmployeeRow employee = {employee} />);
-        return(
+        const rows = this.state.filteredEmployees.map(employee => (
+            <EmployeeRow key={employee.empId} employee={employee} />
+        ));
+        return (
             <>
-            <h1> {this.state.pagetitle} </h1>
-            <div>
-                <table className="table table-hover">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th scope="col">EmpId</th>
-                            <th scope="col">FirstName</th>
-                            <th scope="col">LastName</th>
-                            <th scope="col">Age</th>
-                            <th scope="col">DOJ</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Department</th>
-                            <th scope="col">EmployeeType</th>
-                            <th scope="col">CurrentStatus</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rows}
-                    </tbody>
-                </table>
-            </div>
+                <h1> {this.state.pagetitle} </h1>
+                <div>
+                    {!this.props.isEmployeeDetailFetch && <Filter />}
+
+                    <table className="table table-hover">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">EmpId</th>
+                                <th scope="col">FirstName</th>
+                                <th scope="col">LastName</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">DOJ</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Department</th>
+                                <th scope="col">EmployeeType</th>
+                                <th scope="col">CurrentStatus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {rows}
+                        </tbody>
+                    </table>
+                </div>
             </>
         );
     }
@@ -106,8 +144,8 @@ export default class EmployeeTable extends React.Component {
 
 class EmployeeRow extends React.Component {
     render() {
-        return(
-            <tr key={this.props.employee.empId}>
+        return (
+            <tr>
                 <td>{this.props.employee.empId}</td>
                 <td>{this.props.employee.FirstName}</td>
                 <td>{this.props.employee.LastName}</td>
@@ -116,7 +154,7 @@ class EmployeeRow extends React.Component {
                 <td>{this.props.employee.Title}</td>
                 <td>{this.props.employee.Department}</td>
                 <td>{this.props.employee.EmployeeType}</td>
-                <td>{this.props.employee.CurrentStatus == true ? "Active" : "Inactive"}</td>
+                <td>{this.props.employee.CurrentStatus ? "Active" : "Inactive"}</td>
             </tr>
         );
     }
