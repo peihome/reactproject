@@ -25,10 +25,10 @@ export default class Filter extends React.Component {
                 </select>
                 <select name="employeeType" onChange={this.handleFilterChange}>
                     <option value="">All Employee Types</option>
-                    <option value="FullTime">Full Time</option>
-                    <option value="PartTime">Part Time</option>
-                    <option value="Contract">Contract</option>
-                    <option value="Seasonal">Seasonal</option>
+                    <option value="FullTime" {...this.props.employeeType == "FullTime" && "selected"}>Full Time</option>
+                    <option value="PartTime" {...this.props.employeeType == "PartTime" && "selected"}>Part Time</option>
+                    <option value="Contract" {...this.props.employeeType == "Contract" && "selected"}>Contract</option>
+                    <option value="Seasonal" {...this.props.employeeType == "Seasonal" && "selected"}>Seasonal</option>
                 </select>
             </div>
         );

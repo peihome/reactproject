@@ -1,13 +1,22 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import withRouter from "./withRouter.jsx";
 import EmployeeUpdate from "./EmployeeUpdate.jsx";
 
-const EmployeeSearch = () => {
-    const { id } = useParams();
+class EmployeeSearch extends React.Component {
 
-    return (
-        <EmployeeUpdate pagetitle="Search Employee" isEmployeeDetailFetch={true} employeeId={id} />
-    );
+    constructor() {
+        super();
+    }
+
+    render() {
+
+        const { match } = this.props;
+        const { id } = match.params;
+
+        return (
+            <EmployeeUpdate pagetitle="Search Employee" isEmployeeDetailFetch={true} employeeId={id} />
+        );
+    }
 }
 
-export default EmployeeSearch;
+export default withRouter(EmployeeSearch);

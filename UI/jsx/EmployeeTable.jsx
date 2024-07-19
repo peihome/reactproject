@@ -26,6 +26,17 @@ export default class EmployeeTable extends React.Component {
             });
         } else {
             await this.fetchEmployees();
+            if (this.props.title) {
+                this.handleFilterChange( "title" , this.props.title);
+            }
+
+            if (this.props.employeeType) {
+                this.handleFilterChange( "employeeType" , this.props.employeeType);
+            }
+
+            if (this.props.department) {
+                this.handleFilterChange( "department" , this.props.department);
+            }
         }
 
         if (this.props.pagetitle) {
@@ -113,7 +124,7 @@ export default class EmployeeTable extends React.Component {
                 <h1>{this.state.pagetitle}</h1>
                 <div>
                     {!this.props.isEmployeeDetailFetch && (
-                        <Filter onFilterChange={this.handleFilterChange} />
+                        <Filter onFilterChange={this.handleFilterChange} employeeType={this.props.employeeType} />
                     )}
 
                     <table className="table table-hover">
