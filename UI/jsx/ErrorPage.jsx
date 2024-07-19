@@ -1,13 +1,11 @@
-import React from "react";
+import React from 'react';
 
 export default class ErrorPage extends React.Component {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 
-    render() {
-        return (
-            <h1> Sorry! Page not found </h1>
-        );
-    }
+	render() {
+		return <h1> Sorry! Page not found </h1>;
+	}
 }

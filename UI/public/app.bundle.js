@@ -50,8 +50,8 @@ var Alert = /*#__PURE__*/function (_React$Component) {
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 
 Alert.propTypes = {
-  result: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().bool).isRequired,
-  message: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string).isRequired
+  result: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().bool),
+  message: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string)
 };
 
 /***/ }),
@@ -133,9 +133,9 @@ var ConfirmDeleteModal = /*#__PURE__*/function (_React$Component) {
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 
 ConfirmDeleteModal.propTypes = {
-  show: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool).isRequired,
-  onHide: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func).isRequired,
-  onConfirm: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func).isRequired
+  show: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+  onHide: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+  onConfirm: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func)
 };
 
 /***/ }),
@@ -294,7 +294,7 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
                   EmployeeType: ''
                 },
                 showAlert: true,
-                alertMessage: "Successfully added employee record!",
+                alertMessage: 'Successfully added employee record!',
                 result: true
               });
               _this.resetAlert();
@@ -363,7 +363,7 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
         htmlFor: "FirstName",
-        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""
+        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? 'required' : ''
       }, "First Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", _extends({
         type: "text",
         id: "FirstName",
@@ -381,7 +381,7 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
         htmlFor: "LastName",
-        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""
+        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? 'required' : ''
       }, "Last Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", _extends({
         type: "text",
         id: "LastName",
@@ -399,7 +399,7 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
         htmlFor: "Age",
-        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""
+        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? 'required' : ''
       }, "Age"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", _extends({
         type: "number",
         id: "Age",
@@ -419,7 +419,7 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
         htmlFor: "DateOfJoining",
-        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""
+        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? 'required' : ''
       }, "Date of Joining"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", _extends({
         type: "date",
         id: "DateOfJoining",
@@ -437,7 +437,7 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
         htmlFor: "Title",
-        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""
+        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? 'required' : ''
       }, "Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", _extends({
         name: "Title",
         id: "Title",
@@ -465,7 +465,7 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
         htmlFor: "Department",
-        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""
+        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? 'required' : ''
       }, "Department"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", _extends({
         id: "Department",
         name: "Department",
@@ -493,7 +493,7 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
         htmlFor: "EmployeeType",
-        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""
+        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? 'required' : ''
       }, "Employee Type"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", _extends({
         id: "EmployeeType",
         name: "EmployeeType",
@@ -521,7 +521,7 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
         htmlFor: "CurrentStatus",
-        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? "required" : ""
+        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? 'required' : ''
       }, "Current Status"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", _extends({
         id: "CurrentStatus",
         name: "CurrentStatus",
@@ -550,12 +550,12 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 
 EmployeeCreate.propTypes = {
-  pagetitle: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string).isRequired,
-  employeeId: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string).isRequired,
-  deleteEmployee: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().func).isRequired,
-  handleDeleteClick: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().func).isRequired,
-  updateEmployee: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().func).isRequired,
-  employee: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().object).isRequired
+  pagetitle: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),
+  employeeId: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),
+  deleteEmployee: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().func),
+  handleDeleteClick: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().func),
+  updateEmployee: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().func),
+  employee: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().object)
 };
 
 /***/ }),
@@ -842,49 +842,49 @@ var EmployeeFilter = /*#__PURE__*/function (_React$Component) {
       var department = queryParams.get('department') || '';
       if (employeeType) {
         switch (employeeType) {
-          case "PartTime":
-            employeeType = "PartTime";
+          case 'PartTime':
+            employeeType = 'PartTime';
             break;
-          case "Contract":
-            employeeType = "Contract";
+          case 'Contract':
+            employeeType = 'Contract';
             break;
-          case "Seasonal":
-            employeeType = "Seasonal";
+          case 'Seasonal':
+            employeeType = 'Seasonal';
             break;
-          case "FullTime":
-            employeeType = "FullTime";
+          case 'FullTime':
+            employeeType = 'FullTime';
             break;
         }
       }
       if (title) {
         switch (title) {
-          case "Employee":
-            title = "Employee";
+          case 'Employee':
+            title = 'Employee';
             break;
-          case "Manager":
-            title = "Manager";
+          case 'Manager':
+            title = 'Manager';
             break;
-          case "Director":
-            title = "Director";
+          case 'Director':
+            title = 'Director';
             break;
-          case "VP":
-            title = "VP";
+          case 'VP':
+            title = 'VP';
             break;
         }
       }
       if (department) {
         switch (title) {
-          case "IT":
-            department = "IT";
+          case 'IT':
+            department = 'IT';
             break;
-          case "Marketing":
-            department = "Marketing";
+          case 'Marketing':
+            department = 'Marketing';
             break;
-          case "HR":
-            department = "HR";
+          case 'HR':
+            department = 'HR';
             break;
-          case "Engineering":
-            department = "Engineering";
+          case 'Engineering':
+            department = 'Engineering';
             break;
         }
       }
@@ -911,7 +911,7 @@ var EmployeeFilter = /*#__PURE__*/function (_React$Component) {
   }]);
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 EmployeeFilter.propTypes = {
-  match: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string).isRequired
+  match: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_withRouter_jsx__WEBPACK_IMPORTED_MODULE_2__["default"])(EmployeeFilter));
 
@@ -970,7 +970,7 @@ var EmployeeSearch = /*#__PURE__*/function (_React$Component) {
   }]);
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 EmployeeSearch.propTypes = {
-  match: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string).isRequired
+  match: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_withRouter_jsx__WEBPACK_IMPORTED_MODULE_1__["default"])(EmployeeSearch));
 
@@ -1144,13 +1144,13 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
               return this.fetchEmployees();
             case 8:
               if (this.props.title) {
-                this.handleFilterChange("title", this.props.title);
+                this.handleFilterChange('title', this.props.title);
               }
               if (this.props.employeeType) {
-                this.handleFilterChange("employeeType", this.props.employeeType);
+                this.handleFilterChange('employeeType', this.props.employeeType);
               }
               if (this.props.department) {
-                this.handleFilterChange("department", this.props.department);
+                this.handleFilterChange('department', this.props.department);
               }
             case 11:
               if (this.props.pagetitle) {
@@ -1218,21 +1218,21 @@ var EmployeeRow = /*#__PURE__*/function (_React$Component2) {
   return _createClass(EmployeeRow, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.empId), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.FirstName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.LastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Age), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.DateOfJoining), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Department), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.EmployeeType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.CurrentStatus ? "Active" : "Inactive"));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.empId), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.FirstName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.LastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Age), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.DateOfJoining), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Department), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.EmployeeType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.CurrentStatus ? 'Active' : 'Inactive'));
     }
   }]);
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 EmployeeRow.propTypes = {
-  employee: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object).isRequired
+  employee: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
 };
 EmployeeTable.propTypes = {
-  title: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string).isRequired,
-  employeeType: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string).isRequired,
-  department: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string).isRequired,
-  pagetitle: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string).isRequired,
-  employees: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().array).isRequired,
-  match: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string).isRequired,
-  isEmployeeDetailFetch: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool).isRequired
+  title: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+  employeeType: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+  department: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+  pagetitle: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+  employees: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  match: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  isEmployeeDetailFetch: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool)
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_withRouter_jsx__WEBPACK_IMPORTED_MODULE_2__["default"])(EmployeeTable));
 
@@ -1323,33 +1323,32 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
               return response.json();
             case 12:
               employee = _context.sent.data.getEmployeeById;
-              console.log(employee);
               _this.setState({
                 showAlert: true,
-                alertMessage: employee == undefined ? "Employee details not found!" : "Employee details fetched successfully!",
+                alertMessage: employee == undefined ? 'Employee details not found!' : 'Employee details fetched successfully!',
                 result: employee == undefined ? false : true
               });
               _this.resetAlert();
-              _context.next = 24;
+              _context.next = 23;
               break;
-            case 18:
-              _context.prev = 18;
+            case 17:
+              _context.prev = 17;
               _context.t0 = _context["catch"](2);
               employee = undefined;
               console.log(_context.t0);
               _this.setState({
                 showAlert: true,
-                alertMessage: "Employee details not found!",
+                alertMessage: 'Employee details not found!',
                 result: false
               });
               _this.resetAlert();
-            case 24:
+            case 23:
               return _context.abrupt("return", employee);
-            case 25:
+            case 24:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[2, 18]]);
+        }, _callee, null, [[2, 17]]);
       }));
       return function (_x) {
         return _ref.apply(this, arguments);
@@ -1429,7 +1428,7 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
               updateResponse = _context3.sent.data.updateEmployee;
               _this.setState({
                 showAlert: true,
-                alertMessage: "Employee Record updated successfully!",
+                alertMessage: 'Employee Record updated successfully!',
                 result: true
               });
               _this.resetAlert();
@@ -1442,7 +1441,7 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
               updateResponse = undefined;
               _this.setState({
                 showAlert: true,
-                alertMessage: "Error updating employee record!",
+                alertMessage: 'Error updating employee record!',
                 result: false
               });
               _this.resetAlert();
@@ -1563,11 +1562,11 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 
 EmployeeUpdate.propTypes = {
-  pagetitle: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string).isRequired,
-  isEmployeeDetailFetch: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool).isRequired,
-  employeeId: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string).isRequired,
-  deleteEmployee: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().func).isRequired,
-  handleDeleteClick: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().func).isRequired
+  pagetitle: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),
+  isEmployeeDetailFetch: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),
+  employeeId: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),
+  deleteEmployee: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().func),
+  handleDeleteClick: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().func)
 };
 
 /***/ }),
@@ -1660,11 +1659,6 @@ var Filter = /*#__PURE__*/function (_React$Component) {
   }
   _inherits(Filter, _React$Component);
   return _createClass(Filter, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      console.log(this.props.filters);
-    }
-  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -1717,8 +1711,8 @@ var Filter = /*#__PURE__*/function (_React$Component) {
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 
 Filter.propTypes = {
-  filters: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().object).isRequired,
-  onFilterChange: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func).isRequired
+  filters: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().object),
+  onFilterChange: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func)
 };
 
 /***/ }),
@@ -1867,8 +1861,8 @@ var ReloadingNavLink = function ReloadingNavLink(_ref) {
   }, props), children);
 };
 ReloadingNavLink.propTypes = {
-  to: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string).isRequired,
-  children: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object).isRequired
+  to: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().array)
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ReloadingNavLink);
 
@@ -1884,6 +1878,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   handleValidation: () => (/* binding */ handleValidation)
 /* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+
 //Validate Name
 var validateName = function validateName(name) {
   var response = {
@@ -2009,7 +2007,7 @@ var handleValidation = function handleValidation(name, value) {
         message: 'Invalid field name'
       };
   }
-  var element = $("#".concat(name));
+  var element = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#".concat(name));
   if (!response.isValid) {
     element.removeClass('is-invalid');
     element.addClass('is-invalid');
@@ -2079,7 +2077,7 @@ var withRouter = function withRouter(WrappedComponent) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
