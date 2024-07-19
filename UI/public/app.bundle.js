@@ -815,11 +815,12 @@ var EmployeeSearch = /*#__PURE__*/function (_React$Component) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ EmployeeTable)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Filter_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Filter.jsx */ "./jsx/Filter.jsx");
+/* harmony import */ var _withRouter_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./withRouter.jsx */ "./jsx/withRouter.jsx");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -839,6 +840,7 @@ function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf 
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
 
 
 var EmployeeTable = /*#__PURE__*/function (_React$Component) {
@@ -923,6 +925,14 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
       _this.setState({
         filteredEmployees: filteredEmployees
       });
+      _this.applyQueryParams(filters);
+    });
+    _defineProperty(_this, "applyQueryParams", function (filters) {
+      var queryParams = new URLSearchParams();
+      if (filters.title) queryParams.set('title', filters.title);
+      if (filters.employeeType) queryParams.set('employeeType', filters.employeeType);
+      if (filters.department) queryParams.set('department', filters.department);
+      _this.props.match.navigate("/employee/filter?".concat(queryParams.toString()));
     });
     _this.state = {
       employees: [],
@@ -998,7 +1008,7 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, this.state.pagetitle), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, !this.props.isEmployeeDetailFetch && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Filter_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
         onFilterChange: this.handleFilterChange,
-        employeeType: this.props.employeeType
+        filters: this.state.filters
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", {
         className: "table table-hover"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("thead", {
@@ -1025,7 +1035,6 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
     }
   }]);
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
-
 var EmployeeRow = /*#__PURE__*/function (_React$Component2) {
   function EmployeeRow() {
     _classCallCheck(this, EmployeeRow);
@@ -1039,6 +1048,7 @@ var EmployeeRow = /*#__PURE__*/function (_React$Component2) {
     }
   }]);
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_withRouter_jsx__WEBPACK_IMPORTED_MODULE_2__["default"])(EmployeeTable));
 
 /***/ }),
 
@@ -1156,7 +1166,8 @@ var EmployeeTypeFilter = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_EmployeeTable_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
         title: title,
         employeeType: employeeType,
-        department: department
+        department: department,
+        match: this.props.match
       });
     }
   }]);
@@ -1538,7 +1549,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
 function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
@@ -1557,10 +1567,7 @@ var Filter = /*#__PURE__*/function (_React$Component) {
   function Filter() {
     var _this;
     _classCallCheck(this, Filter);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _callSuper(this, Filter, [].concat(args));
+    _this = _callSuper(this, Filter);
     _defineProperty(_this, "handleFilterChange", function (e) {
       var _e$target = e.target,
         name = _e$target.name,
@@ -1571,12 +1578,18 @@ var Filter = /*#__PURE__*/function (_React$Component) {
   }
   _inherits(Filter, _React$Component);
   return _createClass(Filter, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      console.log(this.props.filters);
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "filters"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
         name: "title",
+        value: this.props.filters.title,
         onChange: this.handleFilterChange
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
         value: ""
@@ -1590,6 +1603,7 @@ var Filter = /*#__PURE__*/function (_React$Component) {
         value: "VP"
       }, "VP")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
         name: "department",
+        value: this.props.filters.department,
         onChange: this.handleFilterChange
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
         value: ""
@@ -1603,18 +1617,19 @@ var Filter = /*#__PURE__*/function (_React$Component) {
         value: "Engineering"
       }, "Engineering")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
         name: "employeeType",
+        value: this.props.filters.employeeType,
         onChange: this.handleFilterChange
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
         value: ""
-      }, "All Employee Types"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", _extends({
+      }, "All Employee Types"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
         value: "FullTime"
-      }, this.props.employeeType == "FullTime" && "selected"), "Full Time"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", _extends({
+      }, "Full Time"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
         value: "PartTime"
-      }, this.props.employeeType == "PartTime" && "selected"), "Part Time"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", _extends({
+      }, "Part Time"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
         value: "Contract"
-      }, this.props.employeeType == "Contract" && "selected"), "Contract"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", _extends({
+      }, "Contract"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
         value: "Seasonal"
-      }, this.props.employeeType == "Seasonal" && "selected"), "Seasonal")));
+      }, "Seasonal")));
     }
   }]);
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
@@ -1897,10 +1912,12 @@ var withRouter = function withRouter(WrappedComponent) {
   return function (props) {
     var params = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useParams)();
     var location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useLocation)();
+    var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useNavigate)();
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(WrappedComponent, _extends({}, props, {
       match: {
         params: params,
-        location: location
+        location: location,
+        navigate: navigate
       }
     }));
   };

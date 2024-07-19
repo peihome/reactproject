@@ -80,6 +80,7 @@ class EmployeeTypeFilter extends React.Component {
                 title={title}
                 employeeType={employeeType}
                 department={department}
+                match={this.props.match}
             />
         );
     }

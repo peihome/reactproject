@@ -1,7 +1,8 @@
 import React from "react";
 import Filter from "./Filter.jsx";
+import withRouter from "./withRouter.jsx";
 
-export default class EmployeeTable extends React.Component {
+class EmployeeTable extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -113,6 +114,17 @@ export default class EmployeeTable extends React.Component {
             );
         });
         this.setState({ filteredEmployees: filteredEmployees });
+        this.applyQueryParams(filters);
+    }
+
+    applyQueryParams = (filters) => {
+
+        const queryParams = new URLSearchParams();
+        if (filters.title) queryParams.set('title', filters.title);
+        if (filters.employeeType) queryParams.set('employeeType', filters.employeeType);
+        if (filters.department) queryParams.set('department', filters.department);
+
+        this.props.match.navigate(`/employee/filter?${queryParams.toString()}`);
     }
 
     render() {
@@ -124,7 +136,7 @@ export default class EmployeeTable extends React.Component {
                 <h1>{this.state.pagetitle}</h1>
                 <div>
                     {!this.props.isEmployeeDetailFetch && (
-                        <Filter onFilterChange={this.handleFilterChange} employeeType={this.props.employeeType} />
+                        <Filter onFilterChange={this.handleFilterChange} filters={this.state.filters} />
                     )}
 
                     <table className="table table-hover">
@@ -168,3 +180,5 @@ class EmployeeRow extends React.Component {
         );
     }
 }
+
+export default withRouter(EmployeeTable);
