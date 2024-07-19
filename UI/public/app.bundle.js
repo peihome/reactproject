@@ -1021,7 +1021,7 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, EmployeeTable);
     _this = _callSuper(this, EmployeeTable);
     _defineProperty(_this, "fetchEmployees", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var query, response, result, _employees;
+      var query, response, result, employees;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
@@ -1053,11 +1053,11 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
             return response.json();
           case 10:
             result = _context.sent;
-            _employees = result.data.getAllEmployees;
+            employees = result.data.getAllEmployees;
             _this.setState({
-              employees: _employees,
-              filteredEmployees: _employees,
-              employeeCount: _employees.length
+              employees: employees,
+              filteredEmployees: employees,
+              employeeCount: employees.length
             });
             _context.next = 16;
             break;
@@ -1065,7 +1065,7 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
             _this.setState({
               employees: _this.props.employees,
               filteredEmployees: _this.props.employees,
-              employeeCount: employees.length
+              employeeCount: _this.props.employees.length
             });
           case 16:
             _context.next = 21;
@@ -1126,7 +1126,7 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function () {
       var _componentDidMount = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var _employees2;
+        var employees;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -1134,12 +1134,12 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
                 _context2.next = 6;
                 break;
               }
-              _employees2 = [];
-              _employees2.push(this.props.employees);
+              employees = [];
+              employees.push(this.props.employees);
               this.setState({
-                employees: _employees2,
-                filteredEmployees: _employees2,
-                employeeCount: _employees2.length
+                employees: employees,
+                filteredEmployees: employees,
+                employeeCount: employees.length
               });
               _context2.next = 11;
               break;
@@ -1184,7 +1184,7 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
           isEmployeeDetailFetch: _this2.props.isEmployeeDetailFetch
         });
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, this.props.isEmployeeDetailFetch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Employee Detail") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, this.state.pagetitle), !this.props.isEmployeeDetailFetch && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Filter_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, this.props.isEmployeeDetailFetch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, 'Employee Detail') : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, this.state.pagetitle), !this.props.isEmployeeDetailFetch && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Filter_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
         onFilterChange: this.handleFilterChange,
         filters: this.state.filters
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -1226,15 +1226,17 @@ var EmployeeRow = /*#__PURE__*/function (_React$Component2) {
   return _createClass(EmployeeRow, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, this.props.isEmployeeDetailFetch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, " ", this.props.employee.empId, " ") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, this.props.isEmployeeDetailFetch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, " ", this.props.employee.empId, " ") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
         target: "_blank",
+        rel: "noreferrer",
         href: "#/employee/detail/".concat(this.props.employee.empId)
-      }, " ", this.props.employee.empId, " "), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.FirstName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.LastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Age), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.DateOfJoining), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Department), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.EmployeeType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.CurrentStatus ? 'Active' : 'Inactive'));
+      }, ' ', this.props.employee.empId, ' '), ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.FirstName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.LastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Age), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.DateOfJoining), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.Department), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.EmployeeType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, this.props.employee.CurrentStatus ? 'Active' : 'Inactive'));
     }
   }]);
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 EmployeeRow.propTypes = {
-  employee: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
+  employee: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  isEmployeeDetailFetch: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool)
 };
 EmployeeTable.propTypes = {
   title: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),

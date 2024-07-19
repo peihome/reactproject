@@ -77,7 +77,7 @@ export default class EmployeeUpdate extends React.Component {
 				throw new Error('Failed to fetch employees');
 			}
 			employee = (await response.json()).data.getEmployeeById;
-            
+
 			this.setState({
 				showAlert: true,
 				alertMessage: employee == undefined ? 'Employee details not found!' : 'Employee details fetched successfully!',

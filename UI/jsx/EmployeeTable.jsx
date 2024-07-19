@@ -88,7 +88,7 @@ class EmployeeTable extends React.Component {
 				this.setState({
 					employees: this.props.employees,
 					filteredEmployees: this.props.employees,
-					employeeCount: employees.length
+					employeeCount: this.props.employees.length
 				});
 			}
 		} catch (error) {
@@ -113,7 +113,7 @@ class EmployeeTable extends React.Component {
 		const filteredEmployees = employees.filter((employee) => {
 			return (filters.title === '' || employee.Title === filters.title) && (filters.department === '' || employee.Department === filters.department) && (filters.employeeType === '' || employee.EmployeeType === filters.employeeType);
 		});
-		this.setState({ filteredEmployees: filteredEmployees,employeeCount: filteredEmployees.length });
+		this.setState({ filteredEmployees: filteredEmployees, employeeCount: filteredEmployees.length });
 		this.applyQueryParams(filters);
 	};
 
@@ -127,14 +127,10 @@ class EmployeeTable extends React.Component {
 	};
 
 	render() {
-		const rows = this.state.filteredEmployees.map((employee) => <EmployeeRow key={employee.empId} employee={employee} isEmployeeDetailFetch={this.props.isEmployeeDetailFetch}/>);
+		const rows = this.state.filteredEmployees.map((employee) => <EmployeeRow key={employee.empId} employee={employee} isEmployeeDetailFetch={this.props.isEmployeeDetailFetch} />);
 		return (
 			<>
-				{this.props.isEmployeeDetailFetch ? (
-					<h1>{"Employee Detail"}</h1>	
-				) : (
-					<h1>{this.state.pagetitle}</h1>
-				)}
+				{this.props.isEmployeeDetailFetch ? <h1>{'Employee Detail'}</h1> : <h1>{this.state.pagetitle}</h1>}
 				{!this.props.isEmployeeDetailFetch && <Filter onFilterChange={this.handleFilterChange} filters={this.state.filters} />}
 				<div className="table-container">
 					<table className="table table-hover">
@@ -154,7 +150,7 @@ class EmployeeTable extends React.Component {
 						<tbody>{rows}</tbody>
 					</table>
 				</div>
-				<p className='rowCount'>Total Rows: {this.state.employeeCount}</p>
+				<p className="rowCount">Total Rows: {this.state.employeeCount}</p>
 			</>
 		);
 	}
@@ -167,7 +163,13 @@ class EmployeeRow extends React.Component {
 				{this.props.isEmployeeDetailFetch ? (
 					<td> {this.props.employee.empId} </td>
 				) : (
-					<td> <a target="_blank" href={`#/employee/detail/${this.props.employee.empId}`}> {this.props.employee.empId} </a> </td>
+					<td>
+						{' '}
+						<a target="_blank" rel="noreferrer" href={`#/employee/detail/${this.props.employee.empId}`}>
+							{' '}
+							{this.props.employee.empId}{' '}
+						</a>{' '}
+					</td>
 				)}
 				<td>{this.props.employee.FirstName}</td>
 				<td>{this.props.employee.LastName}</td>
@@ -183,7 +185,8 @@ class EmployeeRow extends React.Component {
 }
 
 EmployeeRow.propTypes = {
-	employee: PropTypes.object
+	employee: PropTypes.object,
+	isEmployeeDetailFetch: PropTypes.bool
 };
 
 EmployeeTable.propTypes = {
