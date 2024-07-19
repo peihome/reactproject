@@ -80,7 +80,8 @@ export default class EmployeeUpdate extends React.Component {
             console.log(employee);
             this.setState({
                 showAlert: true,
-                alertMessage: employee == undefined ? "Employee details not found!" : "Employee details fetched successfully!"
+                alertMessage: employee == undefined ? "Employee details not found!" : "Employee details fetched successfully!",
+                result: employee == undefined ? false : true
             });
 
             this.resetAlert();
@@ -89,7 +90,8 @@ export default class EmployeeUpdate extends React.Component {
 
             this.setState({
                 showAlert: true,
-                alertMessage: "Employee details not found!"
+                alertMessage: "Employee details not found!",
+                result: false
             });
 
             this.resetAlert();
@@ -162,7 +164,8 @@ export default class EmployeeUpdate extends React.Component {
 
             this.setState({
                 showAlert: true,
-                alertMessage: "Employee Record updated successfully!"
+                alertMessage: "Employee Record updated successfully!",
+                result: true
             });
 
             this.resetAlert();
@@ -172,7 +175,8 @@ export default class EmployeeUpdate extends React.Component {
             updateResponse = undefined;
             this.setState({
                 showAlert: true,
-                alertMessage: "Error updating employee record!"
+                alertMessage: "Error updating employee record!",
+                result: false
             });
 
             this.resetAlert();
@@ -192,7 +196,7 @@ export default class EmployeeUpdate extends React.Component {
     render() {
         return (
             <>
-                {this.state.showAlert && <Alert message={this.state.alertMessage} />}
+                {this.state.showAlert && <Alert message={this.state.alertMessage} result={this.state.result} />}
         
                 {this.state.employee != undefined ? (
                     this.state.isEmployeeDetailFetch ? (

@@ -7,6 +7,7 @@ import EmployeeSearch from "./EmployeeSearch.jsx";
 import EmployeeUpdate from "./EmployeeUpdate.jsx";
 import EmployeeDelete from "./EmployeeDelete.jsx";
 import EmployeeTypeFilter from "./EmployeeTypeFilter.jsx";
+import ReloadingNavLink from "./ReloadingNavLink.jsx";
 
 export default class NavPage extends React.Component {
 
@@ -16,11 +17,11 @@ export default class NavPage extends React.Component {
                 <header>
                     <h1>Employee Management</h1>
                     <nav>
-                        <NavLink to="/"><i className="bi bi-people"></i> All Employees</NavLink>
-                        <NavLink to="/employee/create"><i className="bi bi-person-plus"></i> Create Employee</NavLink>
-                        <NavLink to="/employee/update"><i className="bi bi-pencil-square"></i> Update Employee</NavLink>
-                        <NavLink to="/employee/delete"><i className="bi bi-trash"></i> Delete Employee</NavLink>
-                        <NavLink to="/employee/search"><i className="bi bi-search"></i> Search Employee</NavLink>
+                        <ReloadingNavLink to="/"><i className="bi bi-people"></i> All Employees</ReloadingNavLink>
+                        <ReloadingNavLink to="/employee/create"><i className="bi bi-person-plus"></i> Create Employee</ReloadingNavLink>
+                        <ReloadingNavLink to="/employee/update"><i className="bi bi-pencil-square"></i> Update Employee</ReloadingNavLink>
+                        <ReloadingNavLink to="/employee/delete"><i className="bi bi-trash"></i> Delete Employee</ReloadingNavLink>
+                        <ReloadingNavLink to="/employee/search"><i className="bi bi-search"></i> Search Employee</ReloadingNavLink>
                     </nav>
                 </header>
 

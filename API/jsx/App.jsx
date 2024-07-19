@@ -219,8 +219,7 @@ class EmployeeCreate extends React.Component {
             if (!response.ok) {
                 throw new Error('Failed to create employee');
             }
-
-            ReactDOM.render(<Alert message="Added Successfully!"/>, document.getElementById('alert'));
+            
             this.setState({
                 employee : {
                     FirstName: '',

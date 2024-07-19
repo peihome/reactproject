@@ -39,7 +39,7 @@ var Alert = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         id: "alert",
-        className: "alert alert-primary",
+        className: "alert ".concat(this.props.result ? 'alert-success' : 'alert-danger'),
         role: "alert"
       }, this.props.message);
     }
@@ -276,7 +276,8 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
                   EmployeeType: ''
                 },
                 showAlert: true,
-                alertMessage: "Successfully added employee record!"
+                alertMessage: "Successfully added employee record!",
+                result: true
               });
               _this.resetAlert();
               _context2.next = 18;
@@ -287,7 +288,8 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
               console.log(_context2.t0);
               _this.setState({
                 showAlert: true,
-                alertMessage: _context2.t0.message
+                alertMessage: _context2.t0.message,
+                result: false
               });
               _this.resetAlert();
             case 18:
@@ -335,7 +337,8 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, this.state.showAlert && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Alert_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        message: this.state.alertMessage
+        message: this.state.alertMessage,
+        result: this.state.result
       }), this.props.deleteEmployee && this.state.employeeId === '' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_EmployeeDelete_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, " ", this.state.pagetitle, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -639,7 +642,8 @@ var EmployeeDelete = /*#__PURE__*/function (_React$Component) {
               deleteResponse = _context2.sent.data.deleteEmployee;
               _this.setState({
                 showAlert: true,
-                alertMessage: deleteResponse.message
+                alertMessage: deleteResponse.message,
+                result: true
               });
               clearTimeout(_this.timeout);
               _this.timeout = setTimeout(function () {
@@ -657,7 +661,8 @@ var EmployeeDelete = /*#__PURE__*/function (_React$Component) {
               deleteResponse = undefined;
               _this.setState({
                 showAlert: true,
-                alertMessage: _context2.t0
+                alertMessage: 'Failed to delete employee record!',
+                result: false
               });
               clearTimeout(_this.timeout);
               _this.timeout = setTimeout(function () {
@@ -690,7 +695,8 @@ var EmployeeDelete = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, this.state.showAlert && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Alert_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        message: this.state.alertMessage
+        message: this.state.alertMessage,
+        result: this.state.result
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ConfirmDeleteModal_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
         show: this.state.showConfirmDeleteModal,
         onHide: this.handleCancelDelete,
@@ -1262,7 +1268,8 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
               console.log(employee);
               _this.setState({
                 showAlert: true,
-                alertMessage: employee == undefined ? "Employee details not found!" : "Employee details fetched successfully!"
+                alertMessage: employee == undefined ? "Employee details not found!" : "Employee details fetched successfully!",
+                result: employee == undefined ? false : true
               });
               _this.resetAlert();
               _context.next = 23;
@@ -1273,7 +1280,8 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
               employee = undefined;
               _this.setState({
                 showAlert: true,
-                alertMessage: "Employee details not found!"
+                alertMessage: "Employee details not found!",
+                result: false
               });
               _this.resetAlert();
             case 23:
@@ -1362,7 +1370,8 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
               updateResponse = _context3.sent.data.updateEmployee;
               _this.setState({
                 showAlert: true,
-                alertMessage: "Employee Record updated successfully!"
+                alertMessage: "Employee Record updated successfully!",
+                result: true
               });
               _this.resetAlert();
               _context3.next = 31;
@@ -1374,7 +1383,8 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
               updateResponse = undefined;
               _this.setState({
                 showAlert: true,
-                alertMessage: "Error updating employee record!"
+                alertMessage: "Error updating employee record!",
+                result: false
               });
               _this.resetAlert();
             case 31:
@@ -1457,7 +1467,8 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, this.state.showAlert && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Alert_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        message: this.state.alertMessage
+        message: this.state.alertMessage,
+        result: this.state.result
       }), this.state.employee != undefined ? this.state.isEmployeeDetailFetch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_EmployeeTable_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
         employees: this.state.employee,
         pagetitle: "Search Results",
@@ -1651,7 +1662,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var _EmployeeTable_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EmployeeTable.jsx */ "./jsx/EmployeeTable.jsx");
 /* harmony import */ var _EmployeeCreate_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EmployeeCreate.jsx */ "./jsx/EmployeeCreate.jsx");
@@ -1660,6 +1670,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _EmployeeUpdate_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./EmployeeUpdate.jsx */ "./jsx/EmployeeUpdate.jsx");
 /* harmony import */ var _EmployeeDelete_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./EmployeeDelete.jsx */ "./jsx/EmployeeDelete.jsx");
 /* harmony import */ var _EmployeeTypeFilter_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./EmployeeTypeFilter.jsx */ "./jsx/EmployeeTypeFilter.jsx");
+/* harmony import */ var _ReloadingNavLink_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ReloadingNavLink.jsx */ "./jsx/ReloadingNavLink.jsx");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
@@ -1682,6 +1693,7 @@ function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf 
 
 
 
+
 var NavPage = /*#__PURE__*/function (_React$Component) {
   function NavPage() {
     _classCallCheck(this, NavPage);
@@ -1691,23 +1703,23 @@ var NavPage = /*#__PURE__*/function (_React$Component) {
   return _createClass(NavPage, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Employee Management"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("nav", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Employee Management"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("nav", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ReloadingNavLink_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
         to: "/"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
         className: "bi bi-people"
-      }), " All Employees"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
+      }), " All Employees"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ReloadingNavLink_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
         to: "/employee/create"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
         className: "bi bi-person-plus"
-      }), " Create Employee"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
+      }), " Create Employee"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ReloadingNavLink_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
         to: "/employee/update"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
         className: "bi bi-pencil-square"
-      }), " Update Employee"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
+      }), " Update Employee"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ReloadingNavLink_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
         to: "/employee/delete"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
         className: "bi bi-trash"
-      }), " Delete Employee"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
+      }), " Delete Employee"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ReloadingNavLink_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
         to: "/employee/search"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
         className: "bi bi-search"
@@ -1742,6 +1754,43 @@ var NavPage = /*#__PURE__*/function (_React$Component) {
   }]);
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 
+
+/***/ }),
+
+/***/ "./jsx/ReloadingNavLink.jsx":
+/*!**********************************!*\
+  !*** ./jsx/ReloadingNavLink.jsx ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+var _excluded = ["to", "children"];
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function _objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i = _objectWithoutPropertiesLoose(e, t); if (Object.getOwnPropertySymbols) { var n = Object.getOwnPropertySymbols(e); for (r = 0; r < n.length; r++) o = n[r], t.indexOf(o) >= 0 || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]); } return i; }
+function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (e.indexOf(n) >= 0) continue; t[n] = r[n]; } return t; }
+
+
+var ReloadingNavLink = function ReloadingNavLink(_ref) {
+  var to = _ref.to,
+    children = _ref.children,
+    props = _objectWithoutProperties(_ref, _excluded);
+  var handleClick = function handleClick(event) {
+    event.preventDefault();
+    window.location.href = '/#' + to;
+    window.location.reload(true);
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.NavLink, _extends({
+    to: to,
+    onClick: handleClick
+  }, props), children);
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ReloadingNavLink);
 
 /***/ }),
 

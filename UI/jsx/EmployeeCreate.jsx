@@ -124,7 +124,8 @@ export default class EmployeeCreate extends React.Component {
                     EmployeeType: ''
                 },
                 showAlert: true,
-                alertMessage: "Successfully added employee record!"
+                alertMessage: "Successfully added employee record!",
+                result: true
             });
 
             this.resetAlert();
@@ -133,7 +134,8 @@ export default class EmployeeCreate extends React.Component {
             console.log(error);
             this.setState({ 
                 showAlert: true,
-                alertMessage: error.message
+                alertMessage: error.message,
+                result: false
             });
 
             this.resetAlert();
@@ -151,7 +153,7 @@ export default class EmployeeCreate extends React.Component {
     render() {
         return (
             <>
-            {this.state.showAlert && <Alert message={this.state.alertMessage} />}
+            {this.state.showAlert && <Alert message={this.state.alertMessage} result={this.state.result} />}
 
             {this.props.deleteEmployee && this.state.employeeId === '' ? (
                 <EmployeeDelete />

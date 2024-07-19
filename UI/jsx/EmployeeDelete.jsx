@@ -71,7 +71,8 @@ export default class EmployeeDelete extends React.Component {
 
             this.setState({
                 showAlert: true,
-                alertMessage: deleteResponse.message
+                alertMessage: deleteResponse.message,
+                result: true
             });
 
             clearTimeout(this.timeout);
@@ -85,7 +86,8 @@ export default class EmployeeDelete extends React.Component {
             deleteResponse = undefined;
             this.setState({
                 showAlert: true,
-                alertMessage: error
+                alertMessage: 'Failed to delete employee record!',
+                result: false
             });
 
             clearTimeout(this.timeout);
@@ -101,7 +103,7 @@ export default class EmployeeDelete extends React.Component {
     render() {
         return (
             <>
-                {this.state.showAlert && <Alert message={this.state.alertMessage} />}
+                {this.state.showAlert && <Alert message={this.state.alertMessage} result={this.state.result} />}
 
                 <ConfirmDeleteModal
                     show={this.state.showConfirmDeleteModal}
