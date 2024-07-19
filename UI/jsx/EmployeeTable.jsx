@@ -134,11 +134,10 @@ class EmployeeTable extends React.Component {
         return (
             <>
                 <h1>{this.state.pagetitle}</h1>
-                <div>
-                    {!this.props.isEmployeeDetailFetch && (
-                        <Filter onFilterChange={this.handleFilterChange} filters={this.state.filters} />
-                    )}
-
+                {!this.props.isEmployeeDetailFetch && (
+                    <Filter onFilterChange={this.handleFilterChange} filters={this.state.filters} />
+                )}
+                <div className="table-container">
                     <table className="table table-hover">
                         <thead className="thead-dark">
                             <tr>
