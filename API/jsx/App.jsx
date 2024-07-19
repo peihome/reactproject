@@ -243,9 +243,7 @@ class EmployeeCreate extends React.Component {
         return (
             <>
             <h1> {this.state.pagetitle} </h1>
-
-            <span id="alert"></span>
-
+            
             <form onSubmit={this.createEmployee}>
                 <div className="form-group">
                     <label htmlFor="FirstName">First Name:</label>
@@ -319,7 +317,7 @@ class Alert extends React.Component {
     componentDidMount() {
       this.timeout = setTimeout(() => {
         this.setState({ visible: false });
-      }, 3000);
+      }, 4000);
     }
   
     componentWillUnmount() {

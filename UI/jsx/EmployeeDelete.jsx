@@ -1,0 +1,120 @@
+import React from "react";
+import EmployeeUpdate from "./EmployeeUpdate.jsx";
+import ConfirmDeleteModal from './ConfirmDeleteModal.jsx';
+import Alert from "./Alert.jsx";
+
+export default class EmployeeDelete extends React.Component {
+
+    constructor(){
+        super();
+
+        this.state = {
+            showAlert: false,
+            showConfirmDeleteModal: false,
+            showEmployeeDeletePage: false
+        };
+    }
+
+    handleDeleteClick = (employeeId) => {
+        this.setState({
+            showConfirmDeleteModal: true,
+            employeeToDelete: employeeId,
+        });
+    };
+
+    handleConfirmDelete = async () => {
+        await this.deleteEmployee(this.state.employeeToDelete);
+        this.setState({
+            showEmployeeDeletePage: true,
+            showConfirmDeleteModal: false,
+            employeeToDelete: null,
+        });
+    };
+
+    handleCancelDelete = () => {
+        this.setState({
+            showConfirmDeleteModal: false,
+            employeeToDelete: null,
+        });
+    };
+
+    deleteEmployee = async (empId) => {
+
+        let deleteResponse;
+        try{
+            empId = parseInt(empId);
+        }catch(e){
+            empId = 0;
+        }
+
+        try{
+            const mutation = `
+                    mutation {
+                        deleteEmployee(empId: ${empId}) {
+                            code
+                            message
+                        }
+                    }
+                `;
+
+            const response = await fetch('http://localhost:8000/graphql', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: mutation })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update employee');
+            }
+
+            deleteResponse = (await response.json()).data.deleteEmployee;
+
+            this.setState({
+                showAlert: true,
+                alertMessage: deleteResponse.message
+            });
+
+            clearTimeout(this.timeout);
+            this.timeout = setTimeout(() => {
+                this.setState({ showAlert: false });
+                clearTimeout(this.timeout);
+            }, 4000);
+        }
+        catch(error) {
+            console.log(error);
+            deleteResponse = undefined;
+            this.setState({
+                showAlert: true,
+                alertMessage: error
+            });
+
+            clearTimeout(this.timeout);
+            this.timeout = setTimeout(() => {
+                this.setState({ showAlert: false });
+                clearTimeout(this.timeout);
+            }, 4000);
+        }
+
+        return deleteResponse;
+    }
+
+    render() {
+        return (
+            <>
+                {this.state.showAlert && <Alert message={this.state.alertMessage} />}
+
+                <ConfirmDeleteModal
+                    show={this.state.showConfirmDeleteModal}
+                    onHide={this.handleCancelDelete}
+                    onConfirm={this.handleConfirmDelete}
+                />
+
+                {this.state.showEmployeeDeletePage ? 
+                (<EmployeeDelete />) : 
+                (
+                    <EmployeeUpdate pagetitle="Delete Employee" deleteEmployee = {this.deleteEmployee} handleDeleteClick={this.handleDeleteClick}/>
+                )}
+            </>
+        );
+    }
+}

@@ -99,3 +99,36 @@ main > form {
 .form-control.is-valid , .form-control.is-invalid  {
     background-position: center right calc(.375em + 1.1875rem) !important;
 }
+
+.alert {
+    position: fixed;
+    top: 10%;
+    right: 0;
+    visibility: unset;
+}
+
+nav a {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+    text-align: center;
+}
+
+nav {
+    display: grid;
+    align-items: center;
+    flex-direction: column;
+}
+
+.required:after {
+    content: " *";
+    color: red;
+    font-weight: 500;
+}
+
+.modal-header i {
+    cursor: pointer;
+    font-size: 23px;
+}
