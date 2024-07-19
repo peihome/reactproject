@@ -103,10 +103,6 @@ module.exports = (app) => {
             
             updateEmployee: async (_, args) => {
                 const updateEmployee = {
-                    FirstName: args.FirstName,
-                    LastName: args.LastName,
-                    Age: args.Age,
-                    DateOfJoining: args.DateOfJoining,
                     Title: args.Title,
                     Department: args.Department,
                     EmployeeType: args.EmployeeType,
