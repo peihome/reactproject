@@ -5,7 +5,7 @@
   "main": "server/main.js",
   "scripts": {
     "start#": "npm install && node server/main.js",
-    "start": "nodemon server/main.js"
+    "start": "npm install && nodemon server/main.js"
   },
   "keywords": [],
   "author": "",

@@ -6,8 +6,8 @@
   "scripts": {
     "start#": "npm install && babel jsx --presets @babel/react --out-dir public && node server/main.js",
     "watch#": "babel jsx --presets @babel/react --out-dir public --watch --verbose",
-    "start": "nodemon --watch server",
-    "watch": "webpack -w --config webpack.config.js",
+    "start": "npm install && nodemon --watch server",
+    "watch": "npm install && webpack -w --config webpack.config.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:report": "eslint jsx/* --format node_modules/eslint-html-reporter/reporter.js --output-file eslint-report.html",
