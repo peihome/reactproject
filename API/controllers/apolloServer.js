@@ -26,6 +26,7 @@ module.exports = (app) => {
             FirstName: String
             LastName: String
             Age: Int
+            DateOfBirth: GraphQLDate
             DateOfJoining: GraphQLDate
             Title: String
             Department: String
@@ -48,6 +49,7 @@ module.exports = (app) => {
                 FirstName: String!,
                 LastName: String!,
                 Age: Int!,
+                DateOfBirth: GraphQLDate!
                 DateOfJoining: GraphQLDate!,
                 Title: String!,
                 Department: String!,
@@ -59,6 +61,7 @@ module.exports = (app) => {
                 FirstName: String,
                 LastName: String,
                 Age: Int,
+                DateOfBirth: String,
                 DateOfJoining: String,
                 Title: String,
                 Department: String,
@@ -93,6 +96,7 @@ module.exports = (app) => {
                     FirstName: args.FirstName,
                     LastName: args.LastName,
                     Age: args.Age,
+                    DateOfBirth: args.DateOfBirth,
                     DateOfJoining: args.DateOfJoining,
                     Title: args.Title,
                     Department: args.Department,

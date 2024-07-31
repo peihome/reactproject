@@ -172,3 +172,13 @@ table thead th {
     padding-right: 3em;
     padding-top: 0.5em;
 }
+
+.report {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.report h2 {
+    text-align: center;
+}

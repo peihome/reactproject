@@ -128,6 +128,9 @@ export const handleValidation = (name, value) => {
 		case 'Age':
 			response = validateAge(value);
 			break;
+		case 'DateOfBirth':
+			response = validateDate(value);
+			break;
 		case 'DateOfJoining':
 			response = validateDate(value);
 			break;

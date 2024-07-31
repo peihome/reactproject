@@ -12,6 +12,7 @@ export default class EmployeeCreate extends React.Component {
 				FirstName: '',
 				LastName: '',
 				Age: '',
+				DateOfBirth: '',
 				DateOfJoining: '',
 				Title: '',
 				Department: '',
@@ -84,6 +85,7 @@ export default class EmployeeCreate extends React.Component {
                         FirstName: "${employee.FirstName}",
                         LastName: "${employee.LastName}",
                         Age: ${employee.Age},
+						DateOfBirth: "${employee.DateOfBirth}",
                         DateOfJoining: "${employee.DateOfJoining}",
                         Title: "${employee.Title}",
                         Department: "${employee.Department}",
@@ -92,6 +94,7 @@ export default class EmployeeCreate extends React.Component {
                         FirstName
                         LastName
                         Age
+						DateOfBirth
                         DateOfJoining
                         Title
                         Department
@@ -115,6 +118,7 @@ export default class EmployeeCreate extends React.Component {
 					FirstName: '',
 					LastName: '',
 					Age: '',
+					DateOfBirth: '',
 					DateOfJoining: '',
 					Title: '',
 					Department: '',
@@ -177,6 +181,13 @@ export default class EmployeeCreate extends React.Component {
 									Age
 								</label>
 								<input type="number" id="Age" name="Age" className="form-control" value={this.state.employee.Age} onChange={this.handleChange} min="20" max="70" {...(this.props.deleteEmployee || this.props.updateEmployee ? { disabled: true } : { required: true })} />
+								<div className="invalid-feedback"></div>
+							</div>
+							<div className="form-group">
+								<label htmlFor="DateOfBirth" className={!(this.props.deleteEmployee || this.props.updateEmployee) ? 'required' : ''}>
+									Date of Birth
+								</label>
+								<input type="date" id="DateOfBirth" name="DateOfBirth" className="form-control" value={this.state.employee.DateOfBirth} onChange={this.handleChange} {...(this.props.deleteEmployee || this.props.updateEmployee ? { disabled: true } : { required: true })} />
 								<div className="invalid-feedback"></div>
 							</div>
 							<div className="form-group">

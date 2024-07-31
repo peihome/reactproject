@@ -60,6 +60,7 @@ class EmployeeTable extends React.Component {
                         FirstName
                         LastName
                         Age
+						DateOfBirth
                         DateOfJoining
                         Title
                         Department
@@ -142,6 +143,7 @@ class EmployeeTable extends React.Component {
 								<th scope="col">FirstName</th>
 								<th scope="col">LastName</th>
 								<th scope="col">Age</th>
+								<th scope="col">DOB</th>
 								<th scope="col">DOJ</th>
 								<th scope="col">Title</th>
 								<th scope="col">Department</th>
@@ -176,6 +178,7 @@ class EmployeeRow extends React.Component {
 				<td>{this.props.employee.FirstName}</td>
 				<td>{this.props.employee.LastName}</td>
 				<td>{this.props.employee.Age}</td>
+				<td>{this.props.employee.DateOfBirth}</td>
 				<td>{this.props.employee.DateOfJoining}</td>
 				<td>{this.props.employee.Title}</td>
 				<td>{this.props.employee.Department}</td>

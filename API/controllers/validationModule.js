@@ -133,6 +133,11 @@ const handleValidation = (args) => {
         response.push(validationResponse.message);
     }
 
+    validationResponse = validateDate(args.DateOfBirth);
+    if(!validationResponse.isValid) {
+        response.push(validationResponse.message);
+    }
+
     validationResponse = validateDate(args.DateOfJoining);
     if(!validationResponse.isValid) {
         response.push(validationResponse.message);

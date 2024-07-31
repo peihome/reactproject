@@ -8,6 +8,7 @@ import EmployeeUpdate from './EmployeeUpdate.jsx';
 import EmployeeDelete from './EmployeeDelete.jsx';
 import EmployeeFilter from './EmployeeFilter.jsx';
 import ReloadingNavLink from './ReloadingNavLink.jsx';
+import EmployeeReport from './EmployeeReport.jsx';
 
 export default class NavPage extends React.Component {
 	render() {
@@ -31,6 +32,9 @@ export default class NavPage extends React.Component {
 						<ReloadingNavLink to="/employee/search">
 							<i className="bi bi-search"></i> Search Employee
 						</ReloadingNavLink>
+						<ReloadingNavLink to="/employee/report">
+							<i className="bi bi-bar-chart"></i> Employee Report
+						</ReloadingNavLink>
 					</nav>
 				</header>
 
@@ -44,6 +48,7 @@ export default class NavPage extends React.Component {
 						<Route path="/employee/delete" element={<EmployeeDelete />} />
 						<Route path="/employee/filter" element={<EmployeeFilter />} />
 						<Route path="/employee/detail/:id" element={<EmployeeSearch />} />
+						<Route path="/employee/report" element={<EmployeeReport />} />
 						<Route path="*" element={<ErrorPage />} />
 					</Routes>
 				</main>
