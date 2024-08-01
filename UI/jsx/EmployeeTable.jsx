@@ -1,73 +1,65 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Filter from './Filter.jsx';
 import withRouter from './withRouter.jsx';
-import PropTypes from 'prop-types';
 
 class EmployeeTable extends React.Component {
-
 	constructor() {
 		super();
 		this.state = {
 			employees: [],
 			filteredEmployees: [],
-			pagetitle: 'All Employees',
+			upcomingRetirementEmployees: [],
+			activeTab: 'all', // 'all' or 'upcomingRetirement'
 			filters: {
-				title: '',
-				department: '',
-				employeeType: ''
-			}
+				all: {
+					title: '',
+					department: '',
+					employeeType: '',
+					ageRange: ''
+				},
+				upcomingRetirement: {
+					title: '',
+					department: '',
+					employeeType: ''
+				}
+			},
+			showUpcomingRetirement: false
 		};
 		this.API_SERVER_URL = process.env.API_SERVER_URL;
 	}
 
 	async componentDidMount() {
 		if (this.props.employees) {
-			const employees = [];
-			employees.push(this.props.employees);
+			const employees = this.props.employees; // Assume props directly passed
 			this.setState({
 				employees: employees,
 				filteredEmployees: employees,
 				employeeCount: employees.length
 			});
+			this.updateUpcomingRetirement(employees);
 		} else {
 			await this.fetchEmployees();
-			if (this.props.title) {
-				this.handleFilterChange('title', this.props.title);
-			}
-
-			if (this.props.employeeType) {
-				this.handleFilterChange('employeeType', this.props.employeeType);
-			}
-
-			if (this.props.department) {
-				this.handleFilterChange('department', this.props.department);
-			}
-		}
-
-		if (this.props.pagetitle) {
-			this.setState({
-				pagetitle: this.props.pagetitle
-			});
 		}
 	}
 
 	fetchEmployees = async () => {
 		try {
-			if (this.props.employees == undefined) {
+			if (!this.props.employees) {
 				const query = `query {
-                    getAllEmployees {
-                        empId
-                        FirstName
-                        LastName
-                        Age
+					getAllEmployees {
+						empId
+						FirstName
+						LastName
+						Age
 						DateOfBirth
-                        DateOfJoining
-                        Title
-                        Department
-                        EmployeeType
-                        CurrentStatus
-                    }
-                }`;
+						DateOfJoining
+						Title
+						Department
+						EmployeeType
+						CurrentStatus
+					}
+				}`;
 
 				const response = await fetch(`${this.API_SERVER_URL}`, {
 					method: 'POST',
@@ -87,16 +79,33 @@ class EmployeeTable extends React.Component {
 					filteredEmployees: employees,
 					employeeCount: employees.length
 				});
+				this.updateUpcomingRetirement(employees);
 			} else {
 				this.setState({
 					employees: this.props.employees,
 					filteredEmployees: this.props.employees,
 					employeeCount: this.props.employees.length
 				});
+				this.updateUpcomingRetirement(this.props.employees);
 			}
 		} catch (error) {
 			this.setState({ error: error.message });
 		}
+	};
+
+	updateUpcomingRetirement = (employees) => {
+		const now = new Date();
+		const sixMonthsFromNow = new Date();
+		sixMonthsFromNow.setMonth(now.getMonth() + 6);
+
+		const upcomingRetirement = employees.filter(employee => {
+			const dob = new Date(employee.DateOfBirth);
+			const retirementDate = new Date(dob.setFullYear(dob.getFullYear() + 65));
+
+			return retirementDate >= now && retirementDate <= sixMonthsFromNow;
+		});
+
+		this.setState({ upcomingRetirementEmployees: upcomingRetirement });
 	};
 
 	handleFilterChange = (name, value) => {
@@ -104,7 +113,10 @@ class EmployeeTable extends React.Component {
 			(prevState) => ({
 				filters: {
 					...prevState.filters,
-					[name]: value
+					[prevState.activeTab]: {
+						...prevState.filters[prevState.activeTab],
+						[name]: value
+					}
 				}
 			}),
 			this.applyFilters
@@ -112,21 +124,60 @@ class EmployeeTable extends React.Component {
 	};
 
 	applyFilters = () => {
-		const { employees, filters } = this.state;
-		const filteredEmployees = employees.filter((employee) => {
-			return (filters.title === '' || employee.Title === filters.title) && (filters.department === '' || employee.Department === filters.department) && (filters.employeeType === '' || employee.EmployeeType === filters.employeeType);
-		});
-		this.setState({ filteredEmployees: filteredEmployees, employeeCount: filteredEmployees.length });
-		this.applyQueryParams(filters);
+		const { employees, filters, activeTab, upcomingRetirementEmployees } = this.state;
+
+		if (activeTab === 'upcomingRetirement') {
+			const filteredUpcomingRetirement = upcomingRetirementEmployees.filter(employee => {
+				return (
+					(filters.upcomingRetirement.title === '' || employee.Title === filters.upcomingRetirement.title) &&
+					(filters.upcomingRetirement.department === '' || employee.Department === filters.upcomingRetirement.department) &&
+					(filters.upcomingRetirement.employeeType === '' || employee.EmployeeType === filters.upcomingRetirement.employeeType)
+				);
+			});
+			this.setState({ filteredEmployees: filteredUpcomingRetirement, employeeCount: filteredUpcomingRetirement.length });
+		} else {
+			const filteredEmployees = employees.filter(employee => {
+				const dob = new Date(employee.DateOfBirth);
+				const age = new Date().getFullYear() - dob.getFullYear();
+				const ageRange = filters.all.ageRange;
+				const [minAge, maxAge] = ageRange ? ageRange.split('-').map(Number) : [0, Infinity];
+
+				return (
+					(filters.all.title === '' || employee.Title === filters.all.title) &&
+					(filters.all.department === '' || employee.Department === filters.all.department) &&
+					(filters.all.employeeType === '' || employee.EmployeeType === filters.all.employeeType) &&
+					(age >= minAge && age <= maxAge)
+				);
+			});
+			this.setState({ filteredEmployees: filteredEmployees, employeeCount: filteredEmployees.length });
+		}
+
+		this.applyQueryParams();
 	};
 
-	applyQueryParams = (filters) => {
+	applyQueryParams = () => {
+		const { filters, activeTab } = this.state;
 		const queryParams = new URLSearchParams();
-		if (filters.title) queryParams.set('title', filters.title);
-		if (filters.employeeType) queryParams.set('employeeType', filters.employeeType);
-		if (filters.department) queryParams.set('department', filters.department);
+
+		if (activeTab === 'all') {
+			if (filters.all.title) queryParams.set('title', filters.all.title);
+			if (filters.all.employeeType) queryParams.set('employeeType', filters.all.employeeType);
+			if (filters.all.department) queryParams.set('department', filters.all.department);
+			if (filters.all.ageRange) queryParams.set('ageRange', filters.all.ageRange);
+		} else {
+			if (filters.upcomingRetirement.title) queryParams.set('title', filters.upcomingRetirement.title);
+			if (filters.upcomingRetirement.department) queryParams.set('department', filters.upcomingRetirement.department);
+			if (filters.upcomingRetirement.employeeType) queryParams.set('employeeType', filters.upcomingRetirement.employeeType);
+		}
 
 		this.props.match.navigate(`/employee/filter?${queryParams.toString()}`);
+	};
+
+	toggleTab = (tab) => {
+		this.setState(
+			() => ({ activeTab: tab, showUpcomingRetirement: tab === 'upcomingRetirement' }),
+			this.applyFilters
+		);
 	};
 
 	render() {
@@ -134,7 +185,29 @@ class EmployeeTable extends React.Component {
 		return (
 			<>
 				{this.props.isEmployeeDetailFetch ? <h1>{'Employee Detail'}</h1> : <h1>{this.state.pagetitle}</h1>}
-				{!this.props.isEmployeeDetailFetch && <Filter onFilterChange={this.handleFilterChange} filters={this.state.filters} />}
+				{!this.props.isEmployeeDetailFetch && (
+					<>
+						<div className="tabs">
+							<button
+								className={`tab-button ${this.state.activeTab === 'all' ? 'active' : ''}`}
+								onClick={() => this.toggleTab('all')}
+							>
+								All Employees
+							</button>
+							<button
+								className={`tab-button ${this.state.activeTab === 'upcomingRetirement' ? 'active' : ''}`}
+								onClick={() => this.toggleTab('upcomingRetirement')}
+							>
+								Upcoming Retirements
+							</button>
+						</div>
+						<Filter 
+							onFilterChange={this.handleFilterChange} 
+							filters={this.state.filters[this.state.activeTab]} 
+							activeTab={this.state.activeTab}
+						/>
+					</>
+				)}
 				<div className="table-container">
 					<table className="table table-hover">
 						<thead className="thead-dark">
@@ -142,7 +215,6 @@ class EmployeeTable extends React.Component {
 								<th scope="col">EmpId</th>
 								<th scope="col">FirstName</th>
 								<th scope="col">LastName</th>
-								<th scope="col">Age</th>
 								<th scope="col">DOB</th>
 								<th scope="col">DOJ</th>
 								<th scope="col">Title</th>
@@ -160,38 +232,31 @@ class EmployeeTable extends React.Component {
 	}
 }
 
-class EmployeeRow extends React.Component {
-	render() {
-		return (
-			<tr>
-				{this.props.isEmployeeDetailFetch ? (
-					<td> {this.props.employee.empId} </td>
-				) : (
-					<td>
-						{' '}
-						<a target="_blank" rel="noreferrer" href={`#/employee/detail/${this.props.employee.empId}`}>
-							{' '}
-							{this.props.employee.empId}{' '}
-						</a>{' '}
-					</td>
-				)}
-				<td>{this.props.employee.FirstName}</td>
-				<td>{this.props.employee.LastName}</td>
-				<td>{this.props.employee.Age}</td>
-				<td>{this.props.employee.DateOfBirth}</td>
-				<td>{this.props.employee.DateOfJoining}</td>
-				<td>{this.props.employee.Title}</td>
-				<td>{this.props.employee.Department}</td>
-				<td>{this.props.employee.EmployeeType}</td>
-				<td>{this.props.employee.CurrentStatus ? 'Active' : 'Inactive'}</td>
-			</tr>
-		);
-	}
-}
+const EmployeeRow = ({ employee, isEmployeeDetailFetch }) => (
+	<tr>
+		{isEmployeeDetailFetch ? (
+			<td>{employee.empId}</td>
+		) : (
+			<td>
+				<a target="_blank" rel="noreferrer" href={`#/employee/detail/${employee.empId}`}>
+					{employee.empId}
+				</a>
+			</td>
+		)}
+		<td>{employee.FirstName}</td>
+		<td>{employee.LastName}</td>
+		<td>{employee.DateOfBirth}</td>
+		<td>{employee.DateOfJoining}</td>
+		<td>{employee.Title}</td>
+		<td>{employee.Department}</td>
+		<td>{employee.EmployeeType}</td>
+		<td>{employee.CurrentStatus ? 'Active' : 'Inactive'}</td>
+	</tr>
+);
 
 EmployeeRow.propTypes = {
-	employee: PropTypes.object,
-	isEmployeeDetailFetch: PropTypes.bool
+	employee: PropTypes.object.isRequired,
+	isEmployeeDetailFetch: PropTypes.bool.isRequired
 };
 
 EmployeeTable.propTypes = {
@@ -199,8 +264,8 @@ EmployeeTable.propTypes = {
 	employeeType: PropTypes.string,
 	department: PropTypes.string,
 	pagetitle: PropTypes.string,
-	employees: PropTypes.object,
-	match: PropTypes.object,
+	employees: PropTypes.array,
+	match: PropTypes.object.isRequired,
 	isEmployeeDetailFetch: PropTypes.bool
 };
 

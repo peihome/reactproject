@@ -23,12 +23,18 @@ export default class EmployeeDelete extends React.Component {
 	};
 
 	handleConfirmDelete = async () => {
-		await this.deleteEmployee(this.state.employeeToDelete);
-		this.setState({
-			showEmployeeDeletePage: true,
-			showConfirmDeleteModal: false,
-			employeeToDelete: null
-		});
+		const response = await this.deleteEmployee(this.state.employeeToDelete);
+		if(typeof response === 'boolean' && response == false){
+			this.setState({
+				showConfirmDeleteModal: false
+			});
+		}else {
+			this.setState({
+				showEmployeeDeletePage: true,
+				showConfirmDeleteModal: false,
+				employeeToDelete: null
+			});
+		}
 	};
 
 	handleCancelDelete = () => {
@@ -36,6 +42,51 @@ export default class EmployeeDelete extends React.Component {
 			showConfirmDeleteModal: false,
 			employeeToDelete: null
 		});
+	};
+
+	fetchEmployeeById = async (employeeId) => {
+		let employee = undefined;
+
+		try {
+			const query = `query($id: Int!) {
+                            getEmployeeById(empId: $id) {
+                                empId
+                                FirstName
+                                LastName
+                                Age
+								DateOfBirth
+                                DateOfJoining
+                                Title
+                                Department
+                                EmployeeType
+                                CurrentStatus
+                            }
+                        }`;
+			const variables = {
+				id: employeeId
+			};
+
+			const response = await fetch(`${this.API_SERVER_URL}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					query: query,
+					variables: variables
+				})
+			});
+			if (!response.ok) {
+				throw new Error('Failed to fetch employees');
+			}
+			employee = (await response.json()).data.getEmployeeById;
+
+		} catch (e) {
+			employee = undefined;
+			console.log(e);
+		}
+
+		return employee;
 	};
 
 	deleteEmployee = async (empId) => {
@@ -56,6 +107,20 @@ export default class EmployeeDelete extends React.Component {
                         }
                     }
                 `;
+			
+			//Fetch employee details
+			const employee = await this.fetchEmployeeById(empId);
+
+			if(employee.CurrentStatus) {
+				this.setState({
+					showAlert: true,
+					alertMessage: "CAN’T DELETE EMPLOYEE – STATUS ACTIVE",
+					result: false
+				});
+	
+				this.resetAlert();
+				return false;
+			}
 
 			const response = await fetch(`${this.API_SERVER_URL}`, {
 				method: 'POST',
@@ -64,7 +129,7 @@ export default class EmployeeDelete extends React.Component {
 			});
 
 			if (!response.ok) {
-				throw new Error('Failed to update employee');
+				throw new Error('Failed to delete employee');
 			}
 
 			deleteResponse = (await response.json()).data.deleteEmployee;
@@ -75,11 +140,7 @@ export default class EmployeeDelete extends React.Component {
 				result: true
 			});
 
-			clearTimeout(this.timeout);
-			this.timeout = setTimeout(() => {
-				this.setState({ showAlert: false });
-				clearTimeout(this.timeout);
-			}, 4000);
+			this.resetAlert();
 		} catch (error) {
 			console.log(error);
 			deleteResponse = undefined;
@@ -89,14 +150,18 @@ export default class EmployeeDelete extends React.Component {
 				result: false
 			});
 
-			clearTimeout(this.timeout);
-			this.timeout = setTimeout(() => {
-				this.setState({ showAlert: false });
-				clearTimeout(this.timeout);
-			}, 4000);
+			this.resetAlert();
 		}
 
 		return deleteResponse;
+	};
+
+	resetAlert = () => {
+		clearTimeout(this.timeout);
+		this.timeout = setTimeout(() => {
+			this.setState({ showAlert: false });
+			clearTimeout(this.timeout);
+		}, 4000);
 	};
 
 	render() {

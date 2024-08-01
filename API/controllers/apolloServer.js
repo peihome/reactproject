@@ -123,6 +123,14 @@ module.exports = (app) => {
                 };
 
                 try {
+                    const employee = await Employee.findOne({empId: args.empId});
+                    if(employee.CurrentStatus){
+                        Response.code = 409;
+                        Response.message = "CANNOT DELETE EMPLOYEE – STATUS ACTIVE";
+
+                        return Response;
+                    }
+
                     const deletedEmployee = await Employee.findOneAndDelete({empId: args.empId});
                     if (!deletedEmployee) {
                         Response.code = 404;
