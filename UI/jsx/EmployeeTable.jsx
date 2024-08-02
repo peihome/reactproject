@@ -30,7 +30,7 @@ class EmployeeTable extends React.Component {
 	}
 
 	async componentDidMount() {
-		if (this.props.employees) {
+		if (!this.props.isEmployeeDetailFetch && this.props.employees) {
 			const employees = this.props.employees; // Assume props directly passed
 			this.setState({
 				employees: employees,
@@ -79,14 +79,19 @@ class EmployeeTable extends React.Component {
 					filteredEmployees: employees,
 					employeeCount: employees.length
 				});
-				this.updateUpcomingRetirement(employees);
+
+				if(!this.props.isEmployeeDetailFetch) {
+					this.updateUpcomingRetirement(employees);
+				}
 			} else {
 				this.setState({
 					employees: this.props.employees,
 					filteredEmployees: this.props.employees,
 					employeeCount: this.props.employees.length
 				});
-				this.updateUpcomingRetirement(this.props.employees);
+				if(!this.props.isEmployeeDetailFetch) {
+					this.updateUpcomingRetirement(this.props.employees);
+				}
 			}
 		} catch (error) {
 			this.setState({ error: error.message });
@@ -256,7 +261,7 @@ const EmployeeRow = ({ employee, isEmployeeDetailFetch }) => (
 
 EmployeeRow.propTypes = {
 	employee: PropTypes.object.isRequired,
-	isEmployeeDetailFetch: PropTypes.bool.isRequired
+	isEmployeeDetailFetch: PropTypes.bool
 };
 
 EmployeeTable.propTypes = {

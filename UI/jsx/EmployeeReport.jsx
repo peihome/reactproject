@@ -8,36 +8,10 @@ export default class EmployeeReport extends React.Component {
       data: [],
       department: [],
       title: [],
-      dataByDepartments: [
-        ["Department", "Number of Employees"],
-        ["IT", 50],
-        ["Marketing", 40],
-        ["HR", 20],
-        ["Engineering", 60],
-      ],
-      dataByTypes: [
-        ["Type", "Number of Employees"],
-        ["Seasonal", 15],
-        ["Contract", 25],
-        ["Full-Time", 100],
-        ["Part-Time", 30],
-      ],
-      dataByTitles: [
-        ["Title", "Number of Employees"],
-        ["Employee", 90],
-        ["Manager", 40],
-        ["Director", 10],
-        ["VP", 5],
-      ],
-      dataReaching65: [
-        ["Month", "Number of Employees"],
-        ["August", 2],
-        ["September", 4],
-        ["October", 3],
-        ["November", 1],
-        ["December", 2],
-        ["January", 3],
-      ],
+      dataReaching65:[],
+      dataJoinedCurrentYear:[],
+      dataJoinedLast3MonthsByDepartment: [],
+
       pieOptions: {
         legend: "none",
         chartArea: { left: 15, top: 15, right: 0, bottom: 0 },
@@ -53,8 +27,27 @@ export default class EmployeeReport extends React.Component {
             0: { color: "#4caf50" },
           }
       },
-      barOptions: {
+      reaching65BarOptions: {
+        title: "Employees Reaching Age 65 by Month",
         chartArea: { width: "70%", height: "70%" },
+        hAxis: {
+          title: "Month",
+          textStyle: { color: "#333", fontSize: 12 },
+          titleTextStyle: { color: "#333", fontSize: 14, bold: true },
+        },
+        vAxis: {
+          title: "Number of Employees",
+          minValue: 0,
+          textStyle: { color: "#333", fontSize: 12 },
+          titleTextStyle: { color: "#333", fontSize: 14, bold: true },
+        },
+        bars: "vertical",
+        colors: ["#ff5722"], // Different color for bars
+        bar: { groupWidth: "20%" }, // Adjust width of bars
+        legend: { position: "none" },
+      },
+      barOptions: {
+        chartArea: { width: "30%", height: "30%" },
         hAxis: {
           title: "Number of Employees",
           minValue: 0,
@@ -79,22 +72,60 @@ export default class EmployeeReport extends React.Component {
         },
         legend: { position: "none" },
       },
-      lineOptions: {
-        title: "Employees Reaching Age 65 by Month",
-        curveType: "function", // Smooth curves for the lines
-        legend: { position: "bottom" },
-        chartArea: { width: "70%" },
-        hAxis: { title: "Month" },
-        vAxis: { title: "Number of Employees" },
-        colors: ["#ff5722", "#4caf50", "#2196f3", "#ff9800"], // Different colors for each line
-        series: {
-          0: { color: "#ff5722", lineWidth: 3 }, 
-        }, 
-        animation: {
-          duration: 1000,
-          easing: 'out',
+      joinedLast3MonthsBarOptions: {
+        title: "Employees Joined Last 3 Months by Department",
+        chartArea: { width: "70%", height: "70%" },
+        hAxis: {
+          title: "Month",
+          textStyle: { color: "#333", fontSize: 12 },
+          titleTextStyle: { color: "#333", fontSize: 14, bold: true },
         },
-        lineWidth: 4, // Thicker lines to give a more pronounced effect
+        vAxis: {
+          title: "Number of Employees",
+          minValue: 0,
+          textStyle: { color: "#333", fontSize: 12 },
+          titleTextStyle: { color: "#333", fontSize: 14, bold: true },
+        },
+        bars: "vertical",
+        colors: ["#ff5722", "#4caf50", "#2196f3", "#ff9800"], // Different colors for each department
+        bar: { groupWidth: "30%" },
+        legend: { position: "top" },
+        annotations: {
+          alwaysOutside: true,
+          textStyle: {
+            fontSize: 12,
+            color: '#000',
+            auraColor: 'none',
+          },
+        },
+      },
+      joinedCurrentYearBarOptions: {
+        title: "Employees Joined Each Month of Current Year",
+        chartArea: { width: "70%", height: "70%" },
+        hAxis: {
+          title: "Month",
+          textStyle: { color: "#333", fontSize: 12 },
+          titleTextStyle: { color: "#333", fontSize: 14, bold: true },
+        },
+        vAxis: {
+          title: "Number of Employees",
+          minValue: 0,
+          textStyle: { color: "#333", fontSize: 12 },
+          titleTextStyle: { color: "#333", fontSize: 14, bold: true },
+        },
+        bars: "vertical",
+        colors: ["#3f51b5"], // Different color for bars
+        bar: { groupWidth: "20%" }, // Adjust width of bars
+        legend: { position: "top" },
+        annotations: {
+          alwaysOutside: true,
+          textStyle: {
+            fontSize: 12,
+            color: '#000', // Black text color
+            auraColor: 'none',
+          },
+        },
+        
       },
     };
     this.API_SERVER_URL = process.env.API_SERVER_URL;
@@ -104,13 +135,16 @@ export default class EmployeeReport extends React.Component {
     const employees = await this.fetchEmployees();
 
     this.setState({
-      type: this.getEmployeeEmployeeTypeReport(employees),
-      department: this.getEmployeeEmployeeDepartmentReport(employees),
-      title: this.getEmployeeEmployeeTitleReport(employees)
+      type: this.getEmployeeTypeReport(employees),
+      department: this.getEmployeeDepartmentReport(employees),
+      title: this.getEmployeeTitleReport(employees),
+      dataReaching65: this.getEmployeesReaching65Report(employees),
+      dataJoinedCurrentYear: this.getEmployeesJoinedCurrentYearReport(employees),
+      dataJoinedLast3MonthsByDepartment: this.getEmployeesJoinedLast3MonthsByDepartmentReport(employees),
     });
   };
 
-  getEmployeeEmployeeDepartmentReport = (employees) => {
+  getEmployeeDepartmentReport = (employees) => {
     const response = {
         it: 0,
         marketing: 0,
@@ -146,8 +180,56 @@ export default class EmployeeReport extends React.Component {
       ];
 
   }
+  getEmployeesJoinedCurrentYearReport = (employees) => {
+    const response = {};
+    const now = new Date();
+    const currentYear = now.getFullYear();
 
-  getEmployeeEmployeeTitleReport = (employees) => {
+    employees.forEach((employee) => {
+      const doj = new Date(employee.DateOfJoining);
+      if (doj.getFullYear() === currentYear) {
+        const month = doj.toLocaleString("default", { month: "long" });
+        response[month] = (response[month] || 0) + 1;
+      }
+    });
+
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const data = [["Month", "Number of Employees"]];
+    months.forEach((month) => {
+      data.push([month, response[month] || 0]);
+    });
+
+    return data;
+  };
+  getEmployeesJoinedLast3MonthsByDepartmentReport = (employees) => {
+    const response = {};
+    const now = new Date();
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setMonth(now.getMonth() - 3);
+
+    employees.forEach((employee) => {
+      const joinDate = new Date(employee.DateOfJoining);
+      if (joinDate >= threeMonthsAgo && joinDate <= now) {
+        const month = joinDate.toLocaleString("default", { month: "short" });
+        const department = employee.Department || "Unknown";
+        
+        if (!response[month]) {
+          response[month] = { IT: 0, Marketing: 0, HR: 0, Engineering: 0 };
+        }
+        if (response[month][department] !== undefined) {
+          response[month][department]++;
+        }
+      }
+    });
+
+    const data = [["Month", "IT", "Marketing", "HR", "Engineering"]];
+    Object.keys(response).forEach((month) => {
+      data.push([month, response[month].IT, response[month].Marketing, response[month].HR, response[month].Engineering]);
+    });
+
+    return data;
+  };
+  getEmployeeTitleReport = (employees) => {
     const response = {
         employee: 0,
         manager: 0,
@@ -183,8 +265,7 @@ export default class EmployeeReport extends React.Component {
     ];
   };
 
-
-  getEmployeeEmployeeTypeReport = (employees) => {
+  getEmployeeTypeReport = (employees) => {
     const response = {
       full_time: 0,
       part_time: 0,
@@ -219,6 +300,28 @@ export default class EmployeeReport extends React.Component {
       [`Seasonal: ${response.seasonal} `, response.seasonal],
     ];
   };
+
+  getEmployeesReaching65Report = (employees) => {
+    const response = {};
+    const now = new Date();
+    const sixMonthsFromNow = new Date();
+    sixMonthsFromNow.setMonth(now.getMonth() + 6);
+
+    employees.forEach((employee) => {
+      const dob = new Date(employee.DateOfBirth);
+      const retirementDate = new Date(dob.setFullYear(dob.getFullYear() + 65));
+
+      if (retirementDate >= now && retirementDate <= sixMonthsFromNow) {
+        const month = retirementDate.toLocaleString('default', { month: 'long' });
+        response[month] = (response[month] || 0) + 1;
+      }
+    });
+
+    return [["Month", "Number of Employees"]].concat(
+      Object.entries(response)
+    );
+  };
+
 
   fetchEmployees = async () => {
     try {
@@ -262,7 +365,7 @@ export default class EmployeeReport extends React.Component {
         <h1>Employee Report</h1>
         <div>
             <div className="report">
-            <div style={{ width: "48%" }}>
+            <div style={{ width: "50%" }}>
                 <h2>Employee by Type</h2>
                 <Chart
                 chartType="PieChart"
@@ -280,7 +383,29 @@ export default class EmployeeReport extends React.Component {
                 />
             </div>
 
-            <div style={{ width: "48%" }}>
+            <div style={{ width: "50%", }}>
+                <h2>Employee by Titles</h2>
+                <Chart
+                chartType="ColumnChart"
+                data={this.state.title}
+                options={{ ...this.state.columnOptions, title: "Employees by Titles" }}
+                width={"100%"}
+                height={"300px"}
+                />
+            </div>
+
+            <div style={{ width: "95%", marginTop: "4em" }}>
+                <h2>Employees Reaching Age 65 by Month</h2>
+                <Chart
+                chartType="BarChart"
+                data={this.state.dataReaching65}
+                options={this.state.reaching65BarOptions}
+                width={"100%"}
+                height={"300px"}
+                />
+            </div>
+
+            <div style={{ width: "50%" }}>
                 <h2>Employee by Departments</h2>
                 <Chart
                 chartType="PieChart"
@@ -296,41 +421,33 @@ export default class EmployeeReport extends React.Component {
                 />
             </div>
 
-            <div style={{ width: "95%", marginTop: "4em" }}>
-                <h2>Employee by Titles</h2>
-                <Chart
+            <div style={{ width: "50%" }}>
+              <h2>Employees Joined This Year</h2>
+              <Chart
                 chartType="ColumnChart"
-                data={this.state.title}
-                options={{ ...this.state.columnOptions, title: "Employees by Titles" }}
+                data={this.state.dataJoinedCurrentYear}
+                options={this.state.joinedCurrentYearBarOptions}
                 width={"100%"}
-                height={"300px"}
-                />
+                height={"400px"}
+              />
             </div>
 
-            <div style={{ width: "95%", marginTop: "4em" }}>
-                <h2>Employees Reaching Age 65 by Month</h2>
-                <Chart
-                chartType="LineChart"
-                data={this.state.type}
-                options={this.state.lineOptions}
-                width={"100%"}
-                height={"300px"}
-                />
-            </div>
+            <div>
+          <h2>Employees Joined Last 3 Months by Department</h2>
+          <Chart
+            width={"100%"}
+            height={"400px"}
+            chartType="Bar"
+            data={this.state.dataJoinedLast3MonthsByDepartment}
+            options={this.state.joinedLast3MonthsBarOptions}
+          />
+        </div>
 
-            <div style={{ width: "95%", marginTop: "4em" }}>
-                <h2>Example Bar Chart</h2>
-                <Chart
-                chartType="BarChart"
-                data={this.state.type}
-                options={this.state.barOptions}
-                width={"100%"}
-                height={"300px"}
-                />
-            </div>
             </div>
         </div>
       </>
+
+
     );
   }
 }

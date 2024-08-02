@@ -11,7 +11,8 @@ export default class EmployeeUpdate extends React.Component {
 			employeeId: '',
 			pagetitle: 'Update Employee',
 			employee: undefined,
-			btnValue: 'Fetch Employee'
+			btnValue: 'Fetch Employee',
+			employees: []
 		};
 		this.API_SERVER_URL = process.env.API_SERVER_URL;
 	}
@@ -30,7 +31,8 @@ export default class EmployeeUpdate extends React.Component {
 				});
 
 				this.setState({
-					employee: await this.fetchEmployeeById(this.props.employeeId)
+					employee: await this.fetchEmployeeById(this.props.employeeId),
+					employees: [await this.fetchEmployeeById(this.props.employeeId)]
 				});
 			}
 		}
@@ -112,7 +114,8 @@ export default class EmployeeUpdate extends React.Component {
 		e.preventDefault();
 
 		this.setState({
-			employee: await this.fetchEmployeeById(this.state.employeeId)
+			employee: await this.fetchEmployeeById(this.state.employeeId),
+			employees: [await this.fetchEmployeeById(this.state.employeeId)]
 		});
 	};
 
@@ -202,7 +205,7 @@ export default class EmployeeUpdate extends React.Component {
 
 				{this.state.employee != undefined ? (
 					this.state.isEmployeeDetailFetch ? (
-						<EmployeeTable employees={this.state.employee} pagetitle="Search Results" isEmployeeDetailFetch={this.state.isEmployeeDetailFetch} />
+						<EmployeeTable employees={this.state.employees} pagetitle="Search Results" isEmployeeDetailFetch={this.state.isEmployeeDetailFetch} />
 					) : (
 						<EmployeeCreate employee={this.state.employee} pagetitle={this.state.pagetitle} updateEmployee={this.updateEmployee} deleteEmployee={this.props.deleteEmployee} employeeId={this.state.employeeId} handleDeleteClick={this.props.handleDeleteClick} />
 					)

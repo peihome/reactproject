@@ -1063,9 +1063,12 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
           case 2:
             employees = _context.sent;
             _this.setState({
-              type: _this.getEmployeeEmployeeTypeReport(employees),
-              department: _this.getEmployeeEmployeeDepartmentReport(employees),
-              title: _this.getEmployeeEmployeeTitleReport(employees)
+              type: _this.getEmployeeTypeReport(employees),
+              department: _this.getEmployeeDepartmentReport(employees),
+              title: _this.getEmployeeTitleReport(employees),
+              dataReaching65: _this.getEmployeesReaching65Report(employees),
+              dataJoinedCurrentYear: _this.getEmployeesJoinedCurrentYearReport(employees),
+              dataJoinedLast3MonthsByDepartment: _this.getEmployeesJoinedLast3MonthsByDepartmentReport(employees)
             });
           case 4:
           case "end":
@@ -1073,7 +1076,7 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
         }
       }, _callee);
     })));
-    _defineProperty(_this, "getEmployeeEmployeeDepartmentReport", function (employees) {
+    _defineProperty(_this, "getEmployeeDepartmentReport", function (employees) {
       var response = {
         it: 0,
         marketing: 0,
@@ -1100,7 +1103,58 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
       });
       return [["Employee Department", "Number of Employees"], ["IT", response.it], ["Marketing", response.marketing], ["HR", response.hr], ["Engineering", response.engineering]];
     });
-    _defineProperty(_this, "getEmployeeEmployeeTitleReport", function (employees) {
+    _defineProperty(_this, "getEmployeesJoinedCurrentYearReport", function (employees) {
+      var response = {};
+      var now = new Date();
+      var currentYear = now.getFullYear();
+      employees.forEach(function (employee) {
+        var doj = new Date(employee.DateOfJoining);
+        if (doj.getFullYear() === currentYear) {
+          var month = doj.toLocaleString("default", {
+            month: "long"
+          });
+          response[month] = (response[month] || 0) + 1;
+        }
+      });
+      var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      var data = [["Month", "Number of Employees"]];
+      months.forEach(function (month) {
+        data.push([month, response[month] || 0]);
+      });
+      return data;
+    });
+    _defineProperty(_this, "getEmployeesJoinedLast3MonthsByDepartmentReport", function (employees) {
+      var response = {};
+      var now = new Date();
+      var threeMonthsAgo = new Date();
+      threeMonthsAgo.setMonth(now.getMonth() - 3);
+      employees.forEach(function (employee) {
+        var joinDate = new Date(employee.DateOfJoining);
+        if (joinDate >= threeMonthsAgo && joinDate <= now) {
+          var month = joinDate.toLocaleString("default", {
+            month: "short"
+          });
+          var department = employee.Department || "Unknown";
+          if (!response[month]) {
+            response[month] = {
+              IT: 0,
+              Marketing: 0,
+              HR: 0,
+              Engineering: 0
+            };
+          }
+          if (response[month][department] !== undefined) {
+            response[month][department]++;
+          }
+        }
+      });
+      var data = [["Month", "IT", "Marketing", "HR", "Engineering"]];
+      Object.keys(response).forEach(function (month) {
+        data.push([month, response[month].IT, response[month].Marketing, response[month].HR, response[month].Engineering]);
+      });
+      return data;
+    });
+    _defineProperty(_this, "getEmployeeTitleReport", function (employees) {
       var response = {
         employee: 0,
         manager: 0,
@@ -1127,7 +1181,7 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
       });
       return [["Employee Title", "Number of Employees"], ["Employee: ".concat(response.employee), response.employee], ["Manager: ".concat(response.manager), response.manager], ["Director: ".concat(response.director), response.director], ["VP: ".concat(response.vp), response.vp]];
     });
-    _defineProperty(_this, "getEmployeeEmployeeTypeReport", function (employees) {
+    _defineProperty(_this, "getEmployeeTypeReport", function (employees) {
       var response = {
         full_time: 0,
         part_time: 0,
@@ -1153,6 +1207,23 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
         }
       });
       return [["Employee Type", "Number of Employees"], ["Full Time: ".concat(response.full_time, " "), response.full_time], ["Part Time: ".concat(response.part_time, " "), response.part_time], ["Contract: ".concat(response.contract, " "), response.contract], ["Seasonal: ".concat(response.seasonal, " "), response.seasonal]];
+    });
+    _defineProperty(_this, "getEmployeesReaching65Report", function (employees) {
+      var response = {};
+      var now = new Date();
+      var sixMonthsFromNow = new Date();
+      sixMonthsFromNow.setMonth(now.getMonth() + 6);
+      employees.forEach(function (employee) {
+        var dob = new Date(employee.DateOfBirth);
+        var retirementDate = new Date(dob.setFullYear(dob.getFullYear() + 65));
+        if (retirementDate >= now && retirementDate <= sixMonthsFromNow) {
+          var month = retirementDate.toLocaleString('default', {
+            month: 'long'
+          });
+          response[month] = (response[month] || 0) + 1;
+        }
+      });
+      return [["Month", "Number of Employees"]].concat(Object.entries(response));
     });
     _defineProperty(_this, "fetchEmployees", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
       var query, response, result;
@@ -1201,10 +1272,9 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
       data: [],
       department: [],
       title: [],
-      dataByDepartments: [["Department", "Number of Employees"], ["IT", 50], ["Marketing", 40], ["HR", 20], ["Engineering", 60]],
-      dataByTypes: [["Type", "Number of Employees"], ["Seasonal", 15], ["Contract", 25], ["Full-Time", 100], ["Part-Time", 30]],
-      dataByTitles: [["Title", "Number of Employees"], ["Employee", 90], ["Manager", 40], ["Director", 10], ["VP", 5]],
-      dataReaching65: [["Month", "Number of Employees"], ["August", 2], ["September", 4], ["October", 3], ["November", 1], ["December", 2], ["January", 3]],
+      dataReaching65: [],
+      dataJoinedCurrentYear: [],
+      dataJoinedLast3MonthsByDepartment: [],
       pieOptions: {
         legend: "none",
         chartArea: {
@@ -1237,10 +1307,52 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
           }
         }
       },
-      barOptions: {
+      reaching65BarOptions: {
+        title: "Employees Reaching Age 65 by Month",
         chartArea: {
           width: "70%",
           height: "70%"
+        },
+        hAxis: {
+          title: "Month",
+          textStyle: {
+            color: "#333",
+            fontSize: 12
+          },
+          titleTextStyle: {
+            color: "#333",
+            fontSize: 14,
+            bold: true
+          }
+        },
+        vAxis: {
+          title: "Number of Employees",
+          minValue: 0,
+          textStyle: {
+            color: "#333",
+            fontSize: 12
+          },
+          titleTextStyle: {
+            color: "#333",
+            fontSize: 14,
+            bold: true
+          }
+        },
+        bars: "vertical",
+        colors: ["#ff5722"],
+        // Different color for bars
+        bar: {
+          groupWidth: "20%"
+        },
+        // Adjust width of bars
+        legend: {
+          position: "none"
+        }
+      },
+      barOptions: {
+        chartArea: {
+          width: "30%",
+          height: "30%"
         },
         hAxis: {
           title: "Number of Employees",
@@ -1288,35 +1400,105 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
           position: "none"
         }
       },
-      lineOptions: {
-        title: "Employees Reaching Age 65 by Month",
-        curveType: "function",
-        // Smooth curves for the lines
-        legend: {
-          position: "bottom"
-        },
+      joinedLast3MonthsBarOptions: {
+        title: "Employees Joined Last 3 Months by Department",
         chartArea: {
-          width: "70%"
+          width: "70%",
+          height: "70%"
         },
         hAxis: {
-          title: "Month"
-        },
-        vAxis: {
-          title: "Number of Employees"
-        },
-        colors: ["#ff5722", "#4caf50", "#2196f3", "#ff9800"],
-        // Different colors for each line
-        series: {
-          0: {
-            color: "#ff5722",
-            lineWidth: 3
+          title: "Month",
+          textStyle: {
+            color: "#333",
+            fontSize: 12
+          },
+          titleTextStyle: {
+            color: "#333",
+            fontSize: 14,
+            bold: true
           }
         },
-        animation: {
-          duration: 1000,
-          easing: 'out'
+        vAxis: {
+          title: "Number of Employees",
+          minValue: 0,
+          textStyle: {
+            color: "#333",
+            fontSize: 12
+          },
+          titleTextStyle: {
+            color: "#333",
+            fontSize: 14,
+            bold: true
+          }
         },
-        lineWidth: 4 // Thicker lines to give a more pronounced effect
+        bars: "vertical",
+        colors: ["#ff5722", "#4caf50", "#2196f3", "#ff9800"],
+        // Different colors for each department
+        bar: {
+          groupWidth: "30%"
+        },
+        legend: {
+          position: "top"
+        },
+        annotations: {
+          alwaysOutside: true,
+          textStyle: {
+            fontSize: 12,
+            color: '#000',
+            auraColor: 'none'
+          }
+        }
+      },
+      joinedCurrentYearBarOptions: {
+        title: "Employees Joined Each Month of Current Year",
+        chartArea: {
+          width: "70%",
+          height: "70%"
+        },
+        hAxis: {
+          title: "Month",
+          textStyle: {
+            color: "#333",
+            fontSize: 12
+          },
+          titleTextStyle: {
+            color: "#333",
+            fontSize: 14,
+            bold: true
+          }
+        },
+        vAxis: {
+          title: "Number of Employees",
+          minValue: 0,
+          textStyle: {
+            color: "#333",
+            fontSize: 12
+          },
+          titleTextStyle: {
+            color: "#333",
+            fontSize: 14,
+            bold: true
+          }
+        },
+        bars: "vertical",
+        colors: ["#3f51b5"],
+        // Different color for bars
+        bar: {
+          groupWidth: "20%"
+        },
+        // Adjust width of bars
+        legend: {
+          position: "top"
+        },
+        annotations: {
+          alwaysOutside: true,
+          textStyle: {
+            fontSize: 12,
+            color: '#000',
+            // Black text color
+            auraColor: 'none'
+          }
+        }
       }
     };
     _this.API_SERVER_URL = "http://localhost:8000/graphql";
@@ -1330,7 +1512,7 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
         className: "report"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         style: {
-          width: "48%"
+          width: "50%"
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Employee by Type"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_google_charts__WEBPACK_IMPORTED_MODULE_1__.Chart, {
         chartType: "PieChart",
@@ -1368,7 +1550,30 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
         height: "300px"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         style: {
-          width: "48%"
+          width: "50%"
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Employee by Titles"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_google_charts__WEBPACK_IMPORTED_MODULE_1__.Chart, {
+        chartType: "ColumnChart",
+        data: this.state.title,
+        options: _objectSpread(_objectSpread({}, this.state.columnOptions), {}, {
+          title: "Employees by Titles"
+        }),
+        width: "100%",
+        height: "300px"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        style: {
+          width: "95%",
+          marginTop: "4em"
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Employees Reaching Age 65 by Month"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_google_charts__WEBPACK_IMPORTED_MODULE_1__.Chart, {
+        chartType: "BarChart",
+        data: this.state.dataReaching65,
+        options: this.state.reaching65BarOptions,
+        width: "100%",
+        height: "300px"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        style: {
+          width: "50%"
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Employee by Departments"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_google_charts__WEBPACK_IMPORTED_MODULE_1__.Chart, {
         chartType: "PieChart",
@@ -1398,39 +1603,20 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
         height: "300px"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         style: {
-          width: "95%",
-          marginTop: "4em"
+          width: "50%"
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Employee by Titles"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_google_charts__WEBPACK_IMPORTED_MODULE_1__.Chart, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Employees Joined This Year"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_google_charts__WEBPACK_IMPORTED_MODULE_1__.Chart, {
         chartType: "ColumnChart",
-        data: this.state.title,
-        options: _objectSpread(_objectSpread({}, this.state.columnOptions), {}, {
-          title: "Employees by Titles"
-        }),
+        data: this.state.dataJoinedCurrentYear,
+        options: this.state.joinedCurrentYearBarOptions,
         width: "100%",
-        height: "300px"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-        style: {
-          width: "95%",
-          marginTop: "4em"
-        }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Employees Reaching Age 65 by Month"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_google_charts__WEBPACK_IMPORTED_MODULE_1__.Chart, {
-        chartType: "LineChart",
-        data: this.state.type,
-        options: this.state.lineOptions,
+        height: "400px"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Employees Joined Last 3 Months by Department"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_google_charts__WEBPACK_IMPORTED_MODULE_1__.Chart, {
         width: "100%",
-        height: "300px"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-        style: {
-          width: "95%",
-          marginTop: "4em"
-        }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Example Bar Chart"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_google_charts__WEBPACK_IMPORTED_MODULE_1__.Chart, {
-        chartType: "BarChart",
-        data: this.state.type,
-        options: this.state.barOptions,
-        width: "100%",
-        height: "300px"
+        height: "400px",
+        chartType: "Bar",
+        data: this.state.dataJoinedLast3MonthsByDepartment,
+        options: this.state.joinedLast3MonthsBarOptions
       })))));
     }
   }]);
@@ -1587,7 +1773,9 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
               filteredEmployees: employees,
               employeeCount: employees.length
             });
-            _this.updateUpcomingRetirement(employees);
+            if (!_this.props.isEmployeeDetailFetch) {
+              _this.updateUpcomingRetirement(employees);
+            }
             _context.next = 18;
             break;
           case 16:
@@ -1596,7 +1784,9 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
               filteredEmployees: _this.props.employees,
               employeeCount: _this.props.employees.length
             });
-            _this.updateUpcomingRetirement(_this.props.employees);
+            if (!_this.props.isEmployeeDetailFetch) {
+              _this.updateUpcomingRetirement(_this.props.employees);
+            }
           case 18:
             _context.next = 23;
             break;
@@ -1722,7 +1912,7 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              if (!this.props.employees) {
+              if (!(!this.props.isEmployeeDetailFetch && this.props.employees)) {
                 _context2.next = 6;
                 break;
               }
@@ -1817,7 +2007,7 @@ var EmployeeRow = function EmployeeRow(_ref4) {
 };
 EmployeeRow.propTypes = {
   employee: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object).isRequired,
-  isEmployeeDetailFetch: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool).isRequired
+  isEmployeeDetailFetch: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool)
 };
 EmployeeTable.propTypes = {
   title: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
@@ -1965,11 +2155,17 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
               return _this.fetchEmployeeById(_this.state.employeeId);
             case 4:
               _context2.t1 = _context2.sent;
-              _context2.t2 = {
-                employee: _context2.t1
-              };
-              _context2.t0.setState.call(_context2.t0, _context2.t2);
+              _context2.next = 7;
+              return _this.fetchEmployeeById(_this.state.employeeId);
             case 7:
+              _context2.t2 = _context2.sent;
+              _context2.t3 = [_context2.t2];
+              _context2.t4 = {
+                employee: _context2.t1,
+                employees: _context2.t3
+              };
+              _context2.t0.setState.call(_context2.t0, _context2.t4);
+            case 11:
             case "end":
               return _context2.stop();
           }
@@ -2065,7 +2261,8 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
       employeeId: '',
       pagetitle: 'Update Employee',
       employee: undefined,
-      btnValue: 'Fetch Employee'
+      btnValue: 'Fetch Employee',
+      employees: []
     };
     _this.API_SERVER_URL = "http://localhost:8000/graphql";
     return _this;
@@ -2084,14 +2281,14 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
                 });
               }
               if (!this.props.isEmployeeDetailFetch) {
-                _context4.next = 11;
+                _context4.next = 15;
                 break;
               }
               this.setState({
                 isEmployeeDetailFetch: this.props.isEmployeeDetailFetch
               });
               if (!this.props.employeeId) {
-                _context4.next = 11;
+                _context4.next = 15;
                 break;
               }
               this.setState({
@@ -2102,11 +2299,17 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
               return this.fetchEmployeeById(this.props.employeeId);
             case 8:
               _context4.t1 = _context4.sent;
-              _context4.t2 = {
-                employee: _context4.t1
-              };
-              _context4.t0.setState.call(_context4.t0, _context4.t2);
+              _context4.next = 11;
+              return this.fetchEmployeeById(this.props.employeeId);
             case 11:
+              _context4.t2 = _context4.sent;
+              _context4.t3 = [_context4.t2];
+              _context4.t4 = {
+                employee: _context4.t1,
+                employees: _context4.t3
+              };
+              _context4.t0.setState.call(_context4.t0, _context4.t4);
+            case 15:
             case "end":
               return _context4.stop();
           }
@@ -2124,7 +2327,7 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
         message: this.state.alertMessage,
         result: this.state.result
       }), this.state.employee != undefined ? this.state.isEmployeeDetailFetch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_EmployeeTable_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        employees: this.state.employee,
+        employees: this.state.employees,
         pagetitle: "Search Results",
         isEmployeeDetailFetch: this.state.isEmployeeDetailFetch
       }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_EmployeeCreate_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
