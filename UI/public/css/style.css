@@ -173,6 +173,7 @@ table thead th {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    row-gap: 4em;
 }
 
 .report h2 {

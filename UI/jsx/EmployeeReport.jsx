@@ -18,25 +18,24 @@ export default class EmployeeReport extends React.Component {
         pieSliceText: "label",
       },
       columnOptions: {
-        legend: { position: "none" },
+        legend: "none",
         chartArea: { width: "70%" },
-        hAxis: { title: "Number of Employees" },
-        vAxis: { title: "Category" },
+        hAxis: { title: "Category" },
+        vAxis: { title: "Number of Employees" },
         bar: { groupWidth: "30%" },
         series: {
             0: { color: "#4caf50" },
           }
       },
       reaching65BarOptions: {
-        title: "Employees Reaching Age 65 by Month",
         chartArea: { width: "70%", height: "70%" },
         hAxis: {
-          title: "Month",
+          title: "Number of Employees",
           textStyle: { color: "#333", fontSize: 12 },
           titleTextStyle: { color: "#333", fontSize: 14, bold: true },
         },
         vAxis: {
-          title: "Number of Employees",
+          title: "Month",
           minValue: 0,
           textStyle: { color: "#333", fontSize: 12 },
           titleTextStyle: { color: "#333", fontSize: 14, bold: true },
@@ -100,7 +99,6 @@ export default class EmployeeReport extends React.Component {
         },
       },
       joinedCurrentYearBarOptions: {
-        title: "Employees Joined Each Month of Current Year",
         chartArea: { width: "70%", height: "70%" },
         hAxis: {
           title: "Month",
@@ -116,7 +114,7 @@ export default class EmployeeReport extends React.Component {
         bars: "vertical",
         colors: ["#3f51b5"], // Different color for bars
         bar: { groupWidth: "20%" }, // Adjust width of bars
-        legend: { position: "top" },
+        legend: 'none',
         annotations: {
           alwaysOutside: true,
           textStyle: {
@@ -212,7 +210,7 @@ export default class EmployeeReport extends React.Component {
       if (joinDate >= threeMonthsAgo && joinDate <= now) {
         const month = joinDate.toLocaleString("default", { month: "short" });
         const department = employee.Department || "Unknown";
-        
+
         if (!response[month]) {
           response[month] = { IT: 0, Marketing: 0, HR: 0, Engineering: 0 };
         }
@@ -388,7 +386,7 @@ export default class EmployeeReport extends React.Component {
                 <Chart
                 chartType="ColumnChart"
                 data={this.state.title}
-                options={{ ...this.state.columnOptions, title: "Employees by Titles" }}
+                options={{ ...this.state.columnOptions}}
                 width={"100%"}
                 height={"300px"}
                 />

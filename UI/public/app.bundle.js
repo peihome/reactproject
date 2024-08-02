@@ -1286,17 +1286,15 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
         pieSliceText: "label"
       },
       columnOptions: {
-        legend: {
-          position: "none"
-        },
+        legend: "none",
         chartArea: {
           width: "70%"
         },
         hAxis: {
-          title: "Number of Employees"
+          title: "Category"
         },
         vAxis: {
-          title: "Category"
+          title: "Number of Employees"
         },
         bar: {
           groupWidth: "30%"
@@ -1308,13 +1306,12 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
         }
       },
       reaching65BarOptions: {
-        title: "Employees Reaching Age 65 by Month",
         chartArea: {
           width: "70%",
           height: "70%"
         },
         hAxis: {
-          title: "Month",
+          title: "Number of Employees",
           textStyle: {
             color: "#333",
             fontSize: 12
@@ -1326,7 +1323,7 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
           }
         },
         vAxis: {
-          title: "Number of Employees",
+          title: "Month",
           minValue: 0,
           textStyle: {
             color: "#333",
@@ -1450,7 +1447,6 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
         }
       },
       joinedCurrentYearBarOptions: {
-        title: "Employees Joined Each Month of Current Year",
         chartArea: {
           width: "70%",
           height: "70%"
@@ -1487,9 +1483,7 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
           groupWidth: "20%"
         },
         // Adjust width of bars
-        legend: {
-          position: "top"
-        },
+        legend: 'none',
         annotations: {
           alwaysOutside: true,
           textStyle: {
@@ -1555,9 +1549,7 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Employee by Titles"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_google_charts__WEBPACK_IMPORTED_MODULE_1__.Chart, {
         chartType: "ColumnChart",
         data: this.state.title,
-        options: _objectSpread(_objectSpread({}, this.state.columnOptions), {}, {
-          title: "Employees by Titles"
-        }),
+        options: _objectSpread({}, this.state.columnOptions),
         width: "100%",
         height: "300px"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
