@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Filter from './Filter.jsx';
 import withRouter from './withRouter.jsx';
+import { differenceInYears, differenceInMonths, differenceInDays, parse } from 'date-fns';
 
 class EmployeeTable extends React.Component {
 	constructor() {
@@ -51,7 +52,6 @@ class EmployeeTable extends React.Component {
 						empId
 						FirstName
 						LastName
-						Age
 						DateOfBirth
 						DateOfJoining
 						Title
@@ -185,8 +185,28 @@ class EmployeeTable extends React.Component {
 		);
 	};
 
+	calculateRetirement = (dateOfBirth) => {
+		const dob = parse(dateOfBirth, 'yyyy-MM-dd', new Date());
+	
+		// Assume retirement age is 65 years
+		const retirementAge = 65;
+		const retirementDate = new Date(dob);
+		retirementDate.setFullYear(dob.getFullYear() + retirementAge);
+	
+		// Calculate time left for retirement
+		const currentDate = new Date();
+		const yearsLeft = differenceInYears(retirementDate, currentDate);
+		const monthsLeft = differenceInMonths(retirementDate, currentDate) % 12;
+		const daysLeft = differenceInDays(
+		  retirementDate,
+		  new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1)
+		) % 30;
+	
+		return daysLeft+( daysLeft > 1 ? " days, " : " day, ")+monthsLeft+(monthsLeft > 1 ? " months, " : " month, ")+yearsLeft+(yearsLeft > 1 ? " years" : " year");
+	};
+
 	render() {
-		const rows = this.state.filteredEmployees.map((employee) => <EmployeeRow key={employee.empId} employee={employee} isEmployeeDetailFetch={this.props.isEmployeeDetailFetch} />);
+		const rows = this.state.filteredEmployees.map((employee) => <EmployeeRow key={employee.empId} employee={employee} isEmployeeDetailFetch={this.props.isEmployeeDetailFetch} calculateRetirement={this.calculateRetirement}/>);
 		return (
 			<>
 				{this.props.isEmployeeDetailFetch ? <h1>{'Employee Detail'}</h1> : <h1>{this.state.pagetitle}</h1>}
@@ -226,6 +246,7 @@ class EmployeeTable extends React.Component {
 								<th scope="col">Department</th>
 								<th scope="col">EmployeeType</th>
 								<th scope="col">CurrentStatus</th>
+								{this.props.isEmployeeDetailFetch && <th scope="col">Days until retirement</th>}
 							</tr>
 						</thead>
 						<tbody>{rows}</tbody>
@@ -237,7 +258,7 @@ class EmployeeTable extends React.Component {
 	}
 }
 
-const EmployeeRow = ({ employee, isEmployeeDetailFetch }) => (
+const EmployeeRow = ({ employee, isEmployeeDetailFetch, calculateRetirement }) => (
 	<tr>
 		{isEmployeeDetailFetch ? (
 			<td>{employee.empId}</td>
@@ -256,6 +277,7 @@ const EmployeeRow = ({ employee, isEmployeeDetailFetch }) => (
 		<td>{employee.Department}</td>
 		<td>{employee.EmployeeType}</td>
 		<td>{employee.CurrentStatus ? 'Active' : 'Inactive'}</td>
+		{isEmployeeDetailFetch && <td>{calculateRetirement(employee.DateOfBirth)}</td>}
 	</tr>
 );
 

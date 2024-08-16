@@ -25,7 +25,6 @@ module.exports = (app) => {
             empId: Int
             FirstName: String
             LastName: String
-            Age: Int
             DateOfBirth: GraphQLDate
             DateOfJoining: GraphQLDate
             Title: String
@@ -48,7 +47,6 @@ module.exports = (app) => {
             createEmployee(
                 FirstName: String!,
                 LastName: String!,
-                Age: Int!,
                 DateOfBirth: GraphQLDate!
                 DateOfJoining: GraphQLDate!,
                 Title: String!,
@@ -60,7 +58,6 @@ module.exports = (app) => {
                 empId: Int!,
                 FirstName: String,
                 LastName: String,
-                Age: Int,
                 DateOfBirth: String,
                 DateOfJoining: String,
                 Title: String,
@@ -95,7 +92,6 @@ module.exports = (app) => {
                 const newEmployee = {
                     FirstName: args.FirstName,
                     LastName: args.LastName,
-                    Age: args.Age,
                     DateOfBirth: args.DateOfBirth,
                     DateOfJoining: args.DateOfJoining,
                     Title: args.Title,

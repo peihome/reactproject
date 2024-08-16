@@ -54,7 +54,6 @@ export default class EmployeeUpdate extends React.Component {
                                 empId
                                 FirstName
                                 LastName
-                                Age
 								DateOfBirth
                                 DateOfJoining
                                 Title
@@ -127,8 +126,7 @@ export default class EmployeeUpdate extends React.Component {
 
 			if (employee.FirstName) fieldsToUpdate.push(`FirstName: "${employee.FirstName}"`);
 			if (employee.LastName) fieldsToUpdate.push(`LastName: "${employee.LastName}"`);
-			if (employee.Age) fieldsToUpdate.push(`Age: ${employee.Age}`);
-			if (employee.DateOfBirth) fieldsToUpdate.push(`DateOfBirth: ${employee.DateOfBirth}`);
+			if (employee.DateOfBirth) fieldsToUpdate.push(`DateOfBirth: "${employee.DateOfBirth}"`);
 			if (employee.DateOfJoining) fieldsToUpdate.push(`DateOfJoining: "${employee.DateOfJoining}"`);
 			if (employee.Title) fieldsToUpdate.push(`Title: "${employee.Title}"`);
 			if (employee.Department) fieldsToUpdate.push(`Department: "${employee.Department}"`);
@@ -136,7 +134,6 @@ export default class EmployeeUpdate extends React.Component {
 			if (employee.CurrentStatus !== undefined) fieldsToUpdate.push(`CurrentStatus: ${employee.CurrentStatus}`);
 
 			const fieldsString = fieldsToUpdate.join(', ');
-
 			const mutation = `
                 mutation {
                     updateEmployee(
@@ -145,7 +142,6 @@ export default class EmployeeUpdate extends React.Component {
                     ) {
                         FirstName
                         LastName
-                        Age
 						DateOfBirth
                         DateOfJoining
                         Title

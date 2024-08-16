@@ -53,7 +53,6 @@ export default class EmployeeDelete extends React.Component {
                                 empId
                                 FirstName
                                 LastName
-                                Age
 								DateOfBirth
                                 DateOfJoining
                                 Title

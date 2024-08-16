@@ -264,7 +264,7 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
               e.preventDefault();
               _context2.prev = 1;
               employee = _this.state.employee;
-              mutation = "\n                mutation {\n                    createEmployee(\n                        FirstName: \"".concat(employee.FirstName, "\",\n                        LastName: \"").concat(employee.LastName, "\",\n                        Age: ").concat(employee.Age, ",\n\t\t\t\t\t\tDateOfBirth: \"").concat(employee.DateOfBirth, "\",\n                        DateOfJoining: \"").concat(employee.DateOfJoining, "\",\n                        Title: \"").concat(employee.Title, "\",\n                        Department: \"").concat(employee.Department, "\",\n                        EmployeeType: \"").concat(employee.EmployeeType, "\"\n                    ) {\n                        FirstName\n                        LastName\n                        Age\n\t\t\t\t\t\tDateOfBirth\n                        DateOfJoining\n                        Title\n                        Department\n                        EmployeeType\n                    }\n                }\n            ");
+              mutation = "\n                mutation {\n                    createEmployee(\n                        FirstName: \"".concat(employee.FirstName, "\",\n                        LastName: \"").concat(employee.LastName, "\",\n\t\t\t\t\t\tDateOfBirth: \"").concat(employee.DateOfBirth, "\",\n                        DateOfJoining: \"").concat(employee.DateOfJoining, "\",\n                        Title: \"").concat(employee.Title, "\",\n                        Department: \"").concat(employee.Department, "\",\n                        EmployeeType: \"").concat(employee.EmployeeType, "\"\n                    ) {\n                        FirstName\n                        LastName\n\t\t\t\t\t\tDateOfBirth\n                        DateOfJoining\n                        Title\n                        Department\n                        EmployeeType\n                    }\n                }\n            ");
               _context2.next = 6;
               return fetch("".concat(_this.API_SERVER_URL), {
                 method: 'POST',
@@ -287,7 +287,6 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
                 employee: {
                   FirstName: '',
                   LastName: '',
-                  Age: '',
                   DateOfBirth: '',
                   DateOfJoining: '',
                   Title: '',
@@ -334,7 +333,6 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
       employee: {
         FirstName: '',
         LastName: '',
-        Age: '',
         DateOfBirth: '',
         DateOfJoining: '',
         Title: '',
@@ -392,26 +390,6 @@ var EmployeeCreate = /*#__PURE__*/function (_React$Component) {
         className: "form-control",
         value: this.state.employee.LastName,
         onChange: this.handleChange
-      }, this.props.deleteEmployee || this.props.updateEmployee ? {
-        disabled: true
-      } : {
-        required: true
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-        className: "invalid-feedback"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-        className: "form-group"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
-        htmlFor: "Age",
-        className: !(this.props.deleteEmployee || this.props.updateEmployee) ? 'required' : ''
-      }, "Age"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", _extends({
-        type: "number",
-        id: "Age",
-        name: "Age",
-        className: "form-control",
-        value: this.state.employee.Age,
-        onChange: this.handleChange,
-        min: "20",
-        max: "70"
       }, this.props.deleteEmployee || this.props.updateEmployee ? {
         disabled: true
       } : {
@@ -668,7 +646,7 @@ var EmployeeDelete = /*#__PURE__*/function (_React$Component) {
             case 0:
               employee = undefined;
               _context2.prev = 1;
-              query = "query($id: Int!) {\n                            getEmployeeById(empId: $id) {\n                                empId\n                                FirstName\n                                LastName\n                                Age\n\t\t\t\t\t\t\t\tDateOfBirth\n                                DateOfJoining\n                                Title\n                                Department\n                                EmployeeType\n                                CurrentStatus\n                            }\n                        }";
+              query = "query($id: Int!) {\n                            getEmployeeById(empId: $id) {\n                                empId\n                                FirstName\n                                LastName\n\t\t\t\t\t\t\t\tDateOfBirth\n                                DateOfJoining\n                                Title\n                                Department\n                                EmployeeType\n                                CurrentStatus\n                            }\n                        }";
               variables = {
                 id: employeeId
               };
@@ -1031,6 +1009,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
@@ -1054,7 +1038,7 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, EmployeeReport);
     _this = _callSuper(this, EmployeeReport);
     _defineProperty(_this, "componentDidMount", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var employees;
+      var employees, dataReaching65, maxEmployees, stepSize, ticks, reaching65BarOptions;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
@@ -1062,15 +1046,31 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
             return _this.fetchEmployees();
           case 2:
             employees = _context.sent;
+            dataReaching65 = _this.getEmployeesReaching65Report(employees); // Calculate maximum number of employees reaching 65 in any given month
+            maxEmployees = Math.max.apply(Math, _toConsumableArray(dataReaching65.slice(1).map(function (row) {
+              return row[1];
+            }))); // Skip the header row
+            // Determine a suitable step size based on the max value
+            stepSize = Math.ceil(maxEmployees / 10); // Adjust this divisor to control the tick spacing
+            // Generate ticks based on the calculated step size
+            ticks = Array.from({
+              length: Math.ceil(maxEmployees / stepSize) + 1
+            }, function (_, i) {
+              return i * stepSize;
+            });
+            reaching65BarOptions = _this.state.reaching65BarOptions;
+            reaching65BarOptions.hAxis.ticks = ticks;
+            reaching65BarOptions.hAxis.viewWindow.max = maxEmployees;
             _this.setState({
               type: _this.getEmployeeTypeReport(employees),
               department: _this.getEmployeeDepartmentReport(employees),
               title: _this.getEmployeeTitleReport(employees),
+              reaching65BarOptions: reaching65BarOptions,
               dataReaching65: _this.getEmployeesReaching65Report(employees),
               dataJoinedCurrentYear: _this.getEmployeesJoinedCurrentYearReport(employees),
               dataJoinedLast3MonthsByDepartment: _this.getEmployeesJoinedLast3MonthsByDepartmentReport(employees)
             });
-          case 4:
+          case 11:
           case "end":
             return _context.stop();
         }
@@ -1223,7 +1223,19 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
           response[month] = (response[month] || 0) + 1;
         }
       });
-      return [["Month", "Number of Employees"]].concat(Object.entries(response));
+      var months = [];
+      for (var i = 0; i < 6; i++) {
+        var month = new Date();
+        month.setMonth(now.getMonth() + i);
+        months.push(month.toLocaleString('default', {
+          month: 'long'
+        }));
+      }
+      var data = [["Month", "Number of Employees"]];
+      months.forEach(function (month) {
+        data.push([month, response[month] || 0]);
+      });
+      return data;
     });
     _defineProperty(_this, "fetchEmployees", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
       var query, response, result;
@@ -1231,7 +1243,7 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
             _context2.prev = 0;
-            query = "query {\n        getAllEmployees {\n          empId\n          FirstName\n          LastName\n          Age\n          DateOfBirth\n          DateOfJoining\n          Title\n          Department\n          EmployeeType\n          CurrentStatus\n        }\n      }";
+            query = "query {\n        getAllEmployees {\n          empId\n          FirstName\n          LastName\n          DateOfBirth\n          DateOfJoining\n          Title\n          Department\n          EmployeeType\n          CurrentStatus\n        }\n      }";
             _context2.next = 4;
             return fetch("".concat(_this.API_SERVER_URL), {
               method: "POST",
@@ -1316,11 +1328,20 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
             color: "#333",
             fontSize: 12
           },
+          format: 'decimal',
           titleTextStyle: {
             color: "#333",
             fontSize: 14,
             bold: true
-          }
+          },
+          viewWindow: {
+            min: 0,
+            max: 0
+          },
+          gridlines: {
+            count: -1 // Draw gridlines for each tick
+          },
+          ticks: []
         },
         vAxis: {
           title: "Month",
@@ -1576,20 +1597,13 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
           pieSliceText: "label",
           slices: [{
             color: "#a1887f"
-          },
-          // Purple
-          {
+          }, {
             color: "#004d40"
-          },
-          // Teal
-          {
+          }, {
             color: "#cddc39"
-          },
-          // Indigo
-          {
+          }, {
             color: "#e91e63"
-          } // Bright red
-          ]
+          }]
         }),
         width: "100%",
         height: "300px"
@@ -1688,10 +1702,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _Filter_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Filter.jsx */ "./jsx/Filter.jsx");
 /* harmony import */ var _withRouter_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./withRouter.jsx */ "./jsx/withRouter.jsx");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/parse.mjs");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/differenceInYears.mjs");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/differenceInMonths.mjs");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/differenceInDays.mjs");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1721,6 +1739,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 
 
+
 var EmployeeTable = /*#__PURE__*/function (_React$Component) {
   function EmployeeTable() {
     var _this;
@@ -1736,7 +1755,7 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
               _context.next = 16;
               break;
             }
-            query = "query {\n\t\t\t\t\tgetAllEmployees {\n\t\t\t\t\t\tempId\n\t\t\t\t\t\tFirstName\n\t\t\t\t\t\tLastName\n\t\t\t\t\t\tAge\n\t\t\t\t\t\tDateOfBirth\n\t\t\t\t\t\tDateOfJoining\n\t\t\t\t\t\tTitle\n\t\t\t\t\t\tDepartment\n\t\t\t\t\t\tEmployeeType\n\t\t\t\t\t\tCurrentStatus\n\t\t\t\t\t}\n\t\t\t\t}";
+            query = "query {\n\t\t\t\t\tgetAllEmployees {\n\t\t\t\t\t\tempId\n\t\t\t\t\t\tFirstName\n\t\t\t\t\t\tLastName\n\t\t\t\t\t\tDateOfBirth\n\t\t\t\t\t\tDateOfJoining\n\t\t\t\t\t\tTitle\n\t\t\t\t\t\tDepartment\n\t\t\t\t\t\tEmployeeType\n\t\t\t\t\t\tCurrentStatus\n\t\t\t\t\t}\n\t\t\t\t}";
             _context.next = 5;
             return fetch("".concat(_this.API_SERVER_URL), {
               method: 'POST',
@@ -1871,6 +1890,21 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
         };
       }, _this.applyFilters);
     });
+    _defineProperty(_this, "calculateRetirement", function (dateOfBirth) {
+      var dob = (0,date_fns__WEBPACK_IMPORTED_MODULE_3__.parse)(dateOfBirth, 'yyyy-MM-dd', new Date());
+
+      // Assume retirement age is 65 years
+      var retirementAge = 65;
+      var retirementDate = new Date(dob);
+      retirementDate.setFullYear(dob.getFullYear() + retirementAge);
+
+      // Calculate time left for retirement
+      var currentDate = new Date();
+      var yearsLeft = (0,date_fns__WEBPACK_IMPORTED_MODULE_4__.differenceInYears)(retirementDate, currentDate);
+      var monthsLeft = (0,date_fns__WEBPACK_IMPORTED_MODULE_5__.differenceInMonths)(retirementDate, currentDate) % 12;
+      var daysLeft = (0,date_fns__WEBPACK_IMPORTED_MODULE_6__.differenceInDays)(retirementDate, new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1)) % 30;
+      return daysLeft + (daysLeft > 1 ? " days, " : " day, ") + monthsLeft + (monthsLeft > 1 ? " months, " : " month, ") + yearsLeft + (yearsLeft > 1 ? " years" : " year");
+    });
     _this.state = {
       employees: [],
       filteredEmployees: [],
@@ -1939,7 +1973,8 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(EmployeeRow, {
           key: employee.empId,
           employee: employee,
-          isEmployeeDetailFetch: _this2.props.isEmployeeDetailFetch
+          isEmployeeDetailFetch: _this2.props.isEmployeeDetailFetch,
+          calculateRetirement: _this2.calculateRetirement
         });
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, this.props.isEmployeeDetailFetch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, 'Employee Detail') : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, this.state.pagetitle), !this.props.isEmployeeDetailFetch && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -1982,7 +2017,9 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
         scope: "col"
       }, "EmployeeType"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
         scope: "col"
-      }, "CurrentStatus"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tbody", null, rows))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+      }, "CurrentStatus"), this.props.isEmployeeDetailFetch && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
+        scope: "col"
+      }, "Days until retirement"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tbody", null, rows))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
         className: "rowCount"
       }, "Total Rows: ", this.state.employeeCount));
     }
@@ -1990,25 +2027,26 @@ var EmployeeTable = /*#__PURE__*/function (_React$Component) {
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 var EmployeeRow = function EmployeeRow(_ref4) {
   var employee = _ref4.employee,
-    isEmployeeDetailFetch = _ref4.isEmployeeDetailFetch;
+    isEmployeeDetailFetch = _ref4.isEmployeeDetailFetch,
+    calculateRetirement = _ref4.calculateRetirement;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, isEmployeeDetailFetch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.empId) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
     target: "_blank",
     rel: "noreferrer",
     href: "#/employee/detail/".concat(employee.empId)
-  }, employee.empId)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.FirstName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.LastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.DateOfBirth), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.DateOfJoining), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.Title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.Department), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.EmployeeType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.CurrentStatus ? 'Active' : 'Inactive'));
+  }, employee.empId)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.FirstName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.LastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.DateOfBirth), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.DateOfJoining), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.Title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.Department), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.EmployeeType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, employee.CurrentStatus ? 'Active' : 'Inactive'), isEmployeeDetailFetch && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, calculateRetirement(employee.DateOfBirth)));
 };
 EmployeeRow.propTypes = {
-  employee: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object).isRequired,
-  isEmployeeDetailFetch: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool)
+  employee: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object).isRequired,
+  isEmployeeDetailFetch: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool)
 };
 EmployeeTable.propTypes = {
-  title: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
-  employeeType: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
-  department: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
-  pagetitle: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
-  employees: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().array),
-  match: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object).isRequired,
-  isEmployeeDetailFetch: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool)
+  title: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
+  employeeType: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
+  department: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
+  pagetitle: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
+  employees: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().array),
+  match: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object).isRequired,
+  isEmployeeDetailFetch: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool)
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_withRouter_jsx__WEBPACK_IMPORTED_MODULE_2__["default"])(EmployeeTable));
 
@@ -2072,7 +2110,7 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
                 console.log(e);
               }
               _context.prev = 2;
-              query = "query($id: Int!) {\n                            getEmployeeById(empId: $id) {\n                                empId\n                                FirstName\n                                LastName\n                                Age\n\t\t\t\t\t\t\t\tDateOfBirth\n                                DateOfJoining\n                                Title\n                                Department\n                                EmployeeType\n                                CurrentStatus\n                            }\n                        }";
+              query = "query($id: Int!) {\n                            getEmployeeById(empId: $id) {\n                                empId\n                                FirstName\n                                LastName\n\t\t\t\t\t\t\t\tDateOfBirth\n                                DateOfJoining\n                                Title\n                                Department\n                                EmployeeType\n                                CurrentStatus\n                            }\n                        }";
               variables = {
                 id: employeeId
               };
@@ -2178,16 +2216,15 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
               fieldsToUpdate = [];
               if (employee.FirstName) fieldsToUpdate.push("FirstName: \"".concat(employee.FirstName, "\""));
               if (employee.LastName) fieldsToUpdate.push("LastName: \"".concat(employee.LastName, "\""));
-              if (employee.Age) fieldsToUpdate.push("Age: ".concat(employee.Age));
-              if (employee.DateOfBirth) fieldsToUpdate.push("DateOfBirth: ".concat(employee.DateOfBirth));
+              if (employee.DateOfBirth) fieldsToUpdate.push("DateOfBirth: \"".concat(employee.DateOfBirth, "\""));
               if (employee.DateOfJoining) fieldsToUpdate.push("DateOfJoining: \"".concat(employee.DateOfJoining, "\""));
               if (employee.Title) fieldsToUpdate.push("Title: \"".concat(employee.Title, "\""));
               if (employee.Department) fieldsToUpdate.push("Department: \"".concat(employee.Department, "\""));
               if (employee.EmployeeType) fieldsToUpdate.push("EmployeeType: \"".concat(employee.EmployeeType, "\""));
               if (employee.CurrentStatus !== undefined) fieldsToUpdate.push("CurrentStatus: ".concat(employee.CurrentStatus));
               fieldsString = fieldsToUpdate.join(', ');
-              mutation = "\n                mutation {\n                    updateEmployee(\n                        empId: ".concat(parseInt(_this.state.employeeId), ",\n                        ").concat(fieldsString, "\n                    ) {\n                        FirstName\n                        LastName\n                        Age\n\t\t\t\t\t\tDateOfBirth\n                        DateOfJoining\n                        Title\n                        Department\n                        EmployeeType\n                        CurrentStatus\n                    }\n                }\n            ");
-              _context3.next = 16;
+              mutation = "\n                mutation {\n                    updateEmployee(\n                        empId: ".concat(parseInt(_this.state.employeeId), ",\n                        ").concat(fieldsString, "\n                    ) {\n                        FirstName\n                        LastName\n\t\t\t\t\t\tDateOfBirth\n                        DateOfJoining\n                        Title\n                        Department\n                        EmployeeType\n                        CurrentStatus\n                    }\n                }\n            ");
+              _context3.next = 15;
               return fetch("".concat(_this.API_SERVER_URL), {
                 method: 'POST',
                 headers: {
@@ -2197,17 +2234,17 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
                   query: mutation
                 })
               });
-            case 16:
+            case 15:
               response = _context3.sent;
               if (response.ok) {
-                _context3.next = 19;
+                _context3.next = 18;
                 break;
               }
               throw new Error('Failed to update employee');
-            case 19:
-              _context3.next = 21;
+            case 18:
+              _context3.next = 20;
               return response.json();
-            case 21:
+            case 20:
               updateResponse = _context3.sent.data.updateEmployee;
               _this.setState({
                 showAlert: true,
@@ -2215,10 +2252,10 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
                 result: true
               });
               _this.resetAlert();
-              _context3.next = 32;
+              _context3.next = 31;
               break;
-            case 26:
-              _context3.prev = 26;
+            case 25:
+              _context3.prev = 25;
               _context3.t0 = _context3["catch"](1);
               console.log(_context3.t0);
               updateResponse = undefined;
@@ -2228,13 +2265,13 @@ var EmployeeUpdate = /*#__PURE__*/function (_React$Component) {
                 result: false
               });
               _this.resetAlert();
-            case 32:
+            case 31:
               return _context3.abrupt("return", updateResponse);
-            case 33:
+            case 32:
             case "end":
               return _context3.stop();
           }
-        }, _callee3, null, [[1, 26]]);
+        }, _callee3, null, [[1, 25]]);
       }));
       return function (_x3) {
         return _ref3.apply(this, arguments);
@@ -2819,9 +2856,6 @@ var handleValidation = function handleValidation(name, value) {
       break;
     case 'LastName':
       response = validateName(value);
-      break;
-    case 'Age':
-      response = validateAge(value);
       break;
     case 'DateOfBirth':
       response = validateDate(value);

@@ -5,7 +5,6 @@ const Employee = new Schema({
     empId: { type: Number },
     FirstName: { type: String, required: true },
     LastName: { type: String, required: true },
-    Age: { type: Number},
     DateOfBirth: { type: Date, required: true },
     DateOfJoining: { type: Date, required: true },
     Title: { type: String, required: true },

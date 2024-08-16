@@ -32,7 +32,16 @@ export default class EmployeeReport extends React.Component {
         hAxis: {
           title: "Number of Employees",
           textStyle: { color: "#333", fontSize: 12 },
+          format: 'decimal',
           titleTextStyle: { color: "#333", fontSize: 14, bold: true },
+          viewWindow: {
+            min: 0,
+            max: 0,
+          },
+          gridlines: {
+            count: -1,  // Draw gridlines for each tick
+          },
+          ticks: [], 
         },
         vAxis: {
           title: "Month",
@@ -132,10 +141,26 @@ export default class EmployeeReport extends React.Component {
   componentDidMount = async () => {
     const employees = await this.fetchEmployees();
 
+    const dataReaching65 = this.getEmployeesReaching65Report(employees);
+
+    // Calculate maximum number of employees reaching 65 in any given month
+    const maxEmployees = Math.max(...dataReaching65.slice(1).map(row => row[1])); // Skip the header row
+
+    // Determine a suitable step size based on the max value
+    const stepSize = Math.ceil(maxEmployees / 10);  // Adjust this divisor to control the tick spacing
+
+    // Generate ticks based on the calculated step size
+    const ticks = Array.from({ length: Math.ceil(maxEmployees / stepSize) + 1 }, (_, i) => i * stepSize);
+    
+    const reaching65BarOptions = this.state.reaching65BarOptions;
+    reaching65BarOptions.hAxis.ticks = ticks;
+    reaching65BarOptions.hAxis.viewWindow.max = maxEmployees;
+
     this.setState({
       type: this.getEmployeeTypeReport(employees),
       department: this.getEmployeeDepartmentReport(employees),
       title: this.getEmployeeTitleReport(employees),
+      reaching65BarOptions: reaching65BarOptions,
       dataReaching65: this.getEmployeesReaching65Report(employees),
       dataJoinedCurrentYear: this.getEmployeesJoinedCurrentYearReport(employees),
       dataJoinedLast3MonthsByDepartment: this.getEmployeesJoinedLast3MonthsByDepartmentReport(employees),
@@ -315,9 +340,19 @@ export default class EmployeeReport extends React.Component {
       }
     });
 
-    return [["Month", "Number of Employees"]].concat(
-      Object.entries(response)
-    );
+    const months = [];
+    for (let i = 0; i < 6; i++) {
+      const month = new Date();
+      month.setMonth(now.getMonth() + i);
+      months.push(month.toLocaleString('default', { month: 'long' }));
+    }
+  
+    const data = [["Month", "Number of Employees"]];
+    months.forEach((month) => {
+      data.push([month, response[month] || 0]);
+    });
+  
+    return data;
   };
 
 
@@ -328,7 +363,6 @@ export default class EmployeeReport extends React.Component {
           empId
           FirstName
           LastName
-          Age
           DateOfBirth
           DateOfJoining
           Title
@@ -409,10 +443,10 @@ export default class EmployeeReport extends React.Component {
                 chartType="PieChart"
                 data={this.state.department}
                 options={{ ...this.state.pieOptions, title: "Employees by Departments" ,pieHole: 0.4,pieSliceText: "label",slices: [
-                    {  color: "#a1887f" }, // Purple
-                    { color: "#004d40" }, // Teal
-                    { color: "#cddc39" }, // Indigo
-                    { color: "#e91e63" }, // Bright red
+                    {  color: "#a1887f" }, 
+                    { color: "#004d40" }, 
+                    { color: "#cddc39" }, 
+                    { color: "#e91e63" },
                   ] }}
                 width={"100%"}
                 height={"300px"}

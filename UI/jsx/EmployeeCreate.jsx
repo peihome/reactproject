@@ -11,7 +11,6 @@ export default class EmployeeCreate extends React.Component {
 			employee: {
 				FirstName: '',
 				LastName: '',
-				Age: '',
 				DateOfBirth: '',
 				DateOfJoining: '',
 				Title: '',
@@ -84,7 +83,6 @@ export default class EmployeeCreate extends React.Component {
                     createEmployee(
                         FirstName: "${employee.FirstName}",
                         LastName: "${employee.LastName}",
-                        Age: ${employee.Age},
 						DateOfBirth: "${employee.DateOfBirth}",
                         DateOfJoining: "${employee.DateOfJoining}",
                         Title: "${employee.Title}",
@@ -93,7 +91,6 @@ export default class EmployeeCreate extends React.Component {
                     ) {
                         FirstName
                         LastName
-                        Age
 						DateOfBirth
                         DateOfJoining
                         Title
@@ -117,7 +114,6 @@ export default class EmployeeCreate extends React.Component {
 				employee: {
 					FirstName: '',
 					LastName: '',
-					Age: '',
 					DateOfBirth: '',
 					DateOfJoining: '',
 					Title: '',
@@ -174,13 +170,6 @@ export default class EmployeeCreate extends React.Component {
 									Last Name
 								</label>
 								<input type="text" id="LastName" name="LastName" className="form-control" value={this.state.employee.LastName} onChange={this.handleChange} {...(this.props.deleteEmployee || this.props.updateEmployee ? { disabled: true } : { required: true })} />
-								<div className="invalid-feedback"></div>
-							</div>
-							<div className="form-group">
-								<label htmlFor="Age" className={!(this.props.deleteEmployee || this.props.updateEmployee) ? 'required' : ''}>
-									Age
-								</label>
-								<input type="number" id="Age" name="Age" className="form-control" value={this.state.employee.Age} onChange={this.handleChange} min="20" max="70" {...(this.props.deleteEmployee || this.props.updateEmployee ? { disabled: true } : { required: true })} />
 								<div className="invalid-feedback"></div>
 							</div>
 							<div className="form-group">
