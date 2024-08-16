@@ -1046,13 +1046,11 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
             return _this.fetchEmployees();
           case 2:
             employees = _context.sent;
-            dataReaching65 = _this.getEmployeesReaching65Report(employees); // Calculate maximum number of employees reaching 65 in any given month
+            dataReaching65 = _this.getEmployeesReaching65Report(employees);
             maxEmployees = Math.max.apply(Math, _toConsumableArray(dataReaching65.slice(1).map(function (row) {
               return row[1];
-            }))); // Skip the header row
-            // Determine a suitable step size based on the max value
-            stepSize = Math.ceil(maxEmployees / 10); // Adjust this divisor to control the tick spacing
-            // Generate ticks based on the calculated step size
+            })));
+            stepSize = Math.ceil(maxEmployees / 10);
             ticks = Array.from({
               length: Math.ceil(maxEmployees / stepSize) + 1
             }, function (_, i) {
@@ -1148,8 +1146,18 @@ var EmployeeReport = /*#__PURE__*/function (_React$Component) {
           }
         }
       });
+
+      // Predefined order of months in English
+      var monthOrder = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+      // Sort the response object based on the month order
+      var sortedMonths = Object.keys(response).sort(function (a, b) {
+        return monthOrder.indexOf(a) - monthOrder.indexOf(b);
+      });
+
+      // Prepare the data array with the sorted months
       var data = [["Month", "IT", "Marketing", "HR", "Engineering"]];
-      Object.keys(response).forEach(function (month) {
+      sortedMonths.forEach(function (month) {
         data.push([month, response[month].IT, response[month].Marketing, response[month].HR, response[month].Engineering]);
       });
       return data;

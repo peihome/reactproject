@@ -8,8 +8,8 @@ export default class EmployeeReport extends React.Component {
       data: [],
       department: [],
       title: [],
-      dataReaching65:[],
-      dataJoinedCurrentYear:[],
+      dataReaching65: [],
+      dataJoinedCurrentYear: [],
       dataJoinedLast3MonthsByDepartment: [],
 
       pieOptions: {
@@ -24,8 +24,8 @@ export default class EmployeeReport extends React.Component {
         vAxis: { title: "Number of Employees" },
         bar: { groupWidth: "30%" },
         series: {
-            0: { color: "#4caf50" },
-          }
+          0: { color: "#4caf50" },
+        }
       },
       reaching65BarOptions: {
         chartArea: { width: "70%", height: "70%" },
@@ -41,7 +41,7 @@ export default class EmployeeReport extends React.Component {
           gridlines: {
             count: -1,  // Draw gridlines for each tick
           },
-          ticks: [], 
+          ticks: [],
         },
         vAxis: {
           title: "Month",
@@ -132,26 +132,24 @@ export default class EmployeeReport extends React.Component {
             auraColor: 'none',
           },
         },
-        
+
       },
     };
     this.API_SERVER_URL = process.env.API_SERVER_URL;
   }
 
   componentDidMount = async () => {
+    
     const employees = await this.fetchEmployees();
 
     const dataReaching65 = this.getEmployeesReaching65Report(employees);
 
-    // Calculate maximum number of employees reaching 65 in any given month
-    const maxEmployees = Math.max(...dataReaching65.slice(1).map(row => row[1])); // Skip the header row
+    const maxEmployees = Math.max(...dataReaching65.slice(1).map(row => row[1]));
 
-    // Determine a suitable step size based on the max value
-    const stepSize = Math.ceil(maxEmployees / 10);  // Adjust this divisor to control the tick spacing
+    const stepSize = Math.ceil(maxEmployees / 10);
 
-    // Generate ticks based on the calculated step size
     const ticks = Array.from({ length: Math.ceil(maxEmployees / stepSize) + 1 }, (_, i) => i * stepSize);
-    
+
     const reaching65BarOptions = this.state.reaching65BarOptions;
     reaching65BarOptions.hAxis.ticks = ticks;
     reaching65BarOptions.hAxis.viewWindow.max = maxEmployees;
@@ -169,38 +167,38 @@ export default class EmployeeReport extends React.Component {
 
   getEmployeeDepartmentReport = (employees) => {
     const response = {
-        it: 0,
-        marketing: 0,
-        hr: 0,
-        engineering: 0,
-      };
+      it: 0,
+      marketing: 0,
+      hr: 0,
+      engineering: 0,
+    };
 
-      employees.forEach((employee) => {
-        switch (employee.Department) {
-          case "IT":
-            response.it++;
-            break;
-          case "Marketing":
-            response.marketing++;
-            break;
-          case "HR":
-            response.hr++;
-            break;
-          case "Engineering":
-            response.engineering++;
-            break;
-          default:
-            break;
-        }
-      });
+    employees.forEach((employee) => {
+      switch (employee.Department) {
+        case "IT":
+          response.it++;
+          break;
+        case "Marketing":
+          response.marketing++;
+          break;
+        case "HR":
+          response.hr++;
+          break;
+        case "Engineering":
+          response.engineering++;
+          break;
+        default:
+          break;
+      }
+    });
 
-      return [
-        ["Employee Department", "Number of Employees"],
-        ["IT", response.it],
-        ["Marketing", response.marketing],
-        ["HR", response.hr],
-        ["Engineering", response.engineering],
-      ];
+    return [
+      ["Employee Department", "Number of Employees"],
+      ["IT", response.it],
+      ["Marketing", response.marketing],
+      ["HR", response.hr],
+      ["Engineering", response.engineering],
+    ];
 
   }
   getEmployeesJoinedCurrentYearReport = (employees) => {
@@ -245,8 +243,17 @@ export default class EmployeeReport extends React.Component {
       }
     });
 
+    // Predefined order of months in English
+    const monthOrder = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    // Sort the response object based on the month order
+    const sortedMonths = Object.keys(response).sort((a, b) => {
+      return monthOrder.indexOf(a) - monthOrder.indexOf(b);
+    });
+
+    // Prepare the data array with the sorted months
     const data = [["Month", "IT", "Marketing", "HR", "Engineering"]];
-    Object.keys(response).forEach((month) => {
+    sortedMonths.forEach((month) => {
       data.push([month, response[month].IT, response[month].Marketing, response[month].HR, response[month].Engineering]);
     });
 
@@ -254,10 +261,10 @@ export default class EmployeeReport extends React.Component {
   };
   getEmployeeTitleReport = (employees) => {
     const response = {
-        employee: 0,
-        manager: 0,
-        director: 0,
-        vp: 0,
+      employee: 0,
+      manager: 0,
+      director: 0,
+      vp: 0,
     };
 
     employees.forEach((employee) => {
@@ -346,12 +353,12 @@ export default class EmployeeReport extends React.Component {
       month.setMonth(now.getMonth() + i);
       months.push(month.toLocaleString('default', { month: 'long' }));
     }
-  
+
     const data = [["Month", "Number of Employees"]];
     months.forEach((month) => {
       data.push([month, response[month] || 0]);
     });
-  
+
     return data;
   };
 
@@ -392,65 +399,69 @@ export default class EmployeeReport extends React.Component {
 
   render() {
     return (
-      
+
       <>
         <h1>Employee Report</h1>
         <div>
-            <div className="report">
+          <div className="report">
             <div style={{ width: "50%" }}>
-                <h2>Employee by Type</h2>
-                <Chart
+              <h2>Employee by Type</h2>
+              <Chart
                 chartType="PieChart"
                 data={this.state.type}
-                options={{ ...this.state.pieOptions, title: "Employee Types", is3D: true  , pieSliceText: "label",
-                    tooltip: { trigger: "both" },
-                    slices: {
-                        0: { offset: 0.1, color: "#9c27b0" }, // Purple
-                        1: { offset: 0, color: "#009688" }, // Teal
-                        2: { offset: 0, color: "#ff9800" }, // Orange
-                        3: { offset: 0, color: "#9e9e9e" }, // Grey
-                      },}}
+                options={{
+                  ...this.state.pieOptions, title: "Employee Types", is3D: true, pieSliceText: "label",
+                  tooltip: { trigger: "both" },
+                  slices: {
+                    0: { offset: 0.1, color: "#9c27b0" }, // Purple
+                    1: { offset: 0, color: "#009688" }, // Teal
+                    2: { offset: 0, color: "#ff9800" }, // Orange
+                    3: { offset: 0, color: "#9e9e9e" }, // Grey
+                  },
+                }}
                 width={"100%"}
                 height={"300px"}
-                />
+              />
             </div>
 
             <div style={{ width: "50%", }}>
-                <h2>Employee by Titles</h2>
-                <Chart
+              <h2>Employee by Titles</h2>
+              <Chart
                 chartType="ColumnChart"
                 data={this.state.title}
-                options={{ ...this.state.columnOptions}}
+                options={{ ...this.state.columnOptions }}
                 width={"100%"}
                 height={"300px"}
-                />
+              />
             </div>
 
             <div style={{ width: "95%", marginTop: "4em" }}>
-                <h2>Employees Reaching Age 65 by Month</h2>
-                <Chart
+              <h2>Employees Reaching Age 65 by Month</h2>
+              <Chart
                 chartType="BarChart"
                 data={this.state.dataReaching65}
                 options={this.state.reaching65BarOptions}
                 width={"100%"}
                 height={"300px"}
-                />
+              />
             </div>
 
             <div style={{ width: "50%" }}>
-                <h2>Employee by Departments</h2>
-                <Chart
+              <h2>Employee by Departments</h2>
+              <Chart
                 chartType="PieChart"
                 data={this.state.department}
-                options={{ ...this.state.pieOptions, title: "Employees by Departments" ,pieHole: 0.4,pieSliceText: "label",slices: [
-                    {  color: "#a1887f" }, 
-                    { color: "#004d40" }, 
-                    { color: "#cddc39" }, 
+                options={{
+                  ...this.state.pieOptions, title: "Employees by Departments", pieHole: 0.4, pieSliceText: "label", slices: [
+                    { color: "#a1887f" },
+                    { color: "#004d40" },
+                    { color: "#cddc39" },
                     { color: "#e91e63" },
-                  ] }}
+                  ]
+                }}
                 width={"100%"}
                 height={"300px"}
-                />
+              />
             </div>
 
             <div style={{ width: "50%" }}>
@@ -465,17 +476,17 @@ export default class EmployeeReport extends React.Component {
             </div>
 
             <div>
-          <h2>Employees Joined Last 3 Months by Department</h2>
-          <Chart
-            width={"100%"}
-            height={"400px"}
-            chartType="Bar"
-            data={this.state.dataJoinedLast3MonthsByDepartment}
-            options={this.state.joinedLast3MonthsBarOptions}
-          />
-        </div>
-
+              <h2>Employees Joined Last 3 Months by Department</h2>
+              <Chart
+                width={"100%"}
+                height={"400px"}
+                chartType="Bar"
+                data={this.state.dataJoinedLast3MonthsByDepartment}
+                options={this.state.joinedLast3MonthsBarOptions}
+              />
             </div>
+
+          </div>
         </div>
       </>
 
